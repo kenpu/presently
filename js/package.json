@@ -1,0 +1,26 @@
+{
+    "name": "presently",
+    "version": "0.0.1",
+    "description": "Presently",
+    "main": "app.js",
+    "dependencies": {
+        "object-assign": "^1.0.0",
+        "react": "^0.13.3",
+        "react-bootstrap": ">0.21.0",
+        "react-code-mirror": ">=3.0.4",
+        "js-yaml": ">1.2",
+        "marked": ">0.3.0",
+        "highlight.js": ">=8.5.0"
+    },
+    "devDependencies": {
+        "reactify": "^1.1.1",
+        "envify": "^3.4.0"
+    },
+    "scripts": {
+        "start": "watchify -o ../home.bundle.js -v -d .",
+        "build": "browserify -o ./bundle.js -e main.js"
+    },
+    "browserify": {
+        "transform": ["reactify", "envify"]
+    }
+}
