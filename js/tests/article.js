@@ -1,6 +1,5 @@
-var Article = require("../models/article");
-var a1 = Article.New();
+var store = require('../store');
+var article = require('../mock/article')(store);
 
-Article.Title(a1, "Hello");
-console.log(a1);
-console.log("Title =", Article.Title(a1), "=", a1.title);
+console.log(JSON.stringify(article, null, 2));
+

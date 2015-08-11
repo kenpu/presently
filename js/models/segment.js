@@ -4,11 +4,14 @@ var Box = require('./box');
 var objectAssign = require('object-assign');
 
 function New(o) {
-    return objectAssign(Box.New(), {
-        T: C("segment"),
-    });
+    var box = Box(this).New();
+    box.T = C("segment");
+
+    return box;
 }
 
-module.exports = {
-    New: New,
+module.exports = function(store) {
+    return objectAssign({}, Box(store), {
+        New: New.bind(store),
+    });
 };

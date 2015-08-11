@@ -5,28 +5,23 @@ function New(o) {
     return {
         T: C("box"),
         children: [],           // nested boxes
-        content: {},            // contents including:
-                                // - markdown
-                                // - images (for gallery)
-                                // - audio
-                                // - docker-ssh
-                                // - code
         orient: C("vertical"),  // orientation
         css: {},                // CSS styling
     };
 }
 
 function Children(box, child) {
-    return util.child(box, child, C("box"));
+    return util.children(box, child);
 }
 
-function Markdown(box, markdown) {
-    if(markdown != null) {
-        box.content.markdown = markdown;
-    }
-    return box.content.markdown;
+function Orient(box, orientation) {
+    return util.getset(box, "orient", orientation);
 }
 
-module.exports = {
-    New: New,
-};
+module.exports = function(store) {
+    return {
+        New: New.bind(store),
+        Children: Children.bind(store),
+        Orient: Orient.bind(store),
+    };
+}

@@ -12,14 +12,16 @@
         "marked": ">0.3.0",
         "highlight.js": ">=8.5.0",
         "keymirror": "0.1.1",
-        "object-assign": "3.0.0"
+        "object-assign": "3.0.0",
+        "react-ace": ">=2.0.3"
     },
     "devDependencies": {
         "reactify": "^1.1.1",
-        "envify": "^3.4.0"
+        "envify": "^3.4.0",
+        "livereload": ">=0.3.7"
     },
     "scripts": {
-        "start": "watchify -o ../home.bundle.js -v -d .",
+        "start": "watchify -v -d -o ./bundle.js -e main.js",
         "build": "browserify -o ./bundle.js -e main.js"
     },
     "browserify": {

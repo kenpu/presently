@@ -1,17 +1,24 @@
 var assert = function(cond) {
-    if(! cond) throw("Assertion failed"); 
+    if(! cond) {
+        console.trace("Assertion failure");
+        throw("Assertion failed"); 
+    }
 }
 
 module.exports = {
     assert: assert,
 
     getset: function (obj, prop, val) {
+        if(obj == null)
+            return null;
+
         if(prop in obj) {
             if(val != null) {
                 obj[prop] = val;
             }
             return obj[prop];
         } else {
+            console.trace("prop not found");
             throw("prop[" + prop + "] not found");
         }
     },

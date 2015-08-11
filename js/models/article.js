@@ -5,7 +5,8 @@ var getset = util.getset;
 var assert = util.assert;
 
 function New(o) {
-    return {
+    var store = this;
+    var article = {
         T: C("article"),    // type is tagged as article
         title: "",          // markdown
         prelude: "",        // markdown
@@ -14,6 +15,13 @@ function New(o) {
         notes: "",          // yaml
         children: [],       // array of sections
     };
+
+    // update the central store with the
+    // new article.
+    // state.article is a singleton.
+    store.state().article = article;
+
+    return article;
 }
 
 function Title(article, title) {
@@ -40,9 +48,11 @@ function Children(article, child) {
     return util.children(article, child, C("section"));
 }
 
-module.exports = {
-    New: New,
-    Title: Title,
-    Prelude: Prelude,
-    Children: Children,
+module.exports = function(store) {
+    return {
+        New: New.bind(store),
+        Title: Title.bind(store),
+        Prelude: Prelude.bind(store),
+        Children: Children.bind(store),
+    };
 };

@@ -1,0 +1,50 @@
+body {
+   font-family: "ETBembo"; 
+   margin: 0;
+}
+
+div.prly-article-header {
+    background: #111111;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+div.prly-article-body {
+}
+h1.prly-article-title {
+    font-size: 120%;
+    font-weight: 400;
+}
+
+.prly-box,
+.prly-section,
+.prly-segment,
+.prly-article {
+    box-sizing: border-box; }
+
+/*===== Markdown ======*/
+
+.prly-markdown h1 {
+    margin: 0;
+    font-size: 120%; }
+
+.prly-markdown ul {
+    margin: 0;
+}
+
+.prly-markdown h2 {
+    margin: 0;
+    font-size: 110%; 
+    font-style: italic; }
+
+.prly-markdown blockquote {
+    opacity: 0.8;
+    border-left: 3px solid #aaa;
+    padding-left: 5px;
+    margin: 0;
+    font-style: italic;
+}
+
+.prly-markdown p {
+    margin: 0;
+}

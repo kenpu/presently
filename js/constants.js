@@ -1,8 +1,29 @@
 var keymirror = require('keymirror');
 
+
+
+
+
 var constants = {
     article: null,
+    section: null,
+    segment: null,
+    box: null,
+    markdown: null,
+    html: null,
+
+    vertical: null,
+    horizontal: null,
 };
+
+
+
+
+
+
+
+
+
 
 var mirror = keymirror(constants);
 module.exports = function(name) {
