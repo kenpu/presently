@@ -1,12 +1,16 @@
 var React = require('react');
 var store = require('./store');
-var Article = require('./components/Article');
-var article = require('./mock/article')(store);
+var Editor = require('./components/Editor');
+var mockArticle = require('./mock/article')(store);
 
-var el = document.getElementById("article");
+// Normally, we would need to load the article data
+// from the server, followed by a store.emitChange()
+store.state().article = mockArticle;
+
+var el = document.getElementById("editor");
 
 var view = (
-    <Article model={article} store={store} />
+        <Editor store={store} />
 );
 
 React.render(view, el);

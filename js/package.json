@@ -13,7 +13,8 @@
         "highlight.js": ">=8.5.0",
         "keymirror": "0.1.1",
         "object-assign": "3.0.0",
-        "react-ace": ">=2.0.3"
+        "react-ace": ">=2.0.3",
+        "brace": "^0.5.1"
     },
     "devDependencies": {
         "reactify": "^1.1.1",
