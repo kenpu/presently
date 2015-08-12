@@ -1,6 +1,8 @@
 body {
    font-family: "ETBembo"; 
    margin: 0;
+   -webkit-user-select: none;
+       -ms-user-select: none;
 }
 
 div.prly-article-header {

@@ -3,6 +3,8 @@ var marked = require('marked');
 var hl = require('highlight.js');
 var Raw = require('./Raw');
 var _SelectableView = require('./_SelectableView');
+var R = require('../registry');
+var C = require('../constants');
 
 marked.setOptions({
     highlight: function(code) {
@@ -19,18 +21,18 @@ var Markdown = React.createClass({
         var style = {
             padding: 5,
             flex: 1,
-            margin: 10,
-            border: 'thin solid',
-            borderColor: '#aaa',
         }
 
-        if(this.isSelected())
-            style.borderColor = "red";
-        
+        if(this.isSelected()) {
+            style.background = '#ccc';
+        }
+
         return (
             <Raw className="prly-markdown" tag="div" source={source} style={style} ref="element" />
         );
     },
 });
+
+R.View(C("markdown"), Markdown);
 
 module.exports = Markdown;

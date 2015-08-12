@@ -1,6 +1,8 @@
 var React = require('react');
 var Box = require('./Box');
 var _SelectableView = require('./_SelectableView');
+var R = require('../registry');
+var C = require('../constants');
 
 var Segment = React.createClass({
     mixins: [_SelectableView],
@@ -9,15 +11,21 @@ var Segment = React.createClass({
         var segno = this.props.segno;
         var isFirst = this.props.isFirst;
 
+        var leftMargin = 50;
+
         var style = {
             width: "100%",
             display: 'flex',
             flexDirection: 'column',
             marginTop: 20,
             marginBottom: 0,
-            paddingLeft: 50,
+            paddingLeft: leftMargin,
             position: 'relative',
         };
+
+        if(this.isSelected()) {
+            style.border = "2px solid red";
+        }
 
         if(isFirst) style.marginTop = 0;
 
@@ -29,7 +37,8 @@ var Segment = React.createClass({
             fontFamily: 'Ubuntu Mono',
             fontWeight: 'bold',
             padding: 5,
-            border: 'thin solid #aaa',
+            width: leftMargin,
+            textAlign: 'center',
         };
 
         var children = segment.children.map(function(box, i) {
@@ -37,12 +46,14 @@ var Segment = React.createClass({
         });
 
         return (
-            <div className="prly-segment" style={style}>
+            <div className="prly-segment" style={style} ref="element" >
                 <span style={segnoStyle}>{segno}</span>
                 {children}
             </div>
         );
     },
 });
+
+R.View(C("segment"), Segment);
 
 module.exports = Segment;

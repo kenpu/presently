@@ -1,4 +1,5 @@
 var React = require('react');
+var Assign = require('object-assign');
 
 var Tools = React.createClass({
     render: function() {
@@ -6,6 +7,7 @@ var Tools = React.createClass({
 
         return (
             <div style={style} >
+                
             </div>
         );
     },

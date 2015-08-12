@@ -1,6 +1,8 @@
 var React = require('react');
 var Segment = require('./Segment');
 var _SelectableView = require('./_SelectableView');
+var R = require('../registry');
+var C = require('../constants');
 
 var Section = React.createClass({
     mixins: [_SelectableView],
@@ -22,6 +24,10 @@ var Section = React.createClass({
         var bodyStyle = {
         };
 
+        if(this.isSelected()) {
+            style.border = '2px solid red';
+        }
+
         var hdrStyle = {
             marginLeft: 'auto',
             marginRight: 'auto',
@@ -31,7 +37,7 @@ var Section = React.createClass({
         };
 
         return (
-            <div className="prly-section" style={style}>
+            <div className="prly-section" style={style} ref="element">
                 <div className="prly-section-prelude" style={hdrStyle}>
                     <p>{section.prelude}</p>
                 </div>
@@ -42,5 +48,7 @@ var Section = React.createClass({
         );
     },
 });
+
+R.View(C("section"), Section);
 
 module.exports = Section;

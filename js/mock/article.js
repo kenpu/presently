@@ -38,8 +38,8 @@ module.exports = function(store) {
     Markdown.Source(markdown, "# Markdown title\n\n- First\n- Second\n\n## Subtitle here\n\n> Block quote\nhere\n");
     Html.Source(html, "<ul><li>Hello</li><li>World</li></ul>");
 
-    Box.Children(b11, markdown);
-    Box.Children(b12, html);
+    Box.Content(b11, markdown);
+    Box.Content(b12, html);
 
     var b2 = Box.New();
     var b21 = Box.New();

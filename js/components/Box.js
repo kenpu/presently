@@ -2,6 +2,7 @@ var store = require('../store');
 var React = require('react');
 var Markdown = require('./Markdown');
 var Html = require('./Html');
+var R = require('../registry');
 var C = require('../constants');
 var BoxModel = require('../models/box')();
 var _SelectableView = require('./_SelectableView');
@@ -62,19 +63,24 @@ var Box = React.createClass({
 
         var className = "prly-box";
 
-        if(box.orient == C("horizontal")) {
-            style.flexDirection = 'row';
+        var children;
+
+        if(BoxModel.IsLayout(box)) {
+            if(box.orient == C("horizontal")) {
+                style.flexDirection = 'row';
+            } else {
+                style.flexDirection = 'column';
+            }
+            if(box.children.length == 0) {
+                style.minHeight = 50;
+            }
+
+            children = box.children.map(function(model, i) {
+                return make(model, i, box, (i == 0));
+            });
         } else {
-            style.flexDirection = 'column';
+            children = make(box.content, 0, box);
         }
-
-        if(box.children.length == 0) {
-            style.minHeight = 50;
-        }
-
-        var children = box.children.map(function(model, i) {
-            return make(model, i, box, (i == 0));
-        });
 
         return (
             <div className={className} style={style} ref="element">
@@ -83,5 +89,7 @@ var Box = React.createClass({
         );
     },
 });
+
+R.View(C('box'), Box);
 
 module.exports = Box;
