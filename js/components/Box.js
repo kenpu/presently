@@ -1,31 +1,22 @@
 var store = require('../store');
 var React = require('react');
-var Markdown = require('./Markdown');
-var Html = require('./Html');
 var R = require('../registry');
 var C = require('../constants');
 var BoxModel = require('../models/box')();
 var _SelectableView = require('./_SelectableView');
 
-// TODO: needs to change to a dynamic loading lookup table
-function make(model, i, parent, isFirst) {
-    switch(model.T) {
-        case C("box"):
-            return (
-            <Box key={i} model={model} parent={parent} isFirst={isFirst} />
+function make(model, i, ancestors, isFirst) {
+    var V = R.View(model.T);
+
+    if(V) {
+        return <V key={i} 
+                  model={model} 
+                  ancestors={ancestors} 
+                  isFirst={isFirst} />;
+    } else {
+        return (
+            <div>Unknown model with type {model.T}</div>
         );
-        case C("markdown"):
-            return (
-                <Markdown key={i} model={model} parent={parent} isFirst={isFirst} />
-            );
-        case C("html"):
-            return (
-                <Html key={i} model={model} parent={parent} isFirst={isFirst} />
-            );
-        default:
-            return (
-                <div>Unknown model with type {model.T}</div>
-            );
     }
 }
 
@@ -33,8 +24,10 @@ var Box = React.createClass({
     mixins: [_SelectableView],
     render: function() {
         var box = this.props.model;
-        var parent = this.props.parent;
+        var ancestors = this.props.ancestors;
         var isFirst = this.props.isFirst;
+
+        var parent = ancestors[ancestors.length-1];
 
         // compute the margins
         var ml, mr, mt, mb;
@@ -65,22 +58,18 @@ var Box = React.createClass({
 
         var children;
 
-        if(BoxModel.IsLayout(box)) {
-            if(box.orient == C("horizontal")) {
-                style.flexDirection = 'row';
-            } else {
-                style.flexDirection = 'column';
-            }
-            if(box.children.length == 0) {
-                style.minHeight = 50;
-            }
-
-            children = box.children.map(function(model, i) {
-                return make(model, i, box, (i == 0));
-            });
+        if(box.orient == C("horizontal")) {
+            style.flexDirection = 'row';
         } else {
-            children = make(box.content, 0, box);
+            style.flexDirection = 'column';
         }
+        if(box.children.length == 0) {
+            style.minHeight = 50;
+        }
+
+        children = box.children.map(function(model, i) {
+            return make(model, i, ancestors.concat(box), (i == 0));
+        });
 
         return (
             <div className={className} style={style} ref="element">

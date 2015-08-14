@@ -3,24 +3,26 @@ var registry = {
     },
     toolbars: {
     },
+    models: {
+    },
 };
 
-function getset(category, name, reactClass) {
+function getset(category, name, entry) {
     var table = registry[category];
 
     if(table == null) {
         throw("Category unknown");
     }
     
-    if(reactClass == null) {
-        // get the reactClass
-        var c = table[name];
-        if(c == null)
-            throw("Name in category does not exist.");
+    if(entry == null) {
+        var ent = table[name];
+        if(ent == null)
+            throw("Type in category does not exist.");
 
-        return c;
+        return ent;
     } else {
-        table[name] = c;
+        table[name] = entry;
+        return entry;
     }
 }
 
@@ -28,7 +30,14 @@ module.exports = {
     View: function(name, reactClass) {
         return getset("views", name, reactClass);
     },
-    Toolbars: function(name, reactClass) {
-        return getset("toolbars", name, reactClass);
+    Toolbar: function(name, reactClass) {
+        try {
+            return getset("toolbars", name, reactClass);
+        } catch(e) {
+            return null;
+        }
+    },
+    Model: function(name, model) {
+        return getset("models", name, model);
     },
 };

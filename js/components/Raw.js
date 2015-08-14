@@ -14,14 +14,14 @@ var Raw = React.createClass({
         this.postprocess();
     },
     render: function() {
-        var source = this.props.source || this.props.html;
+        var source = this.props.source || this.props.html || "";
         var tag = this.props.tag || "div";
         var className = this.props.className;
 
         var style = this.props.style;
 
         var x = $('<div>' + source + '</div>');
-        var html = x.html();
+        var html = x.html() 
 
         var element = React.createElement(tag, {
             dangerouslySetInnerHTML: {__html: html},

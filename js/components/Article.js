@@ -14,7 +14,7 @@ var Article = React.createClass({
         var articleBody = [];
         article.children.forEach(function(section, i) {
             articleBody.push(
-                <Section key={i} model={section} secno={i+1} />
+                <Section key={i} model={section} label={i+1} />
             );
         });
 

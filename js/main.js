@@ -3,6 +3,12 @@ var store = require('./store');
 var Editor = require('./components/Editor');
 var mockArticle = require('./mock/article')(store);
 
+require('./components/Box');
+require('./components/BoxTools');
+require('./components/Markdown');
+require('./components/Html');
+require('./components/Codewalk');
+
 // Normally, we would need to load the article data
 // from the server, followed by a store.emitChange()
 store.state({

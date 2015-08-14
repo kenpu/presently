@@ -1,5 +1,6 @@
 var C = require('../constants');
 var util = require('../util');
+var R = require('../registry');
 
 function New(o) {
     return {
@@ -19,9 +20,9 @@ function Prelude(section, markdown) {
 }
 
 module.exports = function(store) {
-    return {
+    return R.Model("section", {
         New: New.bind(store),
         Children: Children.bind(store),
         Prelude: Prelude.bind(store),
-    };
+    });
 }

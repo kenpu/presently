@@ -10,7 +10,8 @@ var Html = React.createClass({
         var html = this.props.model;
 
         var style = {
-            width: '100%',
+            flex: 1,
+            margin: 10,
         };
 
         if(this.isSelected()) {

@@ -1,15 +1,14 @@
 var C = require('../constants');
 var util = require('../util');
+var R = require('../registry');
 
 function New(o) {
     return {
         T: C("box"),
         children: [],           // nested boxes
-        content: null,          // or containing a content widget
         source: "",             // special formatting instructions
                                 // and annotations
         orient: C("vertical"),  // orientation
-        css: {},                // CSS styling
     };
 }
 
@@ -21,20 +20,27 @@ function Orient(box, orientation) {
     return util.getset(box, "orient", orientation);
 }
 
-function Content(box, content) {
-    return util.getset(box, "content", content);
-}
+function Find(box, t) {
+    var results = [];
 
-function IsLayout(box) {
-    return box.content == null;
+    box.children.forEach(function(c) {
+        if(c.T == t) {
+            results.push(c);
+        } else if(c.T == C("box")) {
+            Find(c, t).forEach(function(x) {
+                results.push(x);
+            });
+        }
+    });
+
+    return results;
 }
 
 module.exports = function(store) {
-    return {
+    return R.Model("box", {
         New: New.bind(store),
         Children: Children.bind(store),
         Orient: Orient.bind(store),
-        Content: Content.bind(store),
-        IsLayout: IsLayout,
-    };
+        Find: Find,
+    });
 }

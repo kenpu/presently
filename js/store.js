@@ -31,4 +31,7 @@ var store = Assign({}, EventEmitter.prototype, {
     },
 });
 
+// debug
+window.state = state;
+
 module.exports = store;

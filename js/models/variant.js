@@ -2,20 +2,15 @@ var C = require('../constants');
 var util = require('../util');
 var R = require('../registry');
 
-function New() {
+function New(o) {
     return {
-        T: C("html"),
+        T: C("variant"),
         source: "",
-    }
-}
-
-function Source(markdown, src) {
-    return util.getset(markdown, "source", src);
+    };
 }
 
 module.exports = function(store) {
-    return R.Model("html", {
+    return R.Model(C("variant"), {
         New: New.bind(store),
-        Source: Source.bind(store),
     });
-};
+}

@@ -8,11 +8,15 @@ var Section = React.createClass({
     mixins: [_SelectableView],
     render: function() {
         var section = this.props.model;
-        var secno = this.props.secno;
+        var label = this.props.label;
 
         var sectionBody = section.children.map(function(segment, i) {
             return (
-                <Segment key={i} model={segment} segno={secno + "." + (i+1)} isFirst={i == 0}/>
+                <Segment key={i} 
+                         model={segment} 
+                         ancestors={[section]}
+                         label={label + "." + (i+1)} 
+                         isFirst={i == 0}/>
             );
         });
 
@@ -25,7 +29,7 @@ var Section = React.createClass({
         };
 
         if(this.isSelected()) {
-            style.border = '2px solid red';
+            style.borderLeft = '5px solid blue';
         }
 
         var hdrStyle = {
