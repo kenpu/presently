@@ -48,6 +48,7 @@ var Box = React.createClass({
             marginRight: mr,
             marginTop: mt,
             marginBottom: mb,
+            minHeight: 20,
         };
 
         if(this.isSelected()) {

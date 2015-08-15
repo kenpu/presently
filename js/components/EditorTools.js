@@ -11,8 +11,9 @@ var EditorTools = React.createClass({
         var selection = store.state().selection;
 
         var toolbar;
-        if(selection.length == 1) {
-            var V = R.Toolbar(selection[0].T);
+        var selected = store.selected();
+        if(selected) {
+            var V = R.Toolbar(selected.T);
 
             if(V)
                 toolbar = <V />;

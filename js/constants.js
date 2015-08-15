@@ -12,6 +12,7 @@ var constants = {
     markdown: null,
     html: null,
     codewalk: null,
+    variant: null,
 
     vertical: null,
     horizontal: null,

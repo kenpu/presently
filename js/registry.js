@@ -17,7 +17,7 @@ function getset(category, name, entry) {
     if(entry == null) {
         var ent = table[name];
         if(ent == null)
-            throw("Type in category does not exist.");
+            throw("Type in category does not exist:" + category + "." + name);
 
         return ent;
     } else {

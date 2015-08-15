@@ -6,8 +6,6 @@ function New(o) {
     return {
         T: C("box"),
         children: [],           // nested boxes
-        source: "",             // special formatting instructions
-                                // and annotations
         orient: C("vertical"),  // orientation
     };
 }
@@ -20,14 +18,14 @@ function Orient(box, orientation) {
     return util.getset(box, "orient", orientation);
 }
 
-function Find(box, t) {
+function Find(box, pred) {
     var results = [];
 
     box.children.forEach(function(c) {
-        if(c.T == t) {
+        if(pred(c)) {
             results.push(c);
         } else if(c.T == C("box")) {
-            Find(c, t).forEach(function(x) {
+            Find(c, pred).forEach(function(x) {
                 results.push(x);
             });
         }

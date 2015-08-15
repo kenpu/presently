@@ -2,31 +2,17 @@ var React = require('react');
 var store = require('../store');
 
 module.exports = {
-    isSelected: function() {
+    isSelected: function(checkAll) {
         var model = this.props.model;
-        var selection = store.state().selection;
-        if(selection)
-            return(selection.indexOf(model) >= 0);
-        else
-            return false;
-    },
-    isSelAncestor: function() {
-        var model = this.props.model;
-        var ancestors = store.state().selAncestors;
-        if(ancestors) {
-            return (ancestors.indexOf(model) >= 0);
-        }
-        return false;
+        return store.isSelected(model, checkAll);
     },
     selectMe: function() {
         var model = this.props.model;
         var ancestors = this.props.ancestors;
-        var selection = store.state().selection;
+        var state = store.state();
 
         // assume singleton selection
-        selection.length = 0;
-        selection.push(model);
-        store.state().selAncestors = ancestors;
+        state.selection = ancestors.concat(model);
 
         if(model.source != null) {
             // focus on the editor.
@@ -47,15 +33,17 @@ module.exports = {
         var el = React.findDOMNode(this.refs.element);
         var self = this;
         $(el).click(function(e) {
-            e.stopPropagation();
+            if(! self.props.readOnly) {
+                e.stopPropagation();
 
-            if(self.isSelected()) {
-                self.unselectMe();
-            } else {
-                self.selectMe();
+                if(self.isSelected()) {
+                    self.unselectMe();
+                } else {
+                    self.selectMe();
+                }
+
+                store.emitChange();
             }
-
-            store.emitChange();
         });
     },
 };

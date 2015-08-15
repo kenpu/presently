@@ -80,10 +80,8 @@ var Editor = React.createClass({
 
         var editor;
 
-        var selection = store.state().selection;
-        if(selection.length == 1 && selection[0].source != null) {
-            var selected = selection[0];
-
+        var selected = store.selected();
+        if(selected && selected.source != null) {
             var update = function(e) {
                 var newval = e.target.value;
                 selected.source = newval;

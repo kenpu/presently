@@ -39,7 +39,7 @@ module.exports = {
 
     children: function(obj, child, types) {
         if(child != null) {
-            if(child.length != null) {
+            if($.isArray(child)) {
                 child.forEach(function(c) {
                     if(types != null)
                         assert(types.indexOf(c.T) >= 0);

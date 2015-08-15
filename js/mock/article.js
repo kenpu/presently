@@ -5,6 +5,7 @@ var Box = require('../models/box');
 var Markdown = require('../models/markdown');
 var Html = require('../models/html');
 var Codewalk = require('../models/codewalk');
+var Variant = require('../models/variant');
 var C = require('../constants');
 
 
@@ -16,6 +17,7 @@ module.exports = function(store) {
     Markdown = Markdown(store);
     Html = Html(store);
     Codewalk = Codewalk(store);
+    Variant = Variant(store);
 
     var article = Article.New();
     var section = Section.New();
@@ -48,7 +50,7 @@ module.exports = function(store) {
     Html.Source(html, "<ul><li>Hello</li><li>World</li></ul>");
 
     Box.Children(b11, [markdown, html]);
-    Box.Children(b12, Markdown.New());
+    Box.Children(b12, Variant.New());
 
     var b2 = Box.New();
     var b21 = Box.New();

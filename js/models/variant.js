@@ -6,6 +6,7 @@ function New(o) {
     return {
         T: C("variant"),
         source: "",
+        uuid: util.uuid(),
     };
 }
 

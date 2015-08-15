@@ -29,9 +29,32 @@ var store = Assign({}, EventEmitter.prototype, {
         if(o != null) state = Assign(state, o);
         return state;
     },
+    select: function(branch) {
+        state.selection = branch;
+    },
+    selected: function(T) {
+        if(! T) {
+            return state.selection[state.selection.length-1];
+        } else {
+            for(var i in state.selection) {
+                var model = state.selection[i];
+                if(model.T == T) {
+                    return model;
+                }
+            }
+            return null;
+        }
+    },
+    isSelected: function(model, checkAll) {
+        if(checkAll) {
+            return(state.selection.indexOf(model) >= 0);
+        } else {
+            return(model == state.selection[state.selection.length - 1]);
+        }
+    },
 });
 
 // debug
-window.state = state;
+window.store = store;
 
 module.exports = store;

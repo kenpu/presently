@@ -47,7 +47,7 @@ var Segment = React.createClass({
             borderLeft: '2px solid transparent',
         };
 
-        if(this.isSelected() || this.isSelAncestor()) {
+        if(this.isSelected(true)) {
             style.borderLeft = "2px solid red";
         }
 
@@ -76,10 +76,14 @@ var Segment = React.createClass({
         // Only markdown currently supports sidenote
         var noteModels = [];
         var BoxModel = R.Model(C("box"));
-        var markdownModels = BoxModel.Find(segment, C("markdown"));
+        var markdownModels = BoxModel.Find(segment, function(model) {
+            return model.T == C("markdown") || 
+               (model.T == C("variant") 
+                    && model.source.startsWith("@markdown"));
+        });
 
         markdownModels.forEach(function(md) {
-            R.Model(md.T).Sidenotes(md).forEach(
+            R.Model(C("markdown")).Sidenotes(md).forEach(
                 function(note) {
                     noteModels.push(note);
                 }
@@ -97,10 +101,12 @@ var Segment = React.createClass({
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
+            minHeight: 200,
         }
 
         var contentStyle = {
             flex: 4,
+            display: 'flex',
         }
         var sidenoteStyle = {
             flex: 1,
