@@ -2,11 +2,24 @@ var React = require('react');
 var Box = require('./Box');
 var Sidenote = require('./Sidenote');
 var _SelectableView = require('./_SelectableView');
+var _DefaultView = require('./_DefaultView');
 var R = require('../registry');
 var C = require('../constants');
+var Styles = require('./styles');
+var Radium = require('radium');
 
 var Segment = React.createClass({
-    mixins: [_SelectableView],
+    mixins: [_DefaultView, _SelectableView],
+    style: function() {
+        var s = {};
+        if(this.props.editing) {
+            if(this.isSelected) {
+                s.borderLeft = '2px solid red';
+            }
+        }
+
+        return s;
+    },
     orderSidenotes: function() {
         // get the anchors
         var content = React.findDOMNode(this.refs.content);
@@ -34,43 +47,6 @@ var Segment = React.createClass({
         var label = this.props.label;
         var isFirst = this.props.isFirst;
         var editing = this.props.editing;
-
-        var leftMargin = 50;
-
-        var style = {
-            width: "100%",
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: 20,
-            marginBottom: 0,
-            paddingLeft: leftMargin,
-            position: 'relative',
-            borderLeft: '2px solid transparent',
-        };
-
-        if(this.isSelected(true)) {
-            style.borderLeft = "2px solid red";
-        }
-
-        if(! editing) {
-            style.borderLeft = "none";
-        }
-
-        if(isFirst) style.marginTop = 0;
-
-        // styling for the segment labels
-        // ------------------------------
-        var labelStyle = {
-            display: 'block',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            fontFamily: 'Ubuntu Mono',
-            fontWeight: 'bold',
-            padding: 5,
-            width: leftMargin,
-            textAlign: 'center',
-        };
 
         var children = segment.children.map(function(box, i) {
             return <Box key={i} 
@@ -103,36 +79,32 @@ var Segment = React.createClass({
         // styling for the segment body
         // ----------------------------
 
-        var bodyStyle = {
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            minHeight: 200,
-        }
-
-        var contentStyle = {
-            flex: 4,
-            display: 'flex',
-        }
-        var sidenoteStyle = {
-            flex: 1,
-        }
+        var bodyStyle, sideStyle;
 
         if(segment.wide) {
-            bodyStyle.flexDirection = 'column';
+            bodyStyle = {
+                flexDirection: 'column'
+            };
+
             if(noteModels.length == 0) {
-                sidenoteStyle.display = 'none';
+                sideStyle = {
+                    display: 'none'
+                };
             }
         }
 
+        var styles = [Styles.segment.base, this.style()];
         return (
-            <div className="prly-segment" style={style} ref="element" >
-                <span style={labelStyle}>{label}</span>
-                <div className="prly-segment-body" style={bodyStyle}>
-                    <div style={contentStyle} ref="content">
+            <div className="prly-segment" style={styles} ref="element" >
+                <span style={Styles.segment.label}>{label}</span>
+                <div className="prly-segment-body" 
+                     style={Styles.segment.body}>
+                    <div style={[Styles.segment.content, bodyStyle]}
+                         ref="content">
                         {children}
                     </div>
-                    <div style={sidenoteStyle} ref="sidenotes">
+                    <div style={[Styles.segment.sidenote, sideStyle]}
+                         ref="sidenotes">
                         {sidenotes}
                     </div>
                 </div>
@@ -140,6 +112,8 @@ var Segment = React.createClass({
         );
     },
 });
+
+Segment = Radium(Segment);
 
 R.View(C("segment"), Segment);
 

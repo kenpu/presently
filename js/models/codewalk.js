@@ -9,7 +9,7 @@ function New(o) {
     }
 }
 
-var SidenoteRE_pat = "^\s*/\\*={4,}\n((?:.|[\r\n])*?)^\s*={4,}\\*/\n\n";
+var SidenoteRE_pat = "^\s*/\\*={4,}\n((?:.|[\r\n])*?)^\s*={4,}\\*/\n";
 var SidenoteRE = new RegExp(SidenoteRE_pat, "m");
 var SidenoteRE_g = new RegExp(SidenoteRE_pat, 'mg');
 
@@ -114,6 +114,12 @@ function partition(src) {
 function Parse(model) {
     var result = util.parseSource(model.source);
     result.parts = partition(result.source);
+
+    if(result.parts.length == 1 && result.parts[0].sidenote == "") {
+        result.hasSidenotes = false;
+    } else {
+        result.hasSidenotes = (result.parts.length > 0);
+    }
 
     return result;
 }

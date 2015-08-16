@@ -1,11 +1,21 @@
 var React = require('react');
 var Segment = require('./Segment');
 var _SelectableView = require('./_SelectableView');
+var _DefaultView = require('./_DefaultView');
 var R = require('../registry');
 var C = require('../constants');
+var Radium = require('radium');
+var Styles = require('./styles');
 
 var Section = React.createClass({
-    mixins: [_SelectableView],
+    mixins: [_DefaultView, _SelectableView],
+    style: function() {
+        if(this.isSelected()) {
+            return {
+                borderLeft: '5px solid blue',
+            };
+        }
+    },
     render: function() {
         var section = this.props.model;
         var label = this.props.label;
@@ -22,38 +32,23 @@ var Section = React.createClass({
             );
         });
 
-        var style = {
-            width: "100%",
-            marginBottom: 50,
-        };
-
-        var bodyStyle = {
-        };
-
-        if(this.isSelected()) {
-            style.borderLeft = '5px solid blue';
-        }
-
-        var hdrStyle = {
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: 10,
-            maxWidth: '80%',
-            padding: 10,
-        };
+        var styles = [Styles.section.base, this.style()];
 
         return (
-            <div className="prly-section" style={style} ref="element">
-                <div className="prly-section-prelude" style={hdrStyle}>
+            <div className="prly-section" style={styles} ref="element">
+                <div className="prly-section-prelude" 
+                     style={Styles.section.header}>
                     <p>{section.prelude}</p>
                 </div>
-                <div className="prly-section-body" style={bodyStyle}>
+                <div className="prly-section-body">
                     {sectionBody}
                 </div>
             </div>
         );
     },
 });
+
+Section = Radium(Section);
 
 R.View(C("section"), Section);
 

@@ -14,6 +14,14 @@ require('brace/theme/github');
 
 var Editor = React.createClass({
     mixins: [_ActiveView],
+    togglePreview: function() {
+        var store = this.props.store;
+        var ui = store.state().ui;
+
+        ui.preview = ! ui.preview;
+
+        store.emitChange();
+    },
     render: function() {
         var store = this.props.store;
 
@@ -31,16 +39,27 @@ var Editor = React.createClass({
             background: '#333',
         };
 
+        var toggleBtnStyle = {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            zIndex: 10,
+            display: 'inline-block',
+            fontFamily: 'Roboto',
+            fontWeight: 'bold',
+            background: '#000',
+            color: '#fff',
+            padding: 4
+        };
+
         var zoom, split;
-
-
 
         if(ui.preview) {
             zoom = 1.0;
             split = 1;
         } else {
-            zoom = ui.zoom || (1 / split);
             split = ui.screenSplit || 0.5;
+            zoom = ui.zoom || (1 / split);
         }
 
         var scale = 1 / zoom;
@@ -111,8 +130,12 @@ var Editor = React.createClass({
             toolStyle.height = '20%';
         }
 
+        var previewLabel = (ui.preview) ? "EDIT" : "VIEW";
+
         return (
             <div className="prly-editor" style={topStyle} >
+                <a href="#" style={toggleBtnStyle} 
+                        onClick={this.togglePreview} >{previewLabel}</a>
                 <div style={leftStyle} >
                     <div style={leftInnerStyle}>
                         <Article model={article} editing={! ui.preview} />

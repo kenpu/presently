@@ -1,11 +1,25 @@
 var React = require('react');
 var Raw = require('./Raw');
 var _SelectableView = require('./_SelectableView');
+var _DefaultView = require('./_DefaultView');
 var R = require('../registry');
 var C = require('../constants');
+var Styles = require('./styles');
+var Radium = require('radium');
 
 var Markdown = React.createClass({
-    mixins: [_SelectableView],
+    mixins: [_DefaultView, _SelectableView],
+    style: function() {
+        // hack, merge with Html.style(...)
+        var s = {};
+        if(! this.inHorizontal()) {
+            s.flex = 'none';
+        }
+        if(this.props.editing)
+            if(this.isSelected())
+                s = this.bgHighlight(s);
+        return s;
+    },
     render: function() {
         var markdown = this.props.model;
 
@@ -13,24 +27,17 @@ var Markdown = React.createClass({
 
         var source = Model.FormattedSource(markdown, {sidenotes: true});
 
-        var style = {
-            flex: 1,
-            margin: 10,
-        }
-
-        if(this.isSelected()) {
-            style.background = '#eee';
-        }
-
         return (
             <Raw className="prly-markdown" 
                  tag="div" 
                  source={source} 
-                 style={style} 
+                 style={[Styles.markdown, this.style()]} 
                  ref="element" />
         );
     },
 });
+
+Markdown = Radium(Markdown);
 
 R.View(C("markdown"), Markdown);
 

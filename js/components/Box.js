@@ -4,6 +4,9 @@ var R = require('../registry');
 var C = require('../constants');
 var BoxModel = require('../models/box')();
 var _SelectableView = require('./_SelectableView');
+var _DefaultView = require('./_DefaultView');
+var Radium = require('radium');
+var Styles = require('./styles');
 
 function make(model, i, ancestors, isFirst, editing) {
     var V = R.View(model.T);
@@ -22,75 +25,55 @@ function make(model, i, ancestors, isFirst, editing) {
 }
 
 var Box = React.createClass({
-    mixins: [_SelectableView],
+    mixins: [_DefaultView, _SelectableView],
+    style: function() {
+        var box = this.props.model;
+        var s = {};
+
+        if(box.orient == C("horizontal")) {
+            s.flexDirection = 'row';
+        } else {
+            s.flexDirection = 'column';
+        }
+
+        if(box.children.length == 0) {
+            s.minHeight = 50;
+        }
+
+        if(this.props.editing) {
+            s = this.bordered(s);
+            s = this.padded(s);
+            if(this.isSelected()) {
+                s = this.borderHighlight(s);
+            }
+        }
+
+        return s;
+    },
     render: function() {
         var box = this.props.model;
         var ancestors = this.props.ancestors;
-        var isFirst = this.props.isFirst;
         var editing = this.props.editing;
-
-        var parent = ancestors[ancestors.length-1];
-
-        // compute the margins
-        var ml, mr, mt, mb;
-        if(editing) {
-            if(BoxModel.Orient(parent) == C("horizontal")) {
-                ml = (isFirst) ? 10 : 0;
-                mr = mt = mb = 10;
-            } else {
-                mt = (isFirst) ? 10 : 0;
-                mb = ml = mr = 10;
-            }
-        } else {
-            ml = mr = mt = mb = 0;
-        }
-
-        var style = {
-            display: "flex",
-            flex: 1,
-            border: "thin solid",
-            borderColor: "#aaa",
-            marginLeft: ml,
-            marginRight: mr,
-            marginTop: mt,
-            marginBottom: mb,
-            minHeight: 20,
-        };
-
-        if(this.isSelected()) {
-            style.borderColor = 'red';
-        }
-
-        if(! editing) {
-            style.border = 'none';
-        }
 
         var className = "prly-box";
 
-        var children;
-
-        if(box.orient == C("horizontal")) {
-            style.flexDirection = 'row';
-        } else {
-            style.flexDirection = 'column';
-        }
-        if(box.children.length == 0) {
-            style.minHeight = 50;
-        }
-
-        children = box.children.map(function(model, i) {
+        var children = box.children.map(function(model, i) {
             return make(model, i, ancestors.concat(box), 
                         (i == 0), // isfirst
                         editing);
         });
 
+        var styles = [Styles.box.base, this.style()];
+
         return (
-            <div className={className} style={style} ref="element">
+            <div className={className} style={styles} ref="element">
                 {children}
             </div>
         );
     },
 });
+
+Box = Radium(Box);
 
 R.View(C('box'), Box);
 

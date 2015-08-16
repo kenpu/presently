@@ -3,31 +3,34 @@ var Raw = require('./Raw');
 var R = require('../registry');
 var C = require('../constants');
 var _SelectableView = require('./_SelectableView');
+var Styles = require('./styles');
+var Radium = require('radium');
+var _DefaultView = require('./_DefaultView');
 
 var Html = React.createClass({
-    mixins: [_SelectableView],
+    mixins: [_DefaultView, _SelectableView],
+    style: function() {
+        var s = {};
+        // hack.
+        if(! this.inHorizontal()) {
+            s.flex = 'none';
+        }
+        if(this.props.editing)
+            if(this.isSelected())
+                s = this.bgHighlight(s);
+        return s;
+    },
     render: function() {
         var html = this.props.model;
-        var editing = this.props.editing;
-
-        var style = {
-            flex: 1,
-            margin: 10,
-        };
-
-        if(this.isSelected()) {
-            style.background = '#eee';
-        }
-
-        if(! editing) {
-            style.background = 'transparent';
-        }
 
         return (
-            <Raw tag="div" source={html.source} style={style} ref="element"/>
+            <Raw tag="div" source={html.source} 
+                style={[Styles.html, this.style()]} ref="element"/>
         );
     },
 });
+
+Html = Radium(Html);
 
 R.View(C("html"), Html);
 

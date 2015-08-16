@@ -1,4 +1,5 @@
 var React = require('react');
+var Radium = require('radium');
 
 var Raw = React.createClass({
     postprocess: function() {
@@ -34,4 +35,4 @@ var Raw = React.createClass({
     },
 });
 
-module.exports = Raw;
+module.exports = Radium(Raw);

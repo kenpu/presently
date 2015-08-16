@@ -50,7 +50,7 @@ module.exports = function(store) {
     Html.Source(html, "<ul><li>Hello</li><li>World</li></ul>");
 
     Box.Children(b11, [markdown, html]);
-    Box.Children(b12, Variant.New());
+    Box.Children(b12, Codewalk.New());
 
     var b2 = Box.New();
     var b21 = Box.New();
