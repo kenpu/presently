@@ -6,6 +6,7 @@ var Article = React.createClass({
     mixins: [_ActiveView],
     render: function() {
         var article = this.props.model;
+        var editing = this.props.editing;
 
         var bodyStyle = {
             width: "100%",
@@ -14,7 +15,9 @@ var Article = React.createClass({
         var articleBody = [];
         article.children.forEach(function(section, i) {
             articleBody.push(
-                <Section key={i} model={section} label={i+1} />
+                <Section key={i}
+                         model={section} 
+                         label={i+1} editing={editing}/>
             );
         });
 

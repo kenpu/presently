@@ -33,6 +33,7 @@ var Segment = React.createClass({
         var ancestors = this.props.ancestors;
         var label = this.props.label;
         var isFirst = this.props.isFirst;
+        var editing = this.props.editing;
 
         var leftMargin = 50;
 
@@ -49,6 +50,10 @@ var Segment = React.createClass({
 
         if(this.isSelected(true)) {
             style.borderLeft = "2px solid red";
+        }
+
+        if(! editing) {
+            style.borderLeft = "none";
         }
 
         if(isFirst) style.marginTop = 0;
@@ -70,7 +75,8 @@ var Segment = React.createClass({
         var children = segment.children.map(function(box, i) {
             return <Box key={i} 
                         model={box} 
-                        ancestors={ancestors.concat(segment)} />;
+                        ancestors={ancestors.concat(segment)} 
+                        editing={editing} />;
         });
 
         // Only markdown currently supports sidenote
@@ -110,6 +116,13 @@ var Segment = React.createClass({
         }
         var sidenoteStyle = {
             flex: 1,
+        }
+
+        if(segment.wide) {
+            bodyStyle.flexDirection = 'column';
+            if(noteModels.length == 0) {
+                sidenoteStyle.display = 'none';
+            }
         }
 
         return (

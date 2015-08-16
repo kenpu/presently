@@ -72,21 +72,16 @@ table.prly-tools {
     border-collapse: collapse;
     margin-bottom: -1px;
 }
+table.prly-tools th,
 table.prly-tools td {
     padding: 0;
     margin: 0;
     border: thin solid #aaa;
     min-width: 70px;
-}
-
-table.prly-tools span {
     font-family: Roboto;
     font-size: 7pt;
-    font-weight: 800;
-    text-align: center;
-    display: inline-block;
-    width: 100%;
 }
+
 table.prly-tools button
 {
     font-family: Roboto;
@@ -101,4 +96,16 @@ table.prly-tools button
 }
 table.prly-tools button:hover {
     background: #aaa;
+}
+
+/* ========= source editor ========= */
+
+div.prly-source-editor {
+    display: flex;
+    flex-flow: column;
+}
+
+.CodeMirror {
+    width: 100%;
+    height: auto;
 }

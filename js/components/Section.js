@@ -9,10 +9,12 @@ var Section = React.createClass({
     render: function() {
         var section = this.props.model;
         var label = this.props.label;
+        var editing = this.props.editing;
 
         var sectionBody = section.children.map(function(segment, i) {
             return (
                 <Segment key={i} 
+                         editing={editing}
                          model={segment} 
                          ancestors={[section]}
                          label={label + "." + (i+1)} 
@@ -22,7 +24,7 @@ var Section = React.createClass({
 
         var style = {
             width: "100%",
-            marginBottom: 100,
+            marginBottom: 50,
         };
 
         var bodyStyle = {

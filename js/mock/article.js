@@ -60,9 +60,8 @@ module.exports = function(store) {
     Box.Children(b2, [b21, b22]);
     Box.Orient(b2, C("vertical"));
 
-    var code = Codewalk.New();
-    code.source = "for(int i=0; i < 10; i++)";
-    Box.Children(b21, code);
+    Box.Children(b21, [Markdown.New({source: "One"})]);
+    Box.Children(b22, [Markdown.New({source: "Two"})]);
 
     Article.Children(article, [section]);
 

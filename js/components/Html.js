@@ -8,6 +8,7 @@ var Html = React.createClass({
     mixins: [_SelectableView],
     render: function() {
         var html = this.props.model;
+        var editing = this.props.editing;
 
         var style = {
             flex: 1,
@@ -15,7 +16,11 @@ var Html = React.createClass({
         };
 
         if(this.isSelected()) {
-            style.background = '#ccc';
+            style.background = '#eee';
+        }
+
+        if(! editing) {
+            style.background = 'transparent';
         }
 
         return (

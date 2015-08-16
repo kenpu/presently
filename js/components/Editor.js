@@ -2,6 +2,7 @@ var React = require('react');
 var Article = require('./Article');
 var Tools = require('./EditorTools');
 var _ActiveView = require('./_ActiveView');
+var SourceEditor = require('./SourceEditor');
 
 /*
 var brace = require('brace');
@@ -30,9 +31,23 @@ var Editor = React.createClass({
             background: '#333',
         };
 
-        var split = ui.screenSplit || 0.5;
+        var zoom, split;
 
-        var leftStyle = {
+
+
+        if(ui.preview) {
+            zoom = 1.0;
+            split = 1;
+        } else {
+            zoom = ui.zoom || (1 / split);
+            split = ui.screenSplit || 0.5;
+        }
+
+        var scale = 1 / zoom;
+
+        var leftStyle, leftInnerStyle, righStyle, toolStyle, editorStyle;
+
+        leftStyle = {
             position: 'fixed',
             width: (split * 100) + "%",
             height: '100%',
@@ -42,10 +57,7 @@ var Editor = React.createClass({
             overflowY: 'scroll',
         };
 
-        var zoom = ui.zoom || (1 / split);
-        var scale = 1 / zoom;
-
-        var leftInnerStyle = {
+        leftInnerStyle = {
             WebkitTransform: 'scale(' + scale + ')',
             WebkitTransformOrigin: '0 0',
             transform: 'scale(' + scale + ')',
@@ -53,16 +65,22 @@ var Editor = React.createClass({
             width: (zoom * 100) + '%',
         };
 
-        var rightStyle = {
-            position: 'fixed',
-            width: ((1 - split) * 100) + '%',
-            height: '100%',
-            right: 0,
-            top: 0,
-            background: '#aff',
-        };
+        if(ui.preview) {
+            rightStyle = {
+                display: 'none',
+            };
+        } else {
+            rightStyle = {
+                position: 'fixed',
+                width: ((1 - split) * 100) + '%',
+                height: '100%',
+                right: 0,
+                top: 0,
+                background: '#aff',
+            };
+        }
 
-        var toolStyle = {
+        toolStyle = {
             width: '100%',
             height: '100%', // might be updated by editor
             background: '#fff',
@@ -70,44 +88,24 @@ var Editor = React.createClass({
             borderBottom: '1px solid #aaa',
         };
 
-        var editorStyle = {
+        editorStyle = {
             width: '100%',
             height: '80%',
             fontFamily: 'Ubuntu Mono',
             border: 'none',
             outline: 'none',
+            background: '#aaa',
+            minHeight: '200px',
         };
 
         var editor;
 
         var selected = store.selected();
         if(selected && selected.source != null) {
-            var update = function(e) {
-                var newval = e.target.value;
-                selected.source = newval;
-                store.emitChange();
-            };
-
-            /*
             editor = (
-                <AceEditor
-                    mode="python"
-                    theme="github"
-                    name="EDITOR"
-                    width="100%"
-                    height="80%"
-                    fontSize="12pt"
-                    showGutter={false}
-                    showPrintMargin={false}
-                    value={selected.source}
-                    onChange={update} />
-            );
-            */
-            editor = (
-                <textarea id="source-editor"
-                          style={editorStyle} 
-                          onChange={update} 
-                          value={selected.source}/>
+                    <div style={editorStyle} >
+                        <SourceEditor model={selected} />
+                    </div>
             );
 
             toolStyle.height = '20%';
@@ -117,7 +115,7 @@ var Editor = React.createClass({
             <div className="prly-editor" style={topStyle} >
                 <div style={leftStyle} >
                     <div style={leftInnerStyle}>
-                        <Article model={article} />
+                        <Article model={article} editing={! ui.preview} />
                     </div>
                 </div>
                 <div style={rightStyle} >

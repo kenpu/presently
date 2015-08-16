@@ -4,18 +4,18 @@
     "description": "Presently",
     "main": "app.js",
     "dependencies": {
-        "object-assign": "^1.0.0",
         "react": "^0.13.3",
-        "react-bootstrap": ">0.21.0",
+        // "react-bootstrap": ">0.21.0",
         "react-code-mirror": ">=3.0.4",
-        "js-yaml": ">1.2",
+        // "js-yaml": ">1.2",
         "marked": ">0.3.0",
         "highlight.js": ">=8.5.0",
         "keymirror": "0.1.1",
         "object-assign": "3.0.0",
-        "react-ace": ">=2.0.3",
-        "brace": "^0.5.1",
-        "material-ui": "^0.10.4"
+        // "react-ace": ">=2.0.3",
+        // "brace": "^0.5.1",
+        // "material-ui": "^0.10.4",
+        "radium": ">=0.13.7"
     },
     "devDependencies": {
         "reactify": "^1.1.1",

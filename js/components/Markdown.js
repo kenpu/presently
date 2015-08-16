@@ -19,7 +19,7 @@ var Markdown = React.createClass({
         }
 
         if(this.isSelected()) {
-            style.background = '#ccc';
+            style.background = '#eee';
         }
 
         return (

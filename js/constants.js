@@ -14,6 +14,7 @@ var constants = {
     codewalk: null,
     variant: null,
 
+    // orientations
     vertical: null,
     horizontal: null,
 };

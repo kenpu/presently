@@ -19,11 +19,11 @@ function New(o) {
     if(o.layout) {
         var segment = R.Model(C("segment")).New();
         var box = R.Model(C("box")).New();
-        var variant = R.Model(C("variant")).New();
+        var text = R.Model(C("markdown")).New();
 
         section.children.push(segment);
         segment.children.push(box);
-        box.children.push(variant);
+        box.children.push(text);
 
         section.layout = o.layout;
     }

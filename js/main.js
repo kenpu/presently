@@ -18,7 +18,8 @@ store.state({
     article: mockArticle,
     ui: {
         screenSplit: 0.6,
-        zoom: 1.5,
+        zoom: 1,
+        preview: false,
     },
 });
 

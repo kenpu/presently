@@ -5,14 +5,15 @@ var C = require('../constants');
 var BoxModel = require('../models/box')();
 var _SelectableView = require('./_SelectableView');
 
-function make(model, i, ancestors, isFirst) {
+function make(model, i, ancestors, isFirst, editing) {
     var V = R.View(model.T);
 
     if(V) {
         return <V key={i} 
                   model={model} 
                   ancestors={ancestors} 
-                  isFirst={isFirst} />;
+                  isFirst={isFirst}
+                  editing={editing} />;
     } else {
         return (
             <div>Unknown model with type {model.T}</div>
@@ -26,17 +27,22 @@ var Box = React.createClass({
         var box = this.props.model;
         var ancestors = this.props.ancestors;
         var isFirst = this.props.isFirst;
+        var editing = this.props.editing;
 
         var parent = ancestors[ancestors.length-1];
 
         // compute the margins
         var ml, mr, mt, mb;
-        if(BoxModel.Orient(parent) == C("horizontal")) {
-            ml = (isFirst) ? 10 : 0;
-            mr = mt = mb = 10;
+        if(editing) {
+            if(BoxModel.Orient(parent) == C("horizontal")) {
+                ml = (isFirst) ? 10 : 0;
+                mr = mt = mb = 10;
+            } else {
+                mt = (isFirst) ? 10 : 0;
+                mb = ml = mr = 10;
+            }
         } else {
-            mt = (isFirst) ? 10 : 0;
-            mb = ml = mr = 10;
+            ml = mr = mt = mb = 0;
         }
 
         var style = {
@@ -55,6 +61,10 @@ var Box = React.createClass({
             style.borderColor = 'red';
         }
 
+        if(! editing) {
+            style.border = 'none';
+        }
+
         var className = "prly-box";
 
         var children;
@@ -69,7 +79,9 @@ var Box = React.createClass({
         }
 
         children = box.children.map(function(model, i) {
-            return make(model, i, ancestors.concat(box), (i == 0));
+            return make(model, i, ancestors.concat(box), 
+                        (i == 0), // isfirst
+                        editing);
         });
 
         return (
