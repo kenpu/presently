@@ -59,7 +59,8 @@ var Editor = React.createClass({
             split = 1;
         } else {
             split = ui.screenSplit || 0.5;
-            zoom = ui.zoom || (1 / split);
+            zoom = 1 / split;
+            if(ui.zoom > 0) zoom = ui.zoom;
         }
 
         var scale = 1 / zoom;

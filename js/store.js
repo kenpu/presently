@@ -45,6 +45,9 @@ var store = Assign({}, EventEmitter.prototype, {
             return null;
         }
     },
+    selectedParent: function() {
+        return state.selection[state.selection.length-2];
+    },
     isSelected: function(model, checkAll) {
         if(checkAll) {
             return(state.selection.indexOf(model) >= 0);

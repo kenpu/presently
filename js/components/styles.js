@@ -9,24 +9,17 @@ var styles = {
             width: '100%',
             marginBottom: 50,
         },
-        header: {
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: 10,
-            maxWidth: '80%',
-            padding: 10,
-        },
     },
     segment: {
         base: {
             width: "100%",
             display: 'flex',
             flexDirection: 'column',
-            marginTop: 20,
             marginBottom: 0,
             paddingLeft: 50,
             position: 'relative',
             borderLeft: '2px solid transparent',
+            borderTop: '1px solid #888',
         },
         label: {
             display: 'block',
@@ -51,6 +44,7 @@ var styles = {
         },
         sidenote: {
             flex: 1,
+            background: '#eee',
         }
     },
     box: {
@@ -63,6 +57,11 @@ var styles = {
     codewalk: {
         base: {
             flex: 1,
+            marginLeft: 10,
+            marginRight: 10,
+            marginTop: 10,
+            marginBottom: 10,
+            minHeight: 50,
         },
         section: {
             width: '100%',
@@ -80,11 +79,26 @@ var styles = {
     },
     markdown: {
         flex: 1,
-        margin: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        minHeight: 50,
     },
     html: {
         flex: 1,
-        margin: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 10,
+        marginBottom: 10,
+        minHeight: 50,
+    },
+    toolSelect: {
+        height: 15,
+        fontFamily: 'Roboto',
+        fontSize: '10px',
+        padding: 2,
+        border: 'none',
     },
 };
 

@@ -14,10 +14,7 @@ function New(o) {
     segment.orient = C("vertical");
 
     if(o.layout) {
-        var box = BoxModel.New();
-        var text = R.Model(C("markdown")).New();
-
-        box.children.push(text);
+        var box = BoxModel.New({markdown: true});
         segment.children.push(box);
     }
 

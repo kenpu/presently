@@ -11,13 +11,20 @@ var Markdown = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
         // hack, merge with Html.style(...)
+        var model = this.props.model;
+
         var s = {};
+        if(model.source == "") {
+            s.border = 'thin dotted #aaa';
+        }
+
         if(! this.inHorizontal()) {
             s.flex = 'none';
         }
         if(this.props.editing)
             if(this.isSelected())
                 s = this.bgHighlight(s);
+
         return s;
     },
     render: function() {

@@ -51,7 +51,7 @@ var Codewalk = React.createClass({
     style: function() {
         var s = {};
         if(this.props.editing) {
-            s = this.bordered(this.padded(s));
+            s = (this.padded(s));
             if(this.isSelected()) {
                 s = this.bgHighlight(s);
             }

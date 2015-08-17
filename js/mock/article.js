@@ -22,8 +22,7 @@ module.exports = function(store) {
     var article = Article.New();
     var section = Section.New();
 
-    Article.Title(article, "Article Title goes here");
-    Section.Prelude(section, "Section prelude goes here.  Currently, it's quite empty.");
+    Article.Title(article, "How to kill a mocking bird.");
 
     var segment = Segment.New();
     Section.Children(section, [segment]);

@@ -5,25 +5,26 @@ var store = require('../store');
 
 var SegmentTools = React.createClass({
     newSegment: function(before) {
-        var selectedSection = store.selected(C("section"));
-        var selectedSegment = store.selected(C("segment"));
+        var model = this.props.model;
+        var parnet = this.props.parent;
 
         var Segment = R.Model(C("segment"));
-        var newSegment = Segment.Insert(selectedSection, selectedSegment, before);
+        var newSegment = Segment.Insert(parent, model, before);
 
         // TODO: select newSegment
 
         store.emitChange();
     },
     toggleWide: function() {
-        var selectedSegment = store.selected(C("segment"));
-        selectedSegment.wide = !(selectedSegment.wide);
+        var model = this.props.model;
+        model.wide = !(model.wide);
 
         store.emitChange();
     },
     getSidenoteStatus: function() {
-        var selectedSegment = store.selected(C("segment"));
-        if(selectedSegment.wide) {
+        var model = this.props.model;
+
+        if(model.wide) {
             return "ON";
         } else {
             return "OFF";
@@ -33,21 +34,14 @@ var SegmentTools = React.createClass({
         return (
             <table className="prly-tools">
                 <tr>
-                    <th style={{border: 'none'}}>
-                        New Segment
-                    </th>
+                    <th>Segment</th>
                     <td>
                         <button onClick={this.newSegment.bind(this, true)} >Before</button>
                     </td>
                     <td>
                         <button onClick={this.newSegment.bind(this, false)} >After</button>
                     </td>
-                </tr>
-                <tr>
-                    <th style={{border: 'none'}}>
-                       <span>Configure</span>
-                    </th>
-                    <td colSpan={2}>
+                    <td>
                         <button onClick={this.toggleWide} >
                             <span>Wide:{this.getSidenoteStatus()}</span>
                         </button>

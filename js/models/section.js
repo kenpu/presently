@@ -8,8 +8,7 @@ function New(o) {
 
     var section = {
         T: C("section"),
-        title: "",
-        prelude: "",
+        source: "",
         children: [],       // array of segments
     };
 
@@ -17,14 +16,9 @@ function New(o) {
     // for layout
 
     if(o.layout) {
-        var segment = R.Model(C("segment")).New();
-        var box = R.Model(C("box")).New();
-        var text = R.Model(C("markdown")).New();
+        var segment = R.Model(C("segment")).New({layout: true});
 
         section.children.push(segment);
-        segment.children.push(box);
-        box.children.push(text);
-
         section.layout = o.layout;
     }
 
@@ -33,10 +27,6 @@ function New(o) {
 
 function Children(section, child) {
     return util.children(section, child, C("segment"));
-}
-
-function Prelude(section, markdown) {
-    return util.getset(section, "prelude", markdown);
 }
 
 function AppendAfter(before, after) {
@@ -53,7 +43,6 @@ module.exports = function(store) {
     return R.Model("section", {
         New: New.bind(store),
         Children: Children.bind(store),
-        Prelude: Prelude.bind(store),
         AppendAfter: AppendAfter.bind(store),
     });
 }

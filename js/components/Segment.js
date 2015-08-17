@@ -13,7 +13,7 @@ var Segment = React.createClass({
     style: function() {
         var s = {};
         if(this.props.editing) {
-            if(this.isSelected) {
+            if(this.isSelected(true)) {
                 s.borderLeft = '2px solid red';
             }
         }

@@ -36,10 +36,6 @@ var Section = React.createClass({
 
         return (
             <div className="prly-section" style={styles} ref="element">
-                <div className="prly-section-prelude" 
-                     style={Styles.section.header}>
-                    <p>{section.prelude}</p>
-                </div>
                 <div className="prly-section-body">
                     {sectionBody}
                 </div>

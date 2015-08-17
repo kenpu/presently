@@ -19,7 +19,7 @@ store.state({
     ui: {
         screenSplit: 0.6,
         zoom: null,
-        preview: true,
+        preview: false,
     },
 });
 

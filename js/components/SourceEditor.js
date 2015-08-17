@@ -1,5 +1,6 @@
 var React = require('react');
 var C = require('../constants');
+var Styles = require('./styles');
 
 var CodeMirror = require('react-code-mirror');
 require('codemirror/mode/yaml/yaml');
@@ -25,18 +26,12 @@ var SourceEditor = React.createClass({
             height: '100%',
             display: 'flex',
         };
-
         var labelStyle = {
-            height: 15,
-            fontFamily: 'Roboto',
-            fontSize: '10px',
-            marginTop: -10,
-            padding: 2,
-            border: 'none',
+            marginTop: -15,
         };
 
         var typeSelect = (
-            <select style={labelStyle} value={model.T} onChange={this.chgType} >
+            <select style={Styles.toolSelect} value={model.T} onChange={this.chgType} >
                 <option value={C("markdown")}>Markdown</option>
                 <option value={C("codewalk")}>Codewalk</option>
                 <option value={C("html")}>HTML</option>
