@@ -8,7 +8,7 @@ module.exports = {
     },
     selectMe: function() {
         var model = this.props.model;
-        var ancestors = this.props.ancestors;
+        var ancestors = this.props.ancestors || [];
         var state = store.state();
 
         // assume singleton selection

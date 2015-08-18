@@ -24,7 +24,6 @@ var Editor = React.createClass({
     },
     render: function() {
         var store = this.props.store;
-
         var state = store.state();
 
         var article = state.article;
@@ -120,8 +119,11 @@ var Editor = React.createClass({
 
         var editor;
 
+        var selection = state.selection;
         var selected = store.selected();
-        if(selected && selected.source != null) {
+
+        if(selected && 
+                (selected.source != null || selected.data != null)) {
             editor = (
                     <div style={editorStyle} >
                         <SourceEditor model={selected} />
@@ -143,7 +145,7 @@ var Editor = React.createClass({
                     </div>
                 </div>
                 <div style={rightStyle} >
-                    <Tools style={toolStyle} />
+                    <Tools style={toolStyle} selection={selection} />
                     { editor }
                 </div>
             </div>

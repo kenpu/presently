@@ -18,9 +18,11 @@ var Markdown = React.createClass({
             s.border = 'thin dotted #aaa';
         }
 
+        /*
         if(! this.inHorizontal()) {
             s.flex = 'none';
         }
+        */
         if(this.props.editing)
             if(this.isSelected())
                 s = this.bgHighlight(s);

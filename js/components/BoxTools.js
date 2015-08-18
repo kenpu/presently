@@ -2,57 +2,43 @@ var React = require('react');
 var C = require('../constants');
 var R = require('../registry');
 var store = require('../store');
+var util = require('../util');
 
-var BoxTools = React.createClass({
-    split: function(orient) {
-        var model = this.props.model;
-        var BoxModel = R.Model(C("box"));
-        BoxModel.Split(model, orient);
-        store.emitChange();
-    },
-    rotate: function() {
-        var model = this.props.model;
-        var newOrient = (model.orient == C("horizontal")) ? C("vertical") : C("horizontal");
-        model.orient = newOrient;
-        store.emitChange();
-    },
-    extend: function(before) {
-        var model = this.props.model;
-        var parent = this.props.parent;
+var Bootstrap = require('react-bootstrap');
+var DropdownButton = Bootstrap.DropdownButton;
+var MenuItem = Bootstrap.MenuItem;
 
-        if(parent && parent.T == C("box")) {
-            R.Model(C("box")).Extend(parent, model, before);
-            store.emitChange();
-        }
-    },
-    render: function() {
-        return (
-            <table className="prly-tools">
-                <tr>
-                    <th>Box</th>
-                    <td><button onClick={this.split.bind(this, C("horizontal"))}>Splt Vert</button></td>
-                    <td><button onClick={this.split.bind(this, C("vertical"))}>Splt Horiz</button></td>
-                    <td><button onClick={this.rotate}>Rotate</button></td>
-                    <td><button onClick={this.extend.bind(this, true)}>+Before</button></td>
-                    <td><button onClick={this.extend.bind(this, false)}>+After</button></td>
-                </tr>
-                <tr>
-                    <th>Edit</th>
-                    <td><button>Unwrap</button></td>
-                    <td><button>Empty</button></td>
-                    <td><button>Delete</button></td>
-                    <td></td>
-                    <td><button>Copy</button></td>
-                </tr>
-                <tr>
-                    <th>Content</th>
-                    <td><button>Add</button></td>
-                    <td><button>Image</button></td>
-                </tr>
-            </table>
-        );
-    },
-});
+function split(box, orient) {
+    console.debug("split", box, orient);
+    var Box = R.Model(C("box"));
+    if(box) {
+        Box.Split(box, orient);
+    }
+    store.emitChange();
+}
+
+function extend(before) {
+}
+
+function rotate() {
+}
+
+var BoxTools = function(props) {
+    var box = props.model;
+    return (
+        <DropdownButton title="Box" key={props.key} onSelect={util.nop}>
+            <MenuItem header>
+                Structure
+            </MenuItem>
+            <MenuItem onClick={split.bind(null, box, C("vertical"))}>
+                Split horizontal
+            </MenuItem>
+            <MenuItem onClick={split.bind(null, box, C("horizontal"))}>
+                Split vertical
+            </MenuItem>
+        </DropdownButton>
+    );
+};
 
 R.Toolbar(C("box"), BoxTools);
 

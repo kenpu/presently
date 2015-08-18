@@ -20,17 +20,29 @@ var Section = React.createClass({
         var section = this.props.model;
         var label = this.props.label;
         var editing = this.props.editing;
+        var ancestor = this.props.ancestor;
 
         var sectionBody = section.children.map(function(segment, i) {
             return (
                 <Segment key={i} 
                          editing={editing}
                          model={segment} 
-                         ancestors={[section]}
+                         ancestors={ancestor.concat(section)}
                          label={label + "." + (i+1)} 
                          isFirst={i == 0}/>
             );
         });
+
+        if(sectionBody.length == 0) {
+            var emptyStyle  = {
+                height: 50,
+                margin: 10,
+                background: '#ccc',
+            };
+            sectionBody = (
+                <div style={emptyStyle} />
+            );
+        }
 
         var styles = [Styles.section.base, this.style()];
 

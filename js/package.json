@@ -5,8 +5,10 @@
     "main": "app.js",
     "dependencies": {
         "react": "^0.13.3",
+        "react-bootstrap": ">0.21.0",
         "react-code-mirror": ">=3.0.4",
         "marked": ">0.3.0",
+        "js-yaml": ">=3.3.1",
         "highlight.js": ">=8.5.0",
         "keymirror": "0.1.1",
         "object-assign": "3.0.0",

@@ -4,6 +4,16 @@ var styles = {
     borderColor: '#aaa',
     borderHLColor: '#f00',
     bgHLColor: '#eee',
+    article: {
+        header: {
+            background: '#000',
+            color: '#fff',
+            minHeight: 20,
+            fontSize: '200%',
+            textAlign: 'center',
+            padding: 20,
+        },
+    },
     section: {
         base: {
             width: '100%',
@@ -92,6 +102,9 @@ var styles = {
         marginTop: 10,
         marginBottom: 10,
         minHeight: 50,
+    },
+    navbar: {
+        fontFamily: 'Roboto',
     },
     toolSelect: {
         height: 15,

@@ -6,7 +6,7 @@ var store = require('../store');
 var SegmentTools = React.createClass({
     newSegment: function(before) {
         var model = this.props.model;
-        var parnet = this.props.parent;
+        var parent = this.props.parent;
 
         var Segment = R.Model(C("segment"));
         var newSegment = Segment.Insert(parent, model, before);
@@ -52,4 +52,4 @@ var SegmentTools = React.createClass({
     },
 });
 
-module.exports = R.Toolbar(C("segment"), SegmentTools);
+// module.exports = R.Toolbar(C("segment"), SegmentTools);

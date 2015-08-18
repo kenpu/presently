@@ -11,7 +11,7 @@ function New(o) {
     }, o);
 }
 
-var SidenoteRE_pat = "{{((?:.|[\r\n])*?)}}";
+var SidenoteRE_pat = "{{((?:\\d+\\. )?)((?:.|[\r\n])*?)}}";
 var SidenoteRE = new RegExp(SidenoteRE_pat);
 var SidenoteRE_g = new RegExp(SidenoteRE_pat, 'g');
 
@@ -26,9 +26,10 @@ function Sidenotes(markdown) {
         if(m != null) {
             // sidenote is a markdown model
             var sidenote = {
-                source: m[1],
+                source: m[2],
                 uuid: markdown.uuid,
                 index: idx,
+                leadingChar: m[1],
             };
             src = src.replace(SidenoteRE, "");
             result = {
@@ -65,11 +66,17 @@ function FormattedSource(markdown, o) {
     // replace sidenotes with anchors
     if(o.sidenotes) {
         var index = 0;
-        var replacer = function() {
-            var html = "<span " + 
-                       "class='prly-anchor-number' " + 
-                       "markdown-uuid='" + markdown.uuid + "' " +
-                       "index='" + index + "'>*</span>";
+        var replacer = function(match, leadingChar, source) {
+            var html = "";
+            var label = "";
+            if(leadingChar) label = "1"
+
+            html = "<span " + 
+                   "class='prly-anchor-number' " + 
+                   "data-uuid='" + markdown.uuid + "' " +
+                   "data-index='" + index + "' " +
+                   "data-label=" + label + "></span>";
+
             index += 1;
             return html;
         };

@@ -9,6 +9,7 @@ function New(o) {
     var model = {
         T: C("box"),
         children: [],           // nested boxes
+        data: "",               // yaml
         orient: C("vertical"),  // orientation
     };
 

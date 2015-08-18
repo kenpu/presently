@@ -36,8 +36,10 @@ var store = Assign({}, EventEmitter.prototype, {
         if(! T) {
             return state.selection[state.selection.length-1];
         } else {
+            // look backwards (for the reason we want to pick the last
+            // selected("box")
             for(var i in state.selection) {
-                var model = state.selection[i];
+                var model = state.selection[state.selection.length - 1 - i];
                 if(model.T == T) {
                     return model;
                 }

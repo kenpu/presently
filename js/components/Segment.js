@@ -11,7 +11,11 @@ var Radium = require('radium');
 var Segment = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
+        var isFirst = this.props.isFirst;
         var s = {};
+        if(isFirst) {
+            s.borderTop = '1px solid transparent';
+        }
         if(this.props.editing) {
             if(this.isSelected(true)) {
                 s.borderLeft = '2px solid red';
@@ -20,32 +24,35 @@ var Segment = React.createClass({
 
         return s;
     },
-    orderSidenotes: function() {
+    labelSidenotes: function() {
         // get the anchors
         var content = React.findDOMNode(this.refs.content);
         var anchors = $("span.prly-anchor-number", content);
-
-        anchors.each(function(i) {
+        var counter = 0;
+        anchors.each(function() {
             var anchor = $(this);
-            var uuid = anchor.attr('markdown-uuid');
-            var index = anchor.attr('index');
+            var uuid = anchor.data('uuid');
+            var index = anchor.data('index');
+            var label = anchor.data('label');
 
             var sidenote_id = "#sidenote-" + uuid + "-" + index;
-            $(sidenote_id).html(i+1);
-            anchor.html('<sup>' + (i+1) + '</sup>');
+            if(label) {
+                counter += 1;
+                $(sidenote_id).html(counter);
+                anchor.html('<sup>' + counter + '</sup>');
+            }
         });
     },
     componentDidMount: function() {
-        this.orderSidenotes();
+        this.labelSidenotes();
     },
     componentDidUpdate: function() {
-        this.orderSidenotes();
+        this.labelSidenotes();
     },
     render: function() {
         var segment = this.props.model;
         var ancestors = this.props.ancestors;
         var label = this.props.label;
-        var isFirst = this.props.isFirst;
         var editing = this.props.editing;
 
         var children = segment.children.map(function(box, i) {
@@ -55,7 +62,9 @@ var Segment = React.createClass({
                         editing={editing} />;
         });
 
-        // Only markdown currently supports sidenote
+        // Parse the markdown source codes and extract all the
+        // sidenotes.
+
         var noteModels = [];
         var BoxModel = R.Model(C("box"));
         var markdownModels = BoxModel.Find(segment, function(model) {
@@ -72,6 +81,7 @@ var Segment = React.createClass({
             );
         });
 
+        // Build the list of sidenotes.
         var sidenotes = noteModels.map(function(note, i) {
             return <Sidenote model={note} key={i} />;
         });
@@ -86,16 +96,23 @@ var Segment = React.createClass({
                 flexDirection: 'column'
             };
 
-            if(noteModels.length == 0) {
-                sideStyle = {
-                    display: 'none'
-                };
-            }
+        }
+
+        if(noteModels.length == 0) {
+            sideStyle = {
+                display: 'none'
+            };
         }
 
         var styles = [Styles.segment.base, this.style()];
+
+        var className = "prly-segment";
+        if(segment.layout) {
+            className += " " + segment.layout;
+        }
+
         return (
-            <div className="prly-segment" style={styles} ref="element" >
+            <div className={className} style={styles} ref="element" >
                 <span style={Styles.segment.label}>{label}</span>
                 <div className="prly-segment-body" 
                      style={Styles.segment.body}>

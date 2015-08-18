@@ -6,12 +6,18 @@ var CodeMirror = require('react-code-mirror');
 require('codemirror/mode/yaml/yaml');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/markdown/markdown');
-require('codemirror/mode/python/python');
 
 var SourceEditor = React.createClass({
     update: function(e) {
         var model = this.props.model;
-        model.source = e.target.value;
+
+        // update the appropriate field
+        if(model.source != null)
+            model.source = e.target.value;
+        else if(model.data != null) {
+            model.data = e.target.value;
+        }
+
         store.emitChange();
     },
     chgType: function(e) {
@@ -30,22 +36,36 @@ var SourceEditor = React.createClass({
             marginTop: -15,
         };
 
-        var typeSelect = (
-            <select style={Styles.toolSelect} value={model.T} onChange={this.chgType} >
-                <option value={C("markdown")}>Markdown</option>
-                <option value={C("codewalk")}>Codewalk</option>
-                <option value={C("html")}>HTML</option>
-                <option value={C("variant")}>Variant</option>
-            </select>
-        );
+        var typeSelect;
+        
+        if(model.source != null) {
+            typeSelect = (
+                <div style={labelStyle}>
+                    <select 
+                        style={Styles.toolSelect} 
+                        value={model.T}
+                        onChange={this.chgType} >
+                        <option value={C("markdown")}>Markdown</option>
+                        <option value={C("codewalk")}>Codewalk</option>
+                        <option value={C("html")}>HTML</option>
+                        <option value={C("variant")}>Variant</option>
+                    </select>
+                </div>
+            );
+        }
+
+        mode = (model.data != null) ? "yaml" : "markdown";
+        if(model.T == C("markdown"))
+            mode = "markdown";
+        else if(model.T == C("html"))
+            mode = "xml";
 
         return (
             <div className="prly-source-editor">
-                <div style={labelStyle}>
-                    {typeSelect}
-                </div>
+                {typeSelect}
                 <CodeMirror
                     value={model.source}
+                    mode={mode}
                     onChange={this.update}
                     lineNumbers={true}
                     lineWrapping={true} />

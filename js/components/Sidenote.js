@@ -13,7 +13,7 @@ var Sidenote = React.createClass({
 
         var style = {
             marginBottom: 10,
-            paddingLeft: 15,
+            paddingLeft: 20,
         };
 
         var labelStyle = {
@@ -34,7 +34,7 @@ var Sidenote = React.createClass({
             <div className="prly-sidenote" style={style}>
                 <span className="prly-sidenote-number" 
                       id={id}
-                      style={labelStyle} >*</span>
+                      style={labelStyle} >  </span>
                 <Raw className="prly-sidenote" tag="div" source={html} />
             </div>
         );
