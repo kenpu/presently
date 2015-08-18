@@ -54,17 +54,19 @@ var SourceEditor = React.createClass({
             );
         }
 
-        mode = (model.data != null) ? "yaml" : "markdown";
+        var mode = (model.data != null) ? "yaml" : "markdown";
         if(model.T == C("markdown"))
             mode = "markdown";
         else if(model.T == C("html"))
             mode = "xml";
 
+        var value = (model.data != null) ? model.data : model.source;
+
         return (
             <div className="prly-source-editor">
                 {typeSelect}
                 <CodeMirror
-                    value={model.source}
+                    value={value}
                     mode={mode}
                     onChange={this.update}
                     lineNumbers={true}
