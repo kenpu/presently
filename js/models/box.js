@@ -69,14 +69,16 @@ function Split(box, orient) {
 
 function Extend(parent, model, before) {
     var i = parent.children.indexOf(model);
+    var newBox;
     if(i >= 0) {
-        var newBox = New({markdown: true});
+        newBox = New({markdown: true});
         if(before) {
             parent.children.splice(i, 0, newBox);
         } else {
             parent.children.splice(i+1, 0, newBox);
         }
     }
+    return newBox;
 }
 
 module.exports = function(store) {

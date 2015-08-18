@@ -71,7 +71,7 @@ var EditorTools = React.createClass({
                 menus.push(R.Toolbar(C("box"))({
                     key: 200,
                     model: parent,
-                    parent: selection[selection.length-2],
+                    parent: selection[selection.length-3],
                 }));
             }
 

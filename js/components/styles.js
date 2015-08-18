@@ -50,6 +50,7 @@ var styles = {
         },
         content: {
             flex: 4,
+            flexDirection: 'column',
             display: 'flex',
         },
         sidenote: {
