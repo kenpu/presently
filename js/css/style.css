@@ -18,6 +18,8 @@ pre,
 code,
 pre code {
     border: none;
+    border-radius: 0;
+    background: 'transparent';
     font-size: inherit; }
 
 /*===== Markdown ======*/
@@ -48,7 +50,6 @@ pre code {
     margin-left: auto;
     margin-right: auto;
 }
-
 
 /* ===== tools ======= */
 /* DEAD */
@@ -89,7 +90,12 @@ div.prly-source-editor {
     flex-flow: column;
 }
 
-.CodeMirror {
+div.prly-source-editor .CodeMirror {
     width: 100%;
     height: auto;
 }
+
+.CodeMirror {
+    height: auto !important;
+}
+

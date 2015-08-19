@@ -52,6 +52,12 @@ var SourceEditor = React.createClass({
                     </select>
                 </div>
             );
+        } else {
+            typeSelect = (
+                <div style={labelStyle}>
+                    <span>YAML</span>
+                </div>
+            );
         }
 
         var mode = (model.data != null) ? "yaml" : "markdown";

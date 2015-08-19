@@ -16,7 +16,11 @@ var state = {
     selection: [],
 };
 var store = Assign({}, EventEmitter.prototype, {
-    emitChange: function() {
+    emitChange: function(o) {
+        o = Assign({}, o);
+        if(o.resetSelection) {
+            state.selection.length = 0;
+        }
         this.emit('change');
     },
     addChangeListener: function(callback) {

@@ -81,11 +81,13 @@ var styles = {
         side: {
             maxWidth: '30%',
             minWidth: '30%',
+            padding: '5 0 5 10',
         },
-        code: {
+        pre: {
             flex: 1,
             lineHeight: '140%',
             fontFamily: 'Ubuntu Mono',
+            margin: 0,
         }
     },
     markdown: {
@@ -106,6 +108,7 @@ var styles = {
     },
     navbar: {
         fontFamily: 'Roboto',
+        borderRadius: 0,
     },
     toolSelect: {
         height: 15,
