@@ -20,8 +20,7 @@
         "livereload": ">=0.3.7"
     },
     "scripts": {
-        "start": "watchify -v -d -o ./bundle.js -e main.js",
-        "build": "browserify -o ./bundle.js -e main.js"
+        "start": "watchify -v -d -o ./bundle.js -e main.js"
     },
     "browserify": {
         "transform": ["reactify", "envify"]

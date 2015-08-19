@@ -28,18 +28,16 @@ function extend(parent, box, before) {
     }
 }
 
-function rotate() {
+function rotate(box) {
+    R.Model(C("box")).Rotate(box);
+    store.emitChange();
 }
 
 function remove(parent, box) {
-    if(parent && box) {
-        var i = parent.children.indexOf(box);
-        if(i >= 0) {
-            parent.children.splice(i, 1);
-            store.emitChange({
-                resetSelection: true,
-            });
-        }
+    if(R(C("generic")).Remove(parent, box)) {
+        store.emitChange({
+            resetSelection: true,
+        });
     }
 }
 
@@ -72,18 +70,10 @@ function wrap(parent, box) {
 }
 
 function move(parent, box, before) {
-    if(parent && box) {
-        var i = parent.children.indexOf(box);
-        if(i >= 0) {
-            if(before && i > 0) {
-                var prev = parent.children[i-1];
-                parent.children.splice(i-1, 2, box, prev);
-            } else if((!before) && i < parent.children.length-1) {
-                var next = parent.children[i+1];
-                parent.children.splice(i, 2, next, box);
-            }
-        }
-        store.emitChange();
+    if(R.Model(C("generic")).Move(parent, box, before)) {
+        store.emitChange({
+            resetSelection: false, // same parent
+        });
     }
 }
 
@@ -94,6 +84,9 @@ var BoxTools = function(props) {
     return (
         <DropdownButton title="Box" key={props.key} onSelect={util.nop}>
             <MenuItem header> Structure </MenuItem>
+            <MenuItem onClick={rotate.bind(null, box)} >
+                Rotate
+            </MenuItem>
             <MenuItem onClick={split.bind(null, box, C("vertical"))}>
                 Split horizontal
             </MenuItem>

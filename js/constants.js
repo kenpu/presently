@@ -13,6 +13,7 @@ var constants = {
     html: null,
     codewalk: null,
     variant: null,
+    generic: null,
 
     // orientations
     vertical: null,

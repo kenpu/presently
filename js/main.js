@@ -4,7 +4,11 @@ var Editor = require('./components/Editor');
 var mockArticle = require('./mock/article')(store);
 var ArticleModel = require('./models/article')(store);
 
+require('./models/generic')(store);
+
 require('./components/ArticleTools');
+require('./components/Section');
+require('./components/SectionTools');
 require('./components/Segment');
 require('./components/SegmentTools');
 require('./components/Box');

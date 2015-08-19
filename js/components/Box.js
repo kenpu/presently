@@ -2,11 +2,13 @@ var store = require('../store');
 var React = require('react');
 var R = require('../registry');
 var C = require('../constants');
+var util = require('../util');
 var BoxModel = require('../models/box')();
 var _SelectableView = require('./_SelectableView');
 var _DefaultView = require('./_DefaultView');
 var Radium = require('radium');
 var Styles = require('./styles');
+var Assign = require('object-assign');
 
 function make(model, i, ancestors, isFirst, editing) {
     var V = R.View(model.T);
@@ -26,9 +28,9 @@ function make(model, i, ancestors, isFirst, editing) {
 
 var Box = React.createClass({
     mixins: [_DefaultView, _SelectableView],
-    style: function() {
+    style: function(initStyle) {
         var box = this.props.model;
-        var s = {};
+        var s = Assign({}, initStyle);
 
         if(box.orient == C("horizontal")) {
             s.flexDirection = 'row';
@@ -63,7 +65,8 @@ var Box = React.createClass({
                         editing);
         });
 
-        var styles = [Styles.box.base, this.style()];
+        var result = util.parseData(box.data);
+        var styles = [Styles.box.base, this.style(result.style)];
 
         return (
             <div className={className} style={styles} ref="element">

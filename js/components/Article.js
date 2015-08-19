@@ -7,7 +7,6 @@ var util = require('../util');
 var Radium = require('radium');
 var C = require('../constants');
 var R = require('../registry');
-var yaml = require('js-yaml');
 
 var Article = React.createClass({
     mixins: [_ActiveView, _SelectableView],
@@ -29,7 +28,7 @@ var Article = React.createClass({
         };
 
         // parsing
-        var result = yaml.load(article.data) || {};
+        var result = util.parseData(article.data);
         var title = result.title || "MISSING TITLE";
 
         var articleBody = [];

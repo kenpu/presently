@@ -33,9 +33,6 @@ function newSegment(layout) {
     store.emitChange();
 }
 
-function newSegmentPage() {
-}
-
 var NewMenu = function(props) {
     return (
         <DropdownButton title="New" eventKey={1} key={props.key} onSelect={util.nop}>
@@ -63,6 +60,24 @@ var EditorTools = React.createClass({
         var selected = store.selected();
         var parent = store.selectedParent();
 
+        var section = store.selected(C("section"));
+        if(section) {
+            menus.push(R.Toolbar(C("section"))({
+                key: 102,
+                model: section,
+                parent: selection[0], // HACK: we assume section comes after article
+            }));
+        }
+
+        var segment = store.selected(C("segment"));
+        if(segment) {
+            menus.push(R.Toolbar(C("segment"))({
+                key: 103,
+                model: segment,
+                parent: section, // HACK: we assume segment comes after section
+            }));
+        }
+
         if(selected && selected.T != C("article")) {
             var menu = R.Toolbar(selected.T);
 
@@ -85,12 +100,9 @@ var EditorTools = React.createClass({
             }
         }
 
-
-        var x = <DropdownButton title="A"></DropdownButton>;
-
         return (
             <div style={style}>
-                <Navbar brand="Presently" style={Styles.navbar}>
+                <Navbar style={Styles.navbar}>
                     <Nav>
                         {menus}
                     </Nav>

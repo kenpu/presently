@@ -1,4 +1,5 @@
 var marked = require('marked');
+var yaml = require('js-yaml');
 var hl = require('highlight.js');
 
 var assert = function(cond) {
@@ -63,6 +64,17 @@ module.exports = {
             return (c=='x' ? r : (r&0x3|0x8)).toString(16);
         });
         return uuid;
+    },
+    parseData: function(text) {
+        var result;
+
+        try {
+            result = yaml.load(text) || {};
+        } catch(e) {
+            result = {};
+        }
+
+        return result;
     },
     parseSource: function(text) {
         var result = {

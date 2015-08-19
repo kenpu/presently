@@ -29,6 +29,20 @@ function Orient(box, orientation) {
     return util.getset(box, "orient", orientation);
 }
 
+function Rotate(box) {
+    var orient = box.orient;
+
+    if(orient == C("horizontal")) {
+        orient = C("vertical");
+    } else {
+        orient = C("horizontal");
+    }
+
+    Orient(box, orient);
+
+    return true;
+}
+
 function Find(box, pred) {
     var results = [];
 
@@ -86,6 +100,7 @@ module.exports = function(store) {
         New: New.bind(store),
         Children: Children.bind(store),
         Orient: Orient.bind(store),
+        Rotate: Rotate.bind(store),
         Find: Find,
         Split: Split,
         Extend: Extend,
