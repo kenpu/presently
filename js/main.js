@@ -1,9 +1,11 @@
 var React = require('react');
 var store = require('./store');
+var R = require('./registry');
 var Editor = require('./components/Editor');
 var mockArticle = require('./mock/article')(store);
 var ArticleModel = require('./models/article')(store);
 
+require('./models/image')(store);
 require('./models/generic')(store);
 
 require('./components/ArticleTools');
@@ -15,6 +17,8 @@ require('./components/Box');
 require('./components/BoxTools');
 require('./components/Markdown');
 require('./components/Html');
+require('./components/Image');
+require('./components/ImageTools');
 require('./components/Codewalk');
 require('./components/Variant');
 
@@ -27,6 +31,8 @@ article = ArticleModel.New();
 
 store.state({
     article: article,
+    blobs: {
+    },
     ui: {
         screenSplit: 0.6,
         zoom: null,
@@ -41,3 +47,15 @@ var view = (
 );
 
 React.render(view, el);
+
+$('html').pasteImageReader(function(paste) {
+    var data = paste.dataURL;
+    var model = store.selected();
+    if(data && model) {
+        var Model = R.Model(model.T);
+        if(Model && Model.ImagePaste) {
+            Model.ImagePaste(model, data);
+            store.emitChange();
+        }
+    }
+});

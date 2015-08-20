@@ -18,9 +18,39 @@ function changeZoom(val) {
     store.emitChange();
 }
 
+function newSection(before) {
+    var Section = R.Model(C("section"));
+    var anchor = store.selected(C("section"));
+
+    Section.Extend(anchor, before);
+    store.emitChange();
+
+}
+
+function newSegment(layout) {
+    var Segment = R.Model(C("segment"));
+    var section = store.selected(C("section"));
+    var anchor = store.selected(C("segment"));
+
+    Segment.Extend(section, anchor, {
+        layout: layout,
+    });
+
+    store.emitChange();
+}
+
+            
 var ArticleTools = function(props) {
     return (
         <DropdownButton title="Article" key={props.key} onSelect={util.nop} >
+            <MenuItem header>Section</MenuItem>
+            <MenuItem onClick={newSection.bind(null, true)}>Before</MenuItem>
+            <MenuItem onClick={newSection.bind(null, false)}>After</MenuItem>
+            <MenuItem header>Segment</MenuItem>
+            <MenuItem onClick={newSegment.bind(null, 'slide')}>Slide</MenuItem>
+            <MenuItem onClick={newSegment.bind(null, 'page')}>Page</MenuItem>
+
+
             <MenuItem header>Zoom</MenuItem>
             <MenuItem onClick={changeZoom.bind(null, 1)}>100%</MenuItem>
             <MenuItem onClick={changeZoom.bind(null, null)}>Default</MenuItem>

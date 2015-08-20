@@ -34,11 +34,18 @@ function rotate(box) {
 }
 
 function remove(parent, box) {
-    if(R(C("generic")).Remove(parent, box)) {
+    if(R.Model(C("generic")).Remove(parent, box)) {
         store.emitChange({
             resetSelection: true,
         });
     }
+}
+
+function empty(parent, box) {
+    box.children.length = 0;
+    store.emitChange({
+        resetSelection: true,
+    });
 }
 
 function unwrap(parent, box) {
@@ -77,12 +84,29 @@ function move(parent, box, before) {
     }
 }
 
+function add(box, T) {
+    var Model = R.Model(T);
+    if(Model && Model.New) {
+        box.children.push(Model.New());
+        store.emitChange();
+    }
+};
+
 var BoxTools = function(props) {
     var box = props.model;
     var parent = props.parent;
 
+    var contents = ["markdown", "codewalk", "image", "box"];
+    var addContent = contents.map(function(t) {
+        return (
+            <MenuItem onClick={add.bind(null, box, C(t))}>{t}</MenuItem>
+        );
+    });
+
     return (
         <DropdownButton title="Box" key={props.key} onSelect={util.nop}>
+            <MenuItem header> Add content </MenuItem>
+            {addContent}
             <MenuItem header> Structure </MenuItem>
             <MenuItem onClick={rotate.bind(null, box)} >
                 Rotate
@@ -113,6 +137,9 @@ var BoxTools = function(props) {
             <MenuItem header> Remove </MenuItem>
             <MenuItem onClick={unwrap.bind(null, parent, box)}>
                 Unwrap
+            </MenuItem>
+            <MenuItem onClick={empty.bind(null, parent, box)}>
+                Empty <b>!</b>
             </MenuItem>
             <MenuItem onClick={remove.bind(null, parent, box)}>
                 Delete <b>!</b>

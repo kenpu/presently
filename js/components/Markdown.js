@@ -13,7 +13,7 @@ var Markdown = React.createClass({
         // hack, merge with Html.style(...)
         var model = this.props.model;
 
-        var s = {};
+        var s = this.defaultStyle();
         if(model.source == "") {
             s.border = 'thin dotted #aaa';
         }

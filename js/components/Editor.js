@@ -3,6 +3,8 @@ var Article = require('./Article');
 var Tools = require('./EditorTools');
 var _ActiveView = require('./_ActiveView');
 var SourceEditor = require('./SourceEditor');
+var Radium = require('radium');
+var Styles = require('./styles');
 
 /*
 var brace = require('brace');
@@ -30,25 +32,14 @@ var Editor = React.createClass({
         var ui = state.ui;
 
         var topStyle = {
-            position: 'fixed',
-            width: '100%',
-            height: '100%',
-            left: 0,
-            top: 0,
-            background: '#333',
-        };
-
-        var toggleBtnStyle = {
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            zIndex: 10,
-            display: 'inline-block',
-            fontFamily: 'Roboto',
-            fontWeight: 'bold',
-            background: '#000',
-            color: '#fff',
-            padding: 4
+            '@media print': {
+                position: 'fixed',
+                width: '100%',
+                height: '100%',
+                left: 0,
+                top: 0,
+                background: '#333',
+            }
         };
 
         var zoom, split;
@@ -67,13 +58,15 @@ var Editor = React.createClass({
         var leftStyle, leftInnerStyle, righStyle, toolStyle, editorStyle;
 
         leftStyle = {
-            position: 'fixed',
-            width: (split * 100) + "%",
-            height: '100%',
-            left: 0,
-            top: 0,
-            background: '#fff',
-            overflowY: 'scroll',
+            '@media screen': {
+                position: 'fixed',
+                width: (split * 100) + "%",
+                height: '100%',
+                left: 0,
+                top: 0,
+                background: '#fff',
+                overflowY: 'scroll',
+            }
         };
 
         leftInnerStyle = {
@@ -136,15 +129,16 @@ var Editor = React.createClass({
         var previewLabel = (ui.preview) ? "EDIT" : "VIEW";
 
         return (
-            <div className="prly-editor" style={topStyle} >
-                <a href="#" style={toggleBtnStyle} 
+            <div key={1} className="prly-editor" style={topStyle} >
+                <a href="#" className="prly-noprint" 
+                        style={[Styles.editor.toggleBtnStyle]}
                         onClick={this.togglePreview} >{previewLabel}</a>
-                <div style={leftStyle} >
+                <div key={2} style={leftStyle} >
                     <div style={leftInnerStyle}>
                         <Article model={article} editing={! ui.preview} />
                     </div>
                 </div>
-                <div style={rightStyle} >
+                <div style={rightStyle} className="prly-noprint" >
                     <Tools style={toolStyle} selection={selection} />
                     { editor }
                 </div>
@@ -156,4 +150,4 @@ var Editor = React.createClass({
 function nop() {
 }
 
-module.exports = Editor;
+module.exports = Radium(Editor);

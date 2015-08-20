@@ -30,7 +30,7 @@ var Box = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function(initStyle) {
         var box = this.props.model;
-        var s = Assign({}, initStyle);
+        var s = Assign(this.defaultStyle(), initStyle);
 
         if(box.orient == C("horizontal")) {
             s.flexDirection = 'row';
@@ -65,8 +65,7 @@ var Box = React.createClass({
                         editing);
         });
 
-        var result = util.parseData(box.data);
-        var styles = [Styles.box.base, this.style(result.style)];
+        var styles = [Styles.box.base, this.style()];
 
         return (
             <div className={className} style={styles} ref="element">

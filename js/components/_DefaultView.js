@@ -1,5 +1,6 @@
 var Assign = require('object-assign');
 var Styles = require('./styles');
+var util = require('../util');
 
 var _DefaultView = {
     bordered: function(style) {
@@ -40,6 +41,11 @@ var _DefaultView = {
            marginBottom: mb,
         });
     },
+    defaultStyle: function() {
+        var style = this.parsed().style || {};
+
+        return style;
+    },
     parent: function() {
         var anc = this.props.ancestors;
         return anc[anc.length - 1];
@@ -47,6 +53,24 @@ var _DefaultView = {
     inHorizontal: function() {
         var p = this.parent();
         return (p && p.orient == "horizontal");
+    },
+    parsed: function() {
+        var _parsed;
+        var model = this.props.model;
+        if(model.data != null) {
+            try {
+                _parsed = util.parseData(model.data) || {};
+            } catch(e) {
+                _parsed = {};
+            }
+        } else if(model.source != null) {
+            try {
+                _parsed = util.parseSource(model.source) || {};
+            } catch(e) {
+                _parsed = {};
+            }
+        }
+        return _parsed;
     },
 };
 

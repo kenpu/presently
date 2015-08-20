@@ -95,6 +95,15 @@ function Extend(parent, model, before) {
     return newBox;
 }
 
+function ImagePaste(box, data) {
+    var image = R.Model(C("image")).New({
+        data: data,
+    });
+
+    box.children.push(image);
+    return true;
+}
+
 module.exports = function(store) {
     return R.Model("box", {
         New: New.bind(store),
@@ -104,5 +113,6 @@ module.exports = function(store) {
         Find: Find,
         Split: Split,
         Extend: Extend,
+        ImagePaste: ImagePaste,
     });
 }

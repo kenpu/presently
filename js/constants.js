@@ -11,6 +11,7 @@ var constants = {
     box: null,
     markdown: null,
     html: null,
+    image: null,
     codewalk: null,
     variant: null,
     generic: null,

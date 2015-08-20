@@ -6,11 +6,29 @@ presentations and educational materials.
 To do
 -----
 
-- Side notes in markdown (and html).
+- Section
 
-    Just insert a footnote counter (global to the entire article) in
-    the main text, and the sidebar is flushed to the right, aligned vertically.
+    - Move
+    - Delete
 
-    Syntax:
+- Segment
 
+    - Move
+    - Delete
+    - Change layout (slide vs page)
+
+- Box
+
+    - Adjust with YAML
+    - Adjust flex layout
+        - yaml:
+            css:
+                ...
+
+- Mathjax
+
+- Image
+
+    - <div><img width=100% src="base64...."></div>
+    - Paste into <Image></Image> elements during editing mode.
 

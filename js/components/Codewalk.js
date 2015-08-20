@@ -64,13 +64,20 @@ var CodeSection = Radium(React.createClass({
 var Codewalk = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
-        var s = {};
+        var s = this.defaultStyle();
+        var model = this.props.model;
+
+        if(model.source == "") {
+            s.border = 'thin dotted #aaa';
+        }
+
         if(this.props.editing) {
             s = (this.padded(s));
             if(this.isSelected()) {
                 s = this.bgHighlight(s);
             }
         }
+
         return s;
     },
     render: function() {

@@ -19,15 +19,33 @@ function move(parent, model, before) {
     }
 }
 
+// removes the model from its parent.
+// We ensure to involve the cleanup for all descendants of model.
 function remove(parent, model) {
     if(parent && model) {
         var i = parent.children.indexOf(model);
         if(i >= 0) {
             parent.children.splice(i, 1);
+
+            // cleanup the descendants
+            cleanup(model);
             return true;
         }
     }
 }
+
+function cleanup(model) {
+    if(model.children)
+        model.children.forEach(function(x) {
+            cleanup(x);
+        });
+
+    var Model = R.Model(model.T);
+    if(Model && Model.Cleanup) {
+        Model.Cleanup(model);
+    }
+}
+
 
 function copy(parent, model, before) {
 }

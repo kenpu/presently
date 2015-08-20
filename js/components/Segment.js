@@ -12,7 +12,7 @@ var Segment = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
         var isFirst = this.props.isFirst;
-        var s = {};
+        var s = this.defaultStyle();
         if(isFirst) {
             s.borderTop = '1px solid transparent';
         }

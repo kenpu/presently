@@ -106,6 +106,19 @@ var styles = {
         marginBottom: 10,
         minHeight: 50,
     },
+    image: {
+        base: {
+            flex: 1,
+            padding: 10,
+        },
+        empty: {
+            minHeight: '100px',
+            textAlign: 'center',
+        },
+        caption: {
+            fontSize: '90%',
+        },
+    },
     navbar: {
         fontFamily: 'Roboto',
         borderRadius: 0,
@@ -116,6 +129,22 @@ var styles = {
         fontSize: '10px',
         padding: 2,
         border: 'none',
+    },
+    editor: {
+        toggleBtnStyle: {
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            zIndex: 10,
+            display: 'block',
+            fontFamily: 'Roboto',
+            fontWeight: 'bold',
+            background: '#000',
+            color: '#fff',
+            padding: 4,
+            "@media print": {
+            },
+        },
     },
 };
 
