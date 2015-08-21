@@ -12,6 +12,7 @@ function Move(parent, section, before) {
     if(this.Move(parent, section, before)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -20,6 +21,7 @@ function Remove(parent, section) {
     if(this.Remove(parent, section)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }

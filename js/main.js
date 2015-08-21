@@ -22,15 +22,19 @@ require('./components/ImageTools');
 require('./components/Codewalk');
 require('./components/Variant');
 
-// Normally, we would need to load the article data
-// from the server, followed by a store.emitChange()
 
 var article;
-// article = mockArticle;
-article = ArticleModel.New();
+
+try {
+    article = JSON.parse(window.Presently.articleJSON);
+} catch(e) {
+    console.debug("Parsing failed:", e.message);
+}
+if(! article) article = ArticleModel.New();
 
 store.state({
     article: article,
+    modified: false,
     blobs: {
     },
     ui: {
@@ -55,7 +59,9 @@ $('html').pasteImageReader(function(paste) {
         var Model = R.Model(model.T);
         if(Model && Model.ImagePaste) {
             Model.ImagePaste(model, data);
-            store.emitChange();
+            store.emitChange({
+                contentChange: true,
+            });
         }
     }
 });

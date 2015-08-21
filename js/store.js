@@ -14,12 +14,16 @@ var Assign = require('object-assign');
 var state = {
     article: null,
     selection: [],
+    modified: false,
 };
 var store = Assign({}, EventEmitter.prototype, {
     emitChange: function(o) {
         o = Assign({}, o);
         if(o.resetSelection) {
             state.selection.length = 0;
+        }
+        if(o.contentChange) {
+            state.modified = true;
         }
         this.emit('change');
     },

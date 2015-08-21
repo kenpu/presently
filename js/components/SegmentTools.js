@@ -12,6 +12,7 @@ function Move(parent, model, before) {
     if(this.Move(parent, model, before)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -20,6 +21,7 @@ function Remove(parent, model) {
     if(this.Remove(parent, model)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -30,7 +32,9 @@ function ToggleLayout(segment) {
     else {
         segment.layout = "slide";
     }
-    store.emitChange();
+    store.emitChange({
+        contentChange: true,
+    });
 }
 
 var SegmentTools = function(props) {

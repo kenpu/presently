@@ -14,6 +14,7 @@ function split(box, orient) {
         Box.Split(box, orient);
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -24,19 +25,23 @@ function extend(parent, box, before) {
         Box.Extend(parent, box, before);
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
 
 function rotate(box) {
     R.Model(C("box")).Rotate(box);
-    store.emitChange();
+    store.emitChange({
+        contentChange: true,
+    });
 }
 
 function remove(parent, box) {
     if(R.Model(C("generic")).Remove(parent, box)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -45,6 +50,7 @@ function empty(parent, box) {
     box.children.length = 0;
     store.emitChange({
         resetSelection: true,
+        contentChange: true,
     });
 }
 
@@ -57,6 +63,7 @@ function unwrap(parent, box) {
             parent.children.splice.apply(parent.children, args);
             store.emitChange({
                 resetSelection: true,
+                contentChange: true,
             });
         }
     }
@@ -71,6 +78,7 @@ function wrap(parent, box) {
             parent.children.splice(i, 1, wrapper);
             store.emitChange({
                 resetSelection: true,
+                contentChange: true,
             });
         }
     }
@@ -80,6 +88,7 @@ function move(parent, box, before) {
     if(R.Model(C("generic")).Move(parent, box, before)) {
         store.emitChange({
             resetSelection: false, // same parent
+            contentChange: true,
         });
     }
 }
@@ -88,7 +97,9 @@ function add(box, T) {
     var Model = R.Model(T);
     if(Model && Model.New) {
         box.children.push(Model.New());
-        store.emitChange();
+        store.emitChange({
+            contentChange: true,
+        });
     }
 };
 

@@ -18,13 +18,17 @@ var SourceEditor = React.createClass({
             model.data = e.target.value;
         }
 
-        store.emitChange();
+        store.emitChange({
+            contentChange: true,
+        });
     },
     chgType: function(e) {
         var model = this.props.model;
         var newT = e.target.value;
         model.T = newT;
-        store.emitChange();
+        store.emitChange({
+            contentChange: true,
+        });
     },
     render: function() {
         var model = this.props.model;

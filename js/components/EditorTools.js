@@ -13,6 +13,32 @@ var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem
 
 var EditorTools = React.createClass({
+    save: function() {
+        var article = store.state().article;
+        var saveURL = window.Presently.saveURL;
+        var state = store.state();
+
+        state.modified = null;
+        store.emitChange();
+
+        $.ajax({
+            url: saveURL,
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(article),
+            success: function(reply) {
+                if(reply.error) {
+                    alert("Error: " + reply.error);
+                } else {
+                    state.modified = false;
+                    store.emitChange();
+                }
+            },
+            error: function(err) {
+                alert("Error:" + err.responseText);
+            },
+        });
+    },
     render: function() {
         var style = this.props.style || {};
 
@@ -21,7 +47,8 @@ var EditorTools = React.createClass({
         var menus = [];
         menus.push(R.Toolbar(C("article"))({key: 101}));
 
-        var selection = store.state().selection;
+        var state = store.state();
+        var selection = state.selection;
         var selected = store.selected();
         var parent = store.selectedParent();
 
@@ -65,10 +92,25 @@ var EditorTools = React.createClass({
             }
         }
 
+        var saveStyle = {};
+        var saveLabel;
+
+        if(state.modified === true) {
+            saveStyle.background = "rgba(100,0, 0, 0.2)";
+            saveLabel = "Need to save";
+        } else if(state.modified === false) {
+            saveStyle.background = "rgba(0,100,0,0.2)",
+            saveLabel = "Up to date";
+        } else {
+            saveStyle.background = "transparent";
+            saveLabel = "Saving...";
+        }
+
         return (
             <div style={style}>
                 <Navbar style={Styles.navbar}>
-                    <Nav>
+                    <Nav navbar>
+                        <MenuItem onClick={this.save} style={saveStyle} >{saveLabel}</MenuItem>
                         {menus}
                     </Nav>
                 </Navbar>

@@ -13,6 +13,7 @@ function Move(parent, model, before) {
     if(this.Move(parent, model, before)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }
@@ -21,6 +22,7 @@ function Remove(parent, model) {
     if(this.Remove(parent, model)) {
         store.emitChange({
             resetSelection: true,
+            contentChange: true,
         });
     }
 }

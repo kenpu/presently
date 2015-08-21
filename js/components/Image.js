@@ -43,7 +43,7 @@ var Image = React.createClass({
         var caption;
         if(data.caption) {
             caption = (
-                <figcaption style={Style.image.caption}>{data.caption}</figcaption>
+                <figcaption style={Styles.image.caption}>{data.caption}</figcaption>
             );
         }
 

@@ -23,7 +23,9 @@ function newSection(before) {
     var anchor = store.selected(C("section"));
 
     Section.Extend(anchor, before);
-    store.emitChange();
+    store.emitChange({
+        contentChange: true,
+    });
 
 }
 
@@ -36,7 +38,9 @@ function newSegment(layout) {
         layout: layout,
     });
 
-    store.emitChange();
+    store.emitChange({
+        contentChange: true,
+    });
 }
 
             
