@@ -34,6 +34,19 @@ function remove(parent, model) {
     }
 }
 
+
+function wrap(parent, model) {
+    if(parent && model) {
+        var i = parent.children.indexOf(model);
+        if(i >= 0) {
+            var wrapper = R.Model(C("model")).New();
+            wrapper.children.push(model);
+            parent.children.splice(i, 1, wrapper);
+        }
+    }
+}
+
+
 function cleanup(model) {
     if(model.children)
         model.children.forEach(function(x) {
@@ -55,5 +68,6 @@ module.exports = function(store) {
         Move: move,
         Remove: remove,
         Copy: copy,
+        Wrap: wrap,
     });
 };

@@ -18,7 +18,7 @@ require('./components/BoxTools');
 require('./components/Markdown');
 require('./components/Html');
 require('./components/Image');
-require('./components/ImageTools');
+require('./components/GenericTools');
 require('./components/Codewalk');
 require('./components/Variant');
 

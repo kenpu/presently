@@ -37,15 +37,6 @@ function rotate(box) {
     });
 }
 
-function remove(parent, box) {
-    if(R.Model(C("generic")).Remove(parent, box)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
-}
-
 function empty(parent, box) {
     box.children.length = 0;
     store.emitChange({
@@ -66,30 +57,6 @@ function unwrap(parent, box) {
                 contentChange: true,
             });
         }
-    }
-}
-
-function wrap(parent, box) {
-    if(parent && box) {
-        var i = parent.children.indexOf(box);
-        if(i >= 0) {
-            var wrapper = R.Model(C("box")).New();
-            wrapper.children.push(box);
-            parent.children.splice(i, 1, wrapper);
-            store.emitChange({
-                resetSelection: true,
-                contentChange: true,
-            });
-        }
-    }
-}
-
-function move(parent, box, before) {
-    if(R.Model(C("generic")).Move(parent, box, before)) {
-        store.emitChange({
-            resetSelection: false, // same parent
-            contentChange: true,
-        });
     }
 }
 
@@ -135,25 +102,12 @@ var BoxTools = function(props) {
             <MenuItem onClick={extend.bind(null, parent, box, false)}>
                 Extend after
             </MenuItem>
-            <MenuItem onClick={wrap.bind(null, parent, box)}>
-                Wrap around
-            </MenuItem>
-            <MenuItem header> Move </MenuItem>
-            <MenuItem onClick={move.bind(null, parent, box, true)}>
-                Before
-            </MenuItem>
-            <MenuItem onClick={move.bind(null, parent, box, false)}>
-                After
-            </MenuItem>
             <MenuItem header> Remove </MenuItem>
             <MenuItem onClick={unwrap.bind(null, parent, box)}>
                 Unwrap
             </MenuItem>
             <MenuItem onClick={empty.bind(null, parent, box)}>
-                Empty <b>!</b>
-            </MenuItem>
-            <MenuItem onClick={remove.bind(null, parent, box)}>
-                Delete <b>!</b>
+                <b>Empty the box</b>
             </MenuItem>
         </DropdownButton>
     );

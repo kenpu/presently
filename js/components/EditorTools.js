@@ -73,15 +73,6 @@ var EditorTools = React.createClass({
         if(selected && selected.T != C("article")) {
             var menu = R.Toolbar(selected.T);
 
-            // if parent is a box, display the box menu as well
-            if(parent && parent.T == C("box") && selected.T != C("box")) {
-                menus.push(R.Toolbar(C("box"))({
-                    key: 200,
-                    model: parent,
-                    parent: selection[selection.length-3],
-                }));
-            }
-
             // display the component menu
             if(menu) {
                 menus.push(menu({
@@ -90,6 +81,15 @@ var EditorTools = React.createClass({
                     parent: store.selectedParent(),
                 }));
             }
+
+            if(parent) {
+                menus.push(R.Toolbar(C("generic"))({
+                    key: 500,
+                    model: selected,
+                    parent: parent,
+                }));
+            }
+
         }
 
         var saveStyle = {};
