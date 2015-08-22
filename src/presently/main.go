@@ -21,18 +21,19 @@ var (
 func Router() *gin.Engine {
 	router := gin.Default()
 
-	router.LoadHTMLGlob(path.Join(TemplateDir, "includes", "*.html"))
 	router.LoadHTMLGlob(path.Join(TemplateDir, "*.html"))
 
 	// static files
 	router.StaticFS(StaticURL, http.Dir(StaticDir))
 	router.StaticFile("/favicon.ico", filepath.Join(StaticDir, "favicon.ico"))
 
-
 	// APIs
 
 	router.GET("/api/ls/*path", catch(Todo))
 	router.POST("/api/save/*path", catch(SaveHandler))
+
+	// reading
+	router.GET("/read/*path", catch(ReadHandler))
 
 	router.NoRoute(catch(PathHandler))
 
@@ -52,12 +53,12 @@ func catch(handler gin.HandlerFunc) gin.HandlerFunc {
 }
 
 func Todo(c *gin.Context) {
-	panic("TODO")
+	panic("TODO: " + c.Request.URL.Path)
 }
 
 func PathHandler(c *gin.Context) {
-	if(c.Request.Method != "GET") {
-		panic("Cannot resolve");
+	if c.Request.Method != "GET" {
+		panic("Cannot resolve")
 	}
 
 	articlePath := strings.Trim(c.Request.URL.Path, "/")
@@ -71,7 +72,7 @@ func PathHandler(c *gin.Context) {
 	case isArticle(filename):
 		ArticleHandler(c, articlePath, filename)
 	case isDirectory(filename):
-		DirectoryHandler(c, filename)
+		DirHandler(c, articlePath, filename)
 	default:
 		http.ServeFile(c.Writer, c.Request, filename)
 	}

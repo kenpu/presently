@@ -1,0 +1,44 @@
+<doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/fonts/fonts.css">
+    <style>
+    body {
+        font-family: "Ubuntu Mono"; }
+    ul.entries {
+        margin: 0;
+        padding: 10;
+        list-style: none;
+        border: thin solid #aaa;
+    }
+    .entries li:hover {
+        background: #eee;
+    }
+    .entries a {
+        display: inline-block;
+    }
+    h1 {
+        font-size: 130%;
+    }
+    h1 .glyphicon {
+        font-size: 60%;
+        vertical-align: baseline;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>{{.root}} <a href=".."><span class="glyphicon glyphicon-menu-up"></span></a></h1>
+    <ul class="entries">
+        {{if not .isroot}}
+            <li> <a href="..">..</a> </li>
+        {{end}}
+        {{ range .entries }}
+        <li> <a href="{{.Path}}" target="_blank">{{.Path}}{{if .IsDir}}/{{end}}</a></li>
+        {{ end }}
+    </ul>
+</div>
+{{ template "footer" . }}
+</body>
+</html>

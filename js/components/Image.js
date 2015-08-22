@@ -20,8 +20,8 @@ var Image = React.createClass({
 
         if(this.props.editing) {
             s = this.padded(s);
-            s = this.bordered(s);
             if(this.isSelected()) {
+                s = this.bordered(s);
                 s = this.borderHighlight(s);
             }
         }

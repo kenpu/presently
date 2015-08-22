@@ -34,7 +34,7 @@ var styles = {
         label: {
             display: 'block',
             position: 'absolute',
-            top: 0,
+            top: 10,
             left: 0,
             fontFamily: 'Ubuntu Mono',
             fontWeight: 'bold',
@@ -109,7 +109,9 @@ var styles = {
     image: {
         base: {
             flex: 1,
-            padding: 10,
+            borderColor: 'transparent',
+            borderWidth: 1,
+            borderStyle: 'solid',
         },
         empty: {
             minHeight: '100px',
@@ -142,7 +144,9 @@ var styles = {
             background: '#000',
             color: '#fff',
             padding: 4,
-            "@media print": {
+            opacity: 0.2,
+            ":hover": {
+                opacity: 1.0,
             },
         },
     },

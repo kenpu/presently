@@ -4,14 +4,13 @@
     {{ template "head" . }}
 </head>
 <body>
-    <div id="editor"></div>
+    <div id="article"></div>
     <script>
     window.Presently = {
-        saveURL: "{{.saveURL}}",
         articleJSON: "{{.article}}",
     };
     </script>
     {{ template "footer" . }}
-    <script src="/static/build/bundle.js"></script>
+    <script src="/static/build/reader.js"></script>
 </body>
 </html>

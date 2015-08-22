@@ -113,7 +113,7 @@ var Segment = React.createClass({
 
         return (
             <div className={className} style={styles} ref="element" >
-                <span style={Styles.segment.label}>{label}</span>
+                <span className="prly-segment-label" style={Styles.segment.label}>{label}</span>
                 <div className="prly-segment-body" 
                      style={Styles.segment.body}>
                     <div style={[Styles.segment.content, bodyStyle]}

@@ -22,11 +22,19 @@ pre code {
     background: 'transparent';
     font-size: inherit; }
 
+/*===== Section / Segment ====== */
+
+
 /*===== Markdown ======*/
 
 .prly-markdown p,
 .prly-markdown blockquote {
     font-size: inherit; }
+
+.prly-markdown p:last-child,
+.prly-markdown blockquote:last-child {
+    margin-bottom: 0;
+}
 
 .prly-markdown blockquote {
     border-color: #111; }
@@ -40,6 +48,10 @@ pre code {
 .prly-markdown h1 {
     font-size: 140%; }
 
+.prly-markdown h1:first-child {
+    margin-top: 0;
+}
+
 .prly-markdown h2 {
     font-size: 120%; }
 
@@ -51,6 +63,9 @@ pre code {
         margin-right: auto;
         font-size: 18pt;
     }
+
+    .prly-segment .prly-segment-label {
+        font-size: 18pt; }
 
     .prly-segment.page .prly-segment-body {
         max-width: 800px;

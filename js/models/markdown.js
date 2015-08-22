@@ -61,7 +61,8 @@ function Sidenotes(markdown) {
 function FormattedSource(markdown, o) {
     o = o || {};
 
-    var md = markdown.source;
+    var result = util.parseSource(markdown.source);
+    var md = result.source;
 
     // replace sidenotes with anchors
     if(o.sidenotes) {

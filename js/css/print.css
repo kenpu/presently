@@ -2,6 +2,11 @@
     display: none !important;
 }
 
+blockquote {
+    border: none;
+    border-left: 5px solid #888;
+}
+
 /* ========= scrollbar ========== */
 div::-webkit-scrollbar {
     display: none !important;
@@ -14,4 +19,3 @@ div::-webkit-scrollbar-track {
 div::-webkit-scrollbar-thumb {
     display: none !important;
 }
-

@@ -9,29 +9,29 @@ function New(o) {
     }
 }
 
-var SidenoteRE_pat = "^\s*/\\*={4,}\n((?:.|[\r\n])*?)^\s*={4,}\\*/\n";
+var SidenoteRE_pat = "^\\s*/\\*={4,}\n((?:.|[\r\n])*?)^\\s*={4,}\\*/\n";
 var SidenoteRE = new RegExp(SidenoteRE_pat, "m");
 var SidenoteRE_g = new RegExp(SidenoteRE_pat, 'mg');
 
 // removes the indentation of the source.
-var indentRE = "^\s+";
+var indentRE = /^\s*/;
 function dedent(src) {
-    return src;
-    /* TODO
     src = src.replace(/\t/g, "    ");
-    var m;
+    var lines = src.split("\n");
     var indent = -1;
+    lines.forEach(function(line) {
+        var m = indentRE.exec(line);
+        if(indent < m[0].length) indent = m[0].length;
+    });
 
-    do {
-        m = indentRE.exc(src);
-        if(index < m[0].length) index = m[0].length;
-    } while(m);
+    var spaces = "^";
+    for(var i=0; i < indent; i++) {
+        spaces += " ";
+    }
+    spaces = new RegExp(spaces, "mg");
+    src = src.replace(spaces, "");
 
-    // now build a replacement re
-    // and apply it to the source
-    var re = ...
-    src.replace(re, "")
-    */
+    return src;
 }
 
 // extract the first partition

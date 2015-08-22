@@ -5,18 +5,30 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path"
+	_path "path"
+	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
-// filename is the YAML encoding
 func ArticleHandler(c *gin.Context, articlePath, filename string) {
 	data := readArticle(filename)
 	c.HTML(http.StatusOK, "editor.html", gin.H{
+		"title":   articlePath,
 		"article": template.JS(data),
-		"saveURL": template.JS(path.Join("/api/save", articlePath)),
+		"saveURL": template.JS(_path.Join("/api/save", articlePath)),
+	})
+}
+
+func ReadHandler(c *gin.Context) {
+	path := c.Param("path")
+	data := readArticle(resolveFilename(path))
+
+	c.HTML(http.StatusOK, "read.html", gin.H{
+		"title":   path,
+		"article": template.JS(data),
 	})
 }
 
@@ -46,12 +58,61 @@ func SaveHandler(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"status":  "okay",
 		"path":    articlePath,
 		"written": written,
 	})
 }
 
-func DirectoryHandler(c *gin.Context, dirname string) {
-	Todo(c)
+type entry struct {
+	Path  string `json:"path"`
+	IsDir bool   `json:"isdir"`
+}
+
+type entries []entry
+
+func (list entries) Len() int {
+	return len(list)
+}
+func (list entries) Swap(i, j int) {
+	list[i], list[j] = list[j], list[i]
+}
+func (list entries) Less(i, j int) bool {
+	return list[i].Path < list[j].Path
+}
+
+func DirHandler(c *gin.Context, dirpath, dirname string) {
+	var list entries
+
+	var walker = func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		relpath := path[len(dirname):]
+
+		if len(relpath) > 0 {
+			list = append(list,
+				entry{
+					Path:  strings.Trim(_path.Join(dirpath, relpath), "/"),
+					IsDir: info.IsDir(),
+				})
+		}
+
+		return nil
+	}
+
+	sort.Sort(list)
+
+	filepath.Walk(dirname, walker)
+
+	var isroot bool = dirpath == ""
+
+	root := _path.Join(filepath.Base(Dir), dirpath)
+
+	c.HTML(http.StatusOK, "dir.html", gin.H{
+		"title":   dirpath,
+		"entries": list,
+		"root":    root,
+		"isroot":  isroot,
+	})
 }
