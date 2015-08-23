@@ -12,10 +12,17 @@ var Segment = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
         var isFirst = this.props.isFirst;
+        var isLast = this.props.isLast;
+
         var s = this.defaultStyle();
         if(isFirst) {
             s.borderTop = '1px solid transparent';
+            s.paddingTop = Styles.segment.largeGap;
         }
+        if(isLast) {
+            s.paddingBottom = Styles.segment.smallGap;
+        }
+
         if(this.props.editing) {
             if(this.isSelected(true)) {
                 s.borderLeft = '2px solid red';
@@ -111,18 +118,25 @@ var Segment = React.createClass({
             className += " " + segment.layout;
         }
 
+        var labelElement = (
+            <span className="prly-segment-label" 
+                  style={Styles.segment.label}>{label}</span>
+        );
+
         return (
             <div className={className} style={styles} ref="element" >
-                <span className="prly-segment-label" style={Styles.segment.label}>{label}</span>
-                <div className="prly-segment-body" 
-                     style={Styles.segment.body}>
-                    <div style={[Styles.segment.content, bodyStyle]}
-                         ref="content">
-                        {children}
-                    </div>
-                    <div style={[Styles.segment.sidenote, sideStyle]}
-                         ref="sidenotes">
-                        {sidenotes}
+                <div style={{position: 'relative'}}>
+                    {labelElement}
+                    <div className="prly-segment-body" 
+                         style={Styles.segment.body}>
+                        <div style={[Styles.segment.content, bodyStyle]}
+                             ref="content">
+                            {children}
+                        </div>
+                        <div style={[Styles.segment.sidenote, sideStyle]}
+                             ref="sidenotes">
+                            {sidenotes}
+                        </div>
                     </div>
                 </div>
             </div>

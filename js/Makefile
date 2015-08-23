@@ -1,5 +1,6 @@
 all:
 	browserify -v -d -o ./build/bundle.js -e main.js
+	browserify -v -d -o ./build/reader.js -e reader.js
 
 watch-editor:
 	npm start

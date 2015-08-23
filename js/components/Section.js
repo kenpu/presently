@@ -22,14 +22,15 @@ var Section = React.createClass({
         var editing = this.props.editing;
         var ancestor = this.props.ancestor;
 
-        var sectionBody = section.children.map(function(segment, i) {
+        var sectionBody = section.children.map(function(segment, i, array) {
             return (
                 <Segment key={i} 
                          editing={editing}
                          model={segment} 
                          ancestors={ancestor.concat(section)}
                          label={label + "." + (i+1)} 
-                         isFirst={i == 0}/>
+                         isFirst={i == 0}
+                         isLast={i == array.length-1}/>
             );
         });
 

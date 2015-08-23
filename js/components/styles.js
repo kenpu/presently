@@ -17,36 +17,34 @@ var styles = {
     section: {
         base: {
             width: '100%',
-            marginBottom: 50,
         },
     },
     segment: {
+        largeGap: 100,
+        smallGap: 50,
         base: {
             width: "100%",
             display: 'flex',
             flexDirection: 'column',
             marginBottom: 0,
-            paddingLeft: 50,
-            position: 'relative',
             borderLeft: '2px solid transparent',
             borderTop: '1px solid #888',
+            paddingTop: 50,
+            paddingBottom: 50,
         },
         label: {
-            display: 'block',
             position: 'absolute',
-            top: 10,
-            left: 0,
+            top: 0,
+            left: 10,
             fontFamily: 'Ubuntu Mono',
             fontWeight: 'bold',
             padding: 5,
-            width: 50,
-            textAlign: 'center',
         },
         body: {
             width: '100%',
             display: 'flex',
             flexDirection: 'row',
-            minHeight: 200,
+            minHeight: 50,
         },
         content: {
             flex: 4,
