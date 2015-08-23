@@ -13,11 +13,13 @@ var Segment = React.createClass({
     style: function() {
         var isFirst = this.props.isFirst;
         var isLast = this.props.isLast;
+        var inFirstSection = this.props.inFirstSection;
 
         var s = this.defaultStyle();
         if(isFirst) {
             s.borderTop = '1px solid transparent';
-            s.paddingTop = Styles.segment.largeGap;
+            if(! inFirstSection)
+                s.paddingTop = Styles.segment.largeGap;
         }
         if(isLast) {
             s.paddingBottom = Styles.segment.smallGap;

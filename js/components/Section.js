@@ -21,6 +21,7 @@ var Section = React.createClass({
         var label = this.props.label;
         var editing = this.props.editing;
         var ancestor = this.props.ancestor;
+        var isFirst = this.props.isFirst;
 
         var sectionBody = section.children.map(function(segment, i, array) {
             return (
@@ -30,7 +31,8 @@ var Section = React.createClass({
                          ancestors={ancestor.concat(section)}
                          label={label + "." + (i+1)} 
                          isFirst={i == 0}
-                         isLast={i == array.length-1}/>
+                         isLast={i == array.length-1}
+                         inFirstSection={isFirst} />
             );
         });
 

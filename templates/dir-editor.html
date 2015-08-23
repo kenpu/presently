@@ -38,8 +38,6 @@
         {{ range .entries }}
             {{if .IsDir}}
             <li> <a href="{{.URL}}" >{{.URL}}/</a></li>
-            {{else if .IsArticle}}
-            <li> <a href="{{.URL}}.html" target="_blank">{{.URL}}</a></li>
             {{else}}
             <li> <a href="{{.URL}}" target="_blank">{{.URL}}</a></li>
             {{end}}

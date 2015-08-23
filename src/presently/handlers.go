@@ -7,7 +7,6 @@ import (
 	"os"
 	_path "path"
 	"path/filepath"
-	"sort"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -63,53 +62,13 @@ func SaveHandler(c *gin.Context) {
 	})
 }
 
-type entry struct {
-	Path  string `json:"path"`
-	IsDir bool   `json:"isdir"`
-}
-
-type entries []entry
-
-func (list entries) Len() int {
-	return len(list)
-}
-func (list entries) Swap(i, j int) {
-	list[i], list[j] = list[j], list[i]
-}
-func (list entries) Less(i, j int) bool {
-	return list[i].Path < list[j].Path
-}
-
 func DirHandler(c *gin.Context, dirpath, dirname string) {
-	var list entries
-
-	var walker = func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		relpath := path[len(dirname):]
-
-		if len(relpath) > 0 {
-			list = append(list,
-				entry{
-					Path:  strings.Trim(_path.Join(dirpath, relpath), "/"),
-					IsDir: info.IsDir(),
-				})
-		}
-
-		return nil
-	}
-
-	sort.Sort(list)
-
-	filepath.Walk(dirname, walker)
 
 	var isroot bool = dirpath == ""
+	var root = _path.Join(filepath.Base(Dir), dirpath)
+	var list entries = listRepo(dirpath, dirname, 1024*10)
 
-	root := _path.Join(filepath.Base(Dir), dirpath)
-
-	c.HTML(http.StatusOK, "dir.html", gin.H{
+	c.HTML(http.StatusOK, "dir-editor.html", gin.H{
 		"title":   dirpath,
 		"entries": list,
 		"root":    root,
