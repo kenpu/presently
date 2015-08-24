@@ -59,7 +59,19 @@ func (list entries) Swap(i, j int) {
 	list[i], list[j] = list[j], list[i]
 }
 func (list entries) Less(i, j int) bool {
-	return list[i].Path < list[j].Path
+	var a, b = list[i], list[j]
+	var dir_a, dir_b = filepath.Dir(a.Path), filepath.Dir(b.Path)
+	var base_a, base_b = filepath.Base(a.Path), filepath.Base(b.Path)
+
+	if dir_a == dir_b {
+		if a.IsDir == b.IsDir {
+			return base_a < base_b
+		} else {
+			return (!a.IsDir && b.IsDir)
+		}
+	} else {
+		return dir_a < dir_b
+	}
 }
 
 func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
@@ -83,14 +95,16 @@ func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
 		var url = _path.Join(topURL, relpath)
 		var dir = filepath.Join(topDir, relpath)
 
-		list = append(list,
-			entry{
-				URL:       url,
-				Path:      dir,
-				Relpath:   relpath,
-				IsDir:     info.IsDir(),
-				IsArticle: isArticle(dir),
-			})
+		if len(relpath) > 0 {
+			list = append(list,
+				entry{
+					URL:       url,
+					Path:      dir,
+					Relpath:   relpath,
+					IsDir:     info.IsDir(),
+					IsArticle: isArticle(dir),
+				})
+		}
 
 		return nil
 	}

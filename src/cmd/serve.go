@@ -1,14 +1,25 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("."))
+	var (
+		dir  string
+		port string
+	)
+
+	flag.StringVar(&dir, "dir", ".", "Directory to serve.")
+	flag.StringVar(&port, "port", "8080", "Port to serve.")
+	flag.Parse()
+
+	fs := http.FileServer(http.Dir(dir))
 	http.Handle("/", fs)
 
-	fmt.Println("Serving current directory @8080.")
-	http.ListenAndServe("0.0.0.0:8080", nil)
+	fmt.Printf("[%s] @ [%s]\n", dir, port)
+
+	http.ListenAndServe("0.0.0.0:"+port, nil)
 }

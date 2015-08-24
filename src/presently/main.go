@@ -61,7 +61,7 @@ func PathHandler(c *gin.Context) {
 		panic("Cannot resolve")
 	}
 
-	articlePath := strings.Trim(c.Request.URL.Path, "/")
+	articlePath := strings.TrimRight(c.Request.URL.Path, "/")
 	filename := resolveFilename(articlePath)
 
 	if !exists(filename) {
