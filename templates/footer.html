@@ -1,4 +1,23 @@
 {{define "footer"}}
     <script src="/static/libs/jquery.min.js"></script>
     <script src="/static/libs/jquery-paste-image.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        elements: [],
+        skipStartupTypeset: true,
+        showMathMenu: false,
+        zoom: "None",
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true,
+          skipTags: ["script", "noscript", "style", "textarea", "nomath"],
+          ignoreClass: "nomath|nomathjax|tex2jax_ignore",
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 {{end}}

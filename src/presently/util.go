@@ -75,6 +75,14 @@ func (list entries) Less(i, j int) bool {
 	}
 }
 
+func shouldIgnore(path string) bool {
+	base := filepath.Base(path)
+	if strings.HasPrefix(base, ".") || base == "Makefile" || strings.HasSuffix(base, "private") {
+		return true
+	}
+	return false
+}
+
 func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
 	var counter int64
 
@@ -86,7 +94,7 @@ func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
 			return err
 		}
 
-		if strings.HasPrefix(filepath.Base(path), ".") {
+		if shouldIgnore(path) {
 			return filepath.SkipDir
 		}
 

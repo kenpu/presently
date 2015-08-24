@@ -7,6 +7,7 @@ all: styles
 	rm -f ./build/e.js ./build/r.js
 	
 styles:
+	rm -rf build/css
 	cp -R ./css build/css
 
 watch-editor:

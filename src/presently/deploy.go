@@ -7,7 +7,6 @@ import (
 	"os"
 	_path "path"
 	"path/filepath"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -71,7 +70,8 @@ func copyDir(target, source string) {
 		if err != nil {
 			return err
 		}
-		if strings.HasPrefix(filepath.Base(path), ".") {
+
+		if shouldIgnore(path) {
 			return filepath.SkipDir
 		}
 

@@ -19,8 +19,8 @@ code,
 pre code {
     border: none;
     border-radius: 0;
-    background: 'transparent';
-    font-size: inherit; }
+    background: transparent;
+    font-size: 90%; }
 
 /*===== Section / Segment ====== */
 

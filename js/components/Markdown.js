@@ -36,10 +36,16 @@ var Markdown = React.createClass({
 
         var source = Model.FormattedSource(markdown, {sidenotes: true});
 
+        var mathjax = false;
+        if (/^@math/m.exec(markdown.source) && !this.props.editing) {
+            mathjax = true;
+        }
+
         return (
             <Raw className="prly-markdown" 
                  tag="div" 
-                 source={source} 
+                 source={source}
+                 mathjax={mathjax}
                  style={[Styles.markdown, this.style()]} 
                  ref="element" />
         );

@@ -4,6 +4,12 @@ var Radium = require('radium');
 var Raw = React.createClass({
     postprocess: function() {
         var element = React.findDOMNode(this.refs.element);
+
+        if(this.props.mathjax && window.MathJax) {
+            console.debug("Mathjax queu");
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+        }
+
         // mathjax
         // syntax highlighting
         // JS dom stuff (sidebar, audio)
