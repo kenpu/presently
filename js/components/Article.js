@@ -36,7 +36,7 @@ var Article = React.createClass({
             articleBody.push(
                 <Section key={i}
                          model={section} 
-                         ancestor={[article]}
+                         ancestors={[article]}
                          label={i+1} editing={editing} isFirst={i==0} />
             );
         });

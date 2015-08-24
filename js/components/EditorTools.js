@@ -70,7 +70,10 @@ var EditorTools = React.createClass({
             }));
         }
 
-        if(selected && selected.T != C("article") && selected.T != C("segment")) {
+        if(selected 
+                && selected.T != C("article") 
+                && selected.T != C("segment")
+                && selected.T != C("section")) {
             var menu = R.Toolbar(selected.T);
 
             // display the component menu

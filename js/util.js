@@ -19,6 +19,23 @@ marked.setOptions({
     smartypants: true,
 });
 
+function locate(node, model) {
+    if(node.children) {
+        for(var i in node.children) {
+            var child = node.children[i];
+            if(child == model) {
+                return [child];
+            } else {
+                var branch = locate(child, model);
+                if(branch) {
+                    branch.unshift(child);
+                    return branch;
+                }
+            }
+        }
+    }
+    return null;
+}
 
 module.exports = {
     assert: assert,
@@ -131,6 +148,8 @@ module.exports = {
     md2html: function(md) {
         return marked(md);
     },
+
+    locate: locate,
 
     nop: function() {
     },

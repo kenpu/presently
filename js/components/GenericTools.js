@@ -51,7 +51,12 @@ function Paste(model) {
     });
 }
 
-function Cut(parent, model) {
+function PasteMove(model) {
+    this.PasteMove(model);
+    store.emitChange({
+        resetSelection: true,
+        contentChange: true,
+    });
 }
 
 var Tools = function(props) {
@@ -60,14 +65,29 @@ var Tools = function(props) {
     var generic = R.Model(C("generic"));
 
     var pasteInto;
-    if(generic.CanPasteInto(model)) {
-        pasteInto = (
-            <MenuItem onClick={Paste.bind(generic, model)}>
-                <span style={Styles.editor.indented}>
-                    Paste
-                </span>
-            </MenuItem>
-        );
+    if(store.state().copy) {
+        if(generic.CanPasteInto(model)) {
+            pasteInto = [
+                <MenuItem onClick={Paste.bind(generic, model)}>
+                    <span style={Styles.editor.indented}>
+                        Paste
+                    </span>
+                </MenuItem>,
+                <MenuItem onClick={PasteMove.bind(generic, model)}>
+                    <span style={Styles.editor.indented}>
+                        Paste move
+                    </span>
+                </MenuItem>
+            ];
+        } else {
+            pasteInto = (
+                <MenuItem disabled>
+                    <span style={Styles.editor.indented}>
+                        Incompatible paste
+                    </span>
+                </MenuItem>
+            );
+        }
     }
     return (
         <DropdownButton title="Element" key={props.key} onSelect={util.nop} >
@@ -77,11 +97,6 @@ var Tools = function(props) {
             <MenuItem onClick={Copy.bind(generic, model)}>
                 <span style={Styles.editor.indented}>
                     Copy
-                </span>
-            </MenuItem>
-            <MenuItem onClick={Cut.bind(generic, parent, model)}>
-                <span style={Styles.editor.indented}>
-                    Cut
                 </span>
             </MenuItem>
             <MenuItem onClick={Remove.bind(generic, parent, model)}>

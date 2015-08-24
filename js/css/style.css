@@ -58,11 +58,10 @@ pre code {
 /* ===== Segment ===== */
 @media screen {
     .prly-segment.slide .prly-segment-body {
-        max-width: 1024px;
+        max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
-        font-size: 18pt;
-    }
+        font-size: 18pt; }
 
     .prly-segment .prly-segment-label {
         font-size: 18pt; }

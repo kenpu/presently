@@ -61,7 +61,12 @@ function cleanup(model) {
 
 
 function copyModel(model) {
-    this.state().copy = model;
+    var state = this.state();
+    if(state.copy == model) {
+        state.copy = null;
+    } else {
+        state.copy = model;
+    }
 }
 
 function canPasteInto(parent) {
@@ -87,6 +92,21 @@ function paste(parent) {
     }
 }
 
+function pastemove(parent) {
+    var state = this.state();
+
+    if(canPasteInto.call(this, parent)) {
+        var copy = state.copy;
+        var branch = util.locate(state.article, copy);
+        if(branch.length > 1) {
+            var oldparent = branch[branch.length - 2];
+            remove(oldparent, copy);
+            parent.children.push(copy);
+            state.copy = null;
+        }
+    }
+}
+
 function clone(model) {
     // recursively clone the model
     if(model.children) {
@@ -107,6 +127,7 @@ module.exports = function(store) {
         Copy: copyModel.bind(store),
         Wrap: wrap,
         Paste: paste.bind(store),
+        PasteMove: pastemove.bind(store),
         CanPasteInto: canPasteInto.bind(store),
     });
 };

@@ -7,6 +7,7 @@ var R = require('../registry');
 var C = require('../constants');
 var Styles = require('./styles');
 var Radium = require('radium');
+var Assign = require('object-assign');
 
 var Segment = React.createClass({
     mixins: [_DefaultView, _SelectableView],
@@ -27,7 +28,7 @@ var Segment = React.createClass({
 
         if(this.props.editing) {
             if(this.isSelected(true)) {
-                s.borderLeft = '2px solid red';
+                s = Assign(s, Styles.segment.selected);
             }
         }
 

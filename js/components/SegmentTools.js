@@ -3,6 +3,7 @@ var C = require('../constants');
 var R = require('../registry');
 var store = require('../store');
 var util = require('../util');
+var Styles = require('./styles');
 
 var Bootstrap = require('react-bootstrap');
 var DropdownButton = Bootstrap.DropdownButton;
@@ -37,6 +38,14 @@ function ToggleLayout(segment) {
     });
 }
 
+function Copy(model) {
+    this.Copy(model);
+    store.emitChange({
+        resetSelection: false,
+        contentChange: false,
+    });
+}
+
 var SegmentTools = function(props) {
     var model = props.model;
     var parent = props.parent;
@@ -55,9 +64,17 @@ var SegmentTools = function(props) {
             <MenuItem onClick={Move.bind(generic, parent, model, false)}>
                 Move after
             </MenuItem>
-            <MenuItem header>Delete</MenuItem>
+            <MenuItem divider />
+            <MenuItem header>Edit</MenuItem>
+            <MenuItem onClick={Copy.bind(generic, model)}>
+                <span style={Styles.editor.indented}>
+                    Copy segment
+                </span>
+            </MenuItem>
             <MenuItem onClick={Remove.bind(generic, parent, model)}>
-                Delete segment <b>!</b>
+                <span style={Styles.editor.indented}>
+                    Delete segment <b>!</b>
+                </span>
             </MenuItem>
         </DropdownButton>
     );

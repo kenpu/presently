@@ -1,5 +1,11 @@
 var C = require('../constants');
 
+var readingScreen = "@media (max-width: 1023px)";
+var largeScreen = "@media (min-width: 1200px)";
+var tabletScreen = "@media (min-width: 768px) and (max-width: 979px)";
+
+
+
 var styles = {
     borderColor: '#aaa',
     borderHLColor: '#f00',
@@ -17,7 +23,17 @@ var styles = {
     section: {
         base: {
             width: '100%',
+            borderLeftWidth: 5,
+            borderLeftStyle: 'solid',
+            borderLeftColor: '#aaa',
         },
+        empty: {
+            height: 100,
+            background: "#eee",
+        },
+        selected: {
+            borderLeftColor: "#00f",
+        }
     },
     segment: {
         largeGap: 100,
@@ -27,14 +43,17 @@ var styles = {
             display: 'flex',
             flexDirection: 'column',
             marginBottom: 0,
-            borderLeft: '2px solid transparent',
+            borderLeft: '5px solid transparent',
             borderTop: '1px solid #888',
             paddingTop: 50,
             paddingBottom: 50,
         },
+        selected: {
+            borderLeft: '5px solid red',
+        },
         label: {
             position: 'absolute',
-            top: 0,
+            top: 5,
             left: 10,
             fontFamily: 'Ubuntu Mono',
             fontWeight: 'bold',
@@ -151,6 +170,11 @@ var styles = {
             marginLeft: 20,
         },
     },
+};
+
+// Responsive design
+styles.segment.label[readingScreen] = {
+    position: 'relative',
 };
 
 module.exports = styles;

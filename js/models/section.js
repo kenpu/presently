@@ -8,7 +8,7 @@ function New(o) {
 
     var section = {
         T: C("section"),
-        source: "",
+        data: "",
         children: [],       // array of segments
     };
 

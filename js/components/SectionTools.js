@@ -3,6 +3,7 @@ var C = require('../constants');
 var R = require('../registry');
 var store = require('../store');
 var util = require('../util');
+var Styles = require('./styles');
 
 var Bootstrap = require('react-bootstrap');
 var DropdownButton = Bootstrap.DropdownButton;
@@ -26,13 +27,34 @@ function Remove(parent, section) {
     }
 }
 
+function PasteMove(model) {
+    this.PasteMove(model);
+    store.emitChange({
+        resetSelection: true,
+        contentChange: true,
+    });
+}
+
 var SectionTools = function(props) {
     var section = props.model;
     var parent = props.parent;
     var generic = R.Model(C("generic"));
 
+    var pasteInto;
+    if(store.state().copy && generic.CanPasteInto(section)) {
+        pasteInto = (
+            <MenuItem onClick={PasteMove.bind(generic, section)} >
+                <span style={Styles.editor.indented}>
+                    Paste move
+                </span>
+            </MenuItem>
+        );
+    }
+
     return (
         <DropdownButton title="Section" key={props.key} onSelect={util.nop} >
+            {pasteInto}
+
             <MenuItem header>Move</MenuItem>
             <MenuItem onClick={Move.bind(generic, parent, section, true)}>
                 Move before
