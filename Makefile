@@ -8,6 +8,7 @@ build-cmd:
 
 
 build-files:
+	rm -rf ./build/static ./build/templates
 	mkdir -p ./build/static
 	mkdir -p ./build/templates
 

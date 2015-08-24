@@ -60,14 +60,53 @@ function cleanup(model) {
 }
 
 
-function copy(parent, model, before) {
+function copyModel(model) {
+    this.state().copy = model;
+}
+
+function canPasteInto(parent) {
+    var copy = this.state().copy;
+
+    if(! copy) return false;
+    if(! parent.children) return false;
+
+    if(parent.T == C("section"))
+        return copy.T == C("segment");
+
+    if(parent.T == C("segment"))
+        return copy.T == C("box");
+
+    return true;
+}
+
+function paste(parent) {
+    if(canPasteInto.call(this, parent)) {
+        var copy = this.state().copy;
+        parent.children.push(clone(copy));
+        this.state().copy = null;
+    }
+}
+
+function clone(model) {
+    // recursively clone the model
+    if(model.children) {
+        var children = model.children.map(function(child) {
+            return clone(child);
+        });
+
+        return Assign({}, model, {children: children});
+    } else {
+        return Assign({}, model);
+    }
 }
 
 module.exports = function(store) {
     return R.Model(C("generic"), {
         Move: move,
         Remove: remove,
-        Copy: copy,
+        Copy: copyModel.bind(store),
         Wrap: wrap,
+        Paste: paste.bind(store),
+        CanPasteInto: canPasteInto.bind(store),
     });
 };

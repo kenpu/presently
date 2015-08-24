@@ -13,8 +13,9 @@ var Assign = require('object-assign');
 
 var state = {
     article: null,
-    selection: [],
     modified: false,
+    selection: [],
+    copy: null,
 };
 var store = Assign({}, EventEmitter.prototype, {
     emitChange: function(o) {
@@ -62,6 +63,9 @@ var store = Assign({}, EventEmitter.prototype, {
         } else {
             return(model == state.selection[state.selection.length - 1]);
         }
+    },
+    isCopied: function(model) {
+        return state.copy == model;
     },
 });
 

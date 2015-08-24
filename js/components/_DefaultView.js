@@ -1,6 +1,7 @@
 var Assign = require('object-assign');
 var Styles = require('./styles');
 var util = require('../util');
+var store = require('../store');
 
 var _DefaultView = {
     bordered: function(style) {
@@ -43,6 +44,16 @@ var _DefaultView = {
     },
     defaultStyle: function() {
         var style = this.parsed().style || {};
+        var model = this.props.model;
+
+        if(store.isCopied(model)) {
+            style = Assign({
+                borderColor: "#000",
+                borderWidth: 1,
+            }, style, {
+                borderStyle: 'dashed',
+            });
+        }
 
         return style;
     },

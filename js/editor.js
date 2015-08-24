@@ -34,9 +34,6 @@ if(! article) article = ArticleModel.New();
 
 store.state({
     article: article,
-    modified: false,
-    blobs: {
-    },
     ui: {
         screenSplit: 0.6,
         zoom: null,

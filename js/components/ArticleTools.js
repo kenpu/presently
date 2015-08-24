@@ -48,16 +48,33 @@ var ArticleTools = function(props) {
     return (
         <DropdownButton title="Article" key={props.key} onSelect={util.nop} >
             <MenuItem header>Section</MenuItem>
-            <MenuItem onClick={newSection.bind(null, true)}>Before</MenuItem>
-            <MenuItem onClick={newSection.bind(null, false)}>After</MenuItem>
+            <MenuItem onClick={newSection.bind(null, true)}>
+                <span style={Styles.editor.indented}>Before</span>
+            </MenuItem>
+            <MenuItem onClick={newSection.bind(null, false)}>
+                <span style={Styles.editor.indented}>After</span>
+            </MenuItem>
+            <MenuItem divider />
+
             <MenuItem header>Segment</MenuItem>
-            <MenuItem onClick={newSegment.bind(null, 'slide')}>Slide</MenuItem>
-            <MenuItem onClick={newSegment.bind(null, 'page')}>Page</MenuItem>
+            <MenuItem onClick={newSegment.bind(null, 'slide')}>
+                <span style={Styles.editor.indented}>Slide</span>
+            </MenuItem>
+            <MenuItem onClick={newSegment.bind(null, 'page')}>
+                <span style={Styles.editor.indented}>Page</span>
+            </MenuItem>
+            <MenuItem divider />
 
 
             <MenuItem header>Zoom</MenuItem>
-            <MenuItem onClick={changeZoom.bind(null, 1)}>100%</MenuItem>
-            <MenuItem onClick={changeZoom.bind(null, null)}>Default</MenuItem>
+            <MenuItem onClick={changeZoom.bind(null, 1)}>
+                <span style={Styles.editor.indented}>100%</span>
+            </MenuItem>
+            <MenuItem onClick={changeZoom.bind(null, null)}>
+                <span style={Styles.editor.indented}>
+                    Default
+                </span>
+            </MenuItem>
         </DropdownButton>
     );
 };

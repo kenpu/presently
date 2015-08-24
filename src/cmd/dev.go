@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 	"presently"
+	"time"
+
+	"github.com/skratchdot/open-golang/open"
 )
 
 func main() {
@@ -20,5 +23,10 @@ func main() {
 
 	fmt.Println("TemplateDir =", presently.TemplateDir)
 
+	go func() {
+		url := "http://localhost:" + presently.Port
+		time.Sleep(400 * time.Millisecond)
+		open.Start(url)
+	}()
 	presently.Serve()
 }

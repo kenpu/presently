@@ -147,6 +147,9 @@ var styles = {
                 opacity: 1.0,
             },
         },
+        indented: {
+            marginLeft: 20,
+        },
     },
 };
 
