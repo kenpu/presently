@@ -22,7 +22,8 @@ func resolveFilename(path string) string {
 }
 
 func isArticle(filename string) bool {
-	return !(strings.Contains(filename, ".") || isDirectory(filename))
+	basename := filepath.Base(filename)
+	return !(strings.Contains(basename, ".") || isDirectory(filename))
 }
 
 func isDirectory(name string) bool {
@@ -83,6 +84,10 @@ func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
 	var walker = func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
+		}
+
+		if strings.HasPrefix(filepath.Base(path), ".") {
+			return filepath.SkipDir
 		}
 
 		counter += 1

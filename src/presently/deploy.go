@@ -7,6 +7,7 @@ import (
 	"os"
 	_path "path"
 	"path/filepath"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -69,6 +70,9 @@ func copyDir(target, source string) {
 	var walker = func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
+		}
+		if strings.HasPrefix(filepath.Base(path), ".") {
+			return filepath.SkipDir
 		}
 
 		var relpath = path[len(source):]
@@ -152,9 +156,9 @@ func Deploy() {
 
 	// generate the top index
 	makeDir(filepath.Join(DeployDir, "index.html"), gin.H{
-		"title": filepath.Base(Dir),
+		"title":   filepath.Base(Dir),
 		"entries": list,
-		"root": filepath.Base(Dir),
-		"isroot": true,
+		"root":    filepath.Base(Dir),
+		"isroot":  true,
 	})
 }

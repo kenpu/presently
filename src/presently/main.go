@@ -21,6 +21,7 @@ var (
 func Router() *gin.Engine {
 	router := gin.Default()
 
+	log.Printf("Using templatedir: %s", TemplateDir)
 	router.LoadHTMLGlob(path.Join(TemplateDir, "*.html"))
 
 	// static files

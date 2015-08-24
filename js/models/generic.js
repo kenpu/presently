@@ -39,7 +39,7 @@ function wrap(parent, model) {
     if(parent && model) {
         var i = parent.children.indexOf(model);
         if(i >= 0) {
-            var wrapper = R.Model(C("model")).New();
+            var wrapper = R.Model(C("box")).New();
             wrapper.children.push(model);
             parent.children.splice(i, 1, wrapper);
         }

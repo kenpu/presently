@@ -6,5 +6,8 @@ all:
 	cp -R ./js/build ./build/static
 	cp -R ./templates ./build/templates
 
+install:
+	mkdir -p $(HOME)/bin/presently
+	cp -R ./build/* $(HOME)/bin/presently
 clean:
 	rm -rf ./build/*
