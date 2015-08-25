@@ -35,14 +35,14 @@ var CodeSection = Radium(React.createClass({
         if(this.props.hasSidenotes) {
             noteElem = (
                 <Raw tag="div" 
-                    html={sidenoteHtml}
+                    source={sidenoteHtml}
                     mathjax={mathjax}
                     style={[Styles.codewalk.side]} />
             );
         }
 
         if(lang.startsWith('math')) {
-            codeElem = <Raw tag="pre" html={code} mathjax={mathjax} style={Styles.codewalk.pre} className="prly-code mathjax" />
+            codeElem = <Raw tag="pre" source={code} mathjax={mathjax} style={Styles.codewalk.pre} className="prly-code mathjax" />
         } else {
             try {
                 var hlCode = hl.highlight(lang, code);

@@ -20,8 +20,11 @@ var Raw = React.createClass({
     componentDidUpdate: function() {
         this.postprocess();
     },
+    shouldComponentUpdate: function(nextprops, nextstate) {
+        return this.props.source != nextprops.source;
+    },
     render: function() {
-        var source = this.props.source || this.props.html || "";
+        var source = this.props.source || "";
         var tag = this.props.tag || "div";
         var className = this.props.className;
 

@@ -22,6 +22,10 @@ pre code {
     background: transparent;
     font-size: 90%; }
 
+hr {
+    border-top-color: #888;
+}
+
 /*===== Section / Segment ====== */
 
 

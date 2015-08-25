@@ -99,6 +99,7 @@ var styles = {
             maxWidth: '30%',
             minWidth: '30%',
             padding: '5 0 5 10',
+            fontSize: '90%',
         },
         pre: {
             flex: 1,

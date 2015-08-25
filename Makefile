@@ -1,4 +1,13 @@
-all: build-cmd build-files
+prod: build-cmd build-files
+
+devjs: build-cmd
+	rm -rf ./build/static
+	rm -rf ./build/templates
+	mkdir -p ./build/static
+	ln -s $(PWD)/js/build/*.js ./build/static/
+	ln -s $(PWD)/js/css ./build/static/css
+	ln -s $(PWD)/js/libs ./build/static/libs
+	ln -s $(PWD)/templates ./build/templates
 
 build-cmd:
 	mkdir -p ./build
@@ -22,7 +31,7 @@ link-files:
 	ln -s $(PWD)/templates ./build/templates
 
 install:
-	mkdir -p $(HOME)/bin/presently
-	cp -R ./build/* $(HOME)/bin/presently
+	rm -rf $(HOME)/bin/presently
+	ln -s $(PWD)/build $(HOME)/bin/presently
 clean:
 	rm -rf ./build/*

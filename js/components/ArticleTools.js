@@ -43,6 +43,10 @@ function newSegment(layout) {
     });
 }
 
+function Read() {
+    var readURL = "/read" + window.location.pathname;
+    window.open(readURL);
+}
             
 var ArticleTools = function(props) {
     return (
@@ -73,6 +77,11 @@ var ArticleTools = function(props) {
             <MenuItem onClick={changeZoom.bind(null, null)}>
                 <span style={Styles.editor.indented}>
                     Default
+                </span>
+            </MenuItem>
+            <MenuItem onClick={Read}>
+                <span style={Styles.editor.indented}>
+                    Read
                 </span>
             </MenuItem>
         </DropdownButton>
