@@ -55,6 +55,12 @@ pre code {
 .prly-markdown h2 {
     font-size: 120%; }
 
+/* ====== Codewalk ========= */
+
+.prly-code.math .MathJax_Display {
+    margin: 0 !important;
+}
+
 /* ===== Segment ===== */
 @media screen {
     .prly-segment.slide .prly-segment-body {

@@ -30,28 +30,34 @@ var CodeSection = Radium(React.createClass({
 
         var codeElem, noteElem;
 
+        var mathjax = (! this.props.editing);
+
         if(this.props.hasSidenotes) {
             noteElem = (
                 <Raw tag="div" 
                     html={sidenoteHtml}
+                    mathjax={mathjax}
                     style={[Styles.codewalk.side]} />
             );
         }
 
-        try {
-            var hlCode = hl.highlight(lang, code);
-            code = hlCode.value;
-        } catch(e) {
-            ;
+        if(lang.startsWith('math')) {
+            codeElem = <Raw tag="pre" html={code} mathjax={mathjax} style={Styles.codewalk.pre} className="prly-code mathjax" />
+        } else {
+            try {
+                var hlCode = hl.highlight(lang, code);
+                code = hlCode.value;
+            } catch(e) {
+                ;
+            }
+            
+            codeElem = (
+                <pre className="prly-code hljs"
+                    style={Styles.codewalk.pre}>
+                    <code dangerouslySetInnerHTML={{__html: code}} /> 
+                </pre>
+            );
         }
-
-        codeElem = (
-            <pre className="prly-code hljs"
-                style={Styles.codewalk.pre}>
-                <code dangerouslySetInnerHTML={{__html: code}} /> 
-            </pre>
-        );
-
         return (
             <div style={[Styles.codewalk.section, style]}>
                 {codeElem}
@@ -84,6 +90,7 @@ var Codewalk = React.createClass({
         var model = this.props.model;
         var parent = this.props.parent;
         var isFirst = this.props.isFirst;
+        var editing = this.props.editing;
 
         var result = R.Model(C("codewalk")).Parse(model);
 
@@ -95,6 +102,7 @@ var Codewalk = React.createClass({
                              lang={lang}
                              key={i} 
                              isFirst={i == 0} 
+                             editing={editing}
                              hasSidenotes={result.hasSidenotes} />
             );
         });
