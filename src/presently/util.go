@@ -21,9 +21,17 @@ func resolveFilename(path string) string {
 	return filepath.Join(Dir, path)
 }
 
-func isArticle(filename string) bool {
-	basename := filepath.Base(filename)
-	return !(strings.Contains(basename, ".") || isDirectory(filename))
+func isArticle(filename string) (result bool) {
+	if isDirectory(filename) {
+		result = false
+	} else {
+		ext := filepath.Ext(filename)
+		if len(ext) == 0 || len(ext) >= 5 {
+			result = true
+		}
+	}
+
+	return
 }
 
 func isDirectory(name string) bool {

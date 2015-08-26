@@ -21,7 +21,12 @@ var Raw = React.createClass({
         this.postprocess();
     },
     shouldComponentUpdate: function(nextprops, nextstate) {
-        return this.props.source != nextprops.source;
+        var update = false;
+        if(this.props.source != nextprops.source || this.props.style != nextprops.style) {
+            update = true
+        }
+
+        return update;
     },
     render: function() {
         var source = this.props.source || "";

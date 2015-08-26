@@ -71,10 +71,13 @@ func PathHandler(c *gin.Context) {
 
 	switch {
 	case isArticle(filename):
+		log.Printf("[Article] %s", filename)
 		ArticleHandler(c, articlePath, filename)
 	case isDirectory(filename):
+		log.Printf("[Directory] %s", filename)
 		DirHandler(c, articlePath, filename)
 	default:
+		log.Printf("[File] %s", filename)
 		http.ServeFile(c.Writer, c.Request, filename)
 	}
 }
