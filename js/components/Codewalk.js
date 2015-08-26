@@ -41,7 +41,8 @@ var CodeSection = Radium(React.createClass({
             );
         }
 
-        if(lang.startsWith('math')) {
+        if(lang.startsWith && lang.startsWith('math')) {
+            mathjax = true;
             codeElem = <Raw tag="pre" source={code} mathjax={mathjax} style={Styles.codewalk.pre} className="prly-code mathjax" />
         } else {
             try {

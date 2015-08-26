@@ -62,6 +62,7 @@ var SectionTools = function(props) {
             <MenuItem onClick={Move.bind(generic, parent, section, false)}>
                 Move after
             </MenuItem>
+            <MenuItem divider />
             <MenuItem header>Delete</MenuItem>
             <MenuItem onClick={Remove.bind(generic, parent, section)}>
                 Delete section <b>!</b>

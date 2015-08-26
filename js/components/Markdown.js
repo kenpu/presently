@@ -37,7 +37,7 @@ var Markdown = React.createClass({
         var source = Model.FormattedSource(markdown, {sidenotes: true});
 
         var mathjax = false;
-        if (/^@math/m.exec(markdown.source) && !this.props.editing) {
+        if (/^@math/m.exec(markdown.source)) {
             mathjax = true;
         }
 

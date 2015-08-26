@@ -99,11 +99,6 @@ var Tools = function(props) {
                     Copy
                 </span>
             </MenuItem>
-            <MenuItem onClick={Remove.bind(generic, parent, model)}>
-                <span style={Styles.editor.indented}>
-                    <b>Delete {model.T}</b>
-                </span>
-            </MenuItem>
             <MenuItem divider />
 
             <MenuItem header>Move</MenuItem>
@@ -118,7 +113,13 @@ var Tools = function(props) {
             <MenuItem onClick={Wrap.bind(generic, parent, model)}>
                 Wrap with a box
             </MenuItem>
-
+            <MenuItem divider />
+            <MenuItem header > Delete </MenuItem>
+            <MenuItem onClick={Remove.bind(generic, parent, model)}>
+                <span style={Styles.editor.indented}>
+                    <b>Delete {model.T}</b>
+                </span>
+            </MenuItem>
         </DropdownButton>
     );
 };

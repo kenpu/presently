@@ -65,12 +65,13 @@ var SegmentTools = function(props) {
                 Move after
             </MenuItem>
             <MenuItem divider />
-            <MenuItem header>Edit</MenuItem>
             <MenuItem onClick={Copy.bind(generic, model)}>
                 <span style={Styles.editor.indented}>
                     Copy segment
                 </span>
             </MenuItem>
+            <MenuItem divider />
+            <MenuItem header>Remove</MenuItem>
             <MenuItem onClick={Remove.bind(generic, parent, model)}>
                 <span style={Styles.editor.indented}>
                     Delete segment <b>!</b>
