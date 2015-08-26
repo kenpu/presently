@@ -70,6 +70,25 @@ var EditorTools = React.createClass({
             }));
         }
 
+        // display the last box menu
+        var box, boxparent;
+        for(var i=state.selection.length-1; i > 0; i--) {
+            var m = state.selection[i],
+                p = state.selection[i-1];
+            if(m.T == C("box")) {
+                box = m;
+                boxparent = p;
+                break;
+            }
+        }
+        if(box && boxparent) {
+            menus.push(R.Toolbar(C("box"))({
+                key: 104,
+                model: box,
+                parent: boxparent,
+            }));
+        }
+
         if(selected 
                 && selected.T != C("article") 
                 && selected.T != C("segment")
@@ -100,10 +119,10 @@ var EditorTools = React.createClass({
 
         if(state.modified === true) {
             saveStyle.background = "rgba(100,0, 0, 0.2)";
-            saveLabel = "Need to save";
+            saveLabel = (<span className="glyphicon glyphicon-remove"/>);
         } else if(state.modified === false) {
             saveStyle.background = "rgba(0,100,0,0.2)",
-            saveLabel = "Up to date";
+            saveLabel = (<span className="glyphicon glyphicon-ok"/>);
         } else {
             saveStyle.background = "transparent";
             saveLabel = "Saving...";
