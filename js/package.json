@@ -5,7 +5,7 @@
     "main": "app.js",
     "dependencies": {
         "react": "^0.13.3",
-        "react-bootstrap": ">0.21.0",
+        "react-bootstrap": "0.21.0",
         "react-code-mirror": ">=3.0.4",
         "marked": ">0.3.0",
         "js-yaml": ">=3.3.1",
