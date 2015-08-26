@@ -8,19 +8,24 @@ import (
 )
 
 func main() {
-	flag.StringVar(&presently.Dir, "dir", "", "Directory of the repository")
-	flag.StringVar(&presently.DeployDir, "deploy", "", "Directory of the deployment")
-	flag.StringVar(&presently.Port, "port", "", "Port to listen")
+	flag.StringVar(&presently.Dir, "d", "", "Directory of the repository")
+	flag.StringVar(&presently.DeployDir, "o", "", "Directory of the deployment")
+	flag.StringVar(&presently.Port, "p", "", "Port to listen")
 	flag.Parse()
+	args := flag.Args()
 
 	if presently.Dir == "" {
-		fmt.Println("You need to specify -dir")
-		flag.PrintDefaults()
-		os.Exit(0)
+		if len(args) == 0 {
+			fmt.Println("You need to specify -d")
+			flag.PrintDefaults()
+			os.Exit(0)
+		} else {
+			presently.Dir = args[0]
+		}
 	}
 
 	if presently.DeployDir == "" {
-		fmt.Println("You need to specify -deploy")
+		fmt.Println("You need to specify -o")
 		flag.PrintDefaults()
 		os.Exit(0)
 	}

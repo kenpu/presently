@@ -11,17 +11,20 @@ import (
 )
 
 func main() {
-	flag.StringVar(&presently.Dir, "dir", "", "Directory of the repository")
-	flag.StringVar(&presently.Port, "port", "8080", "Port to listen")
+	flag.StringVar(&presently.Dir, "d", "", "Directory of the repository")
+	flag.StringVar(&presently.Port, "p", "8080", "Port to listen")
 	flag.Parse()
+	var args = flag.Args()
 
 	if presently.Dir == "" {
-		fmt.Println("You need to specify -dir")
-		flag.PrintDefaults()
-		os.Exit(0)
+		if len(args) == 0 {
+			fmt.Println("You need to specify -dir")
+			flag.PrintDefaults()
+			os.Exit(0)
+		} else {
+			presently.Dir = args[0]
+		}
 	}
-
-	fmt.Println("TemplateDir =", presently.TemplateDir)
 
 	go func() {
 		url := "http://localhost:" + presently.Port

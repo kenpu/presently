@@ -12,9 +12,14 @@ func main() {
 		port string
 	)
 
-	flag.StringVar(&dir, "dir", ".", "Directory to serve.")
-	flag.StringVar(&port, "port", "8080", "Port to serve.")
+	flag.StringVar(&dir, "d", ".", "Directory to serve.")
+	flag.StringVar(&port, "p", "8080", "Port to serve.")
 	flag.Parse()
+	args := flag.Args()
+
+	if len(args) > 0 {
+		dir = args[0]
+	}
 
 	fs := http.FileServer(http.Dir(dir))
 	http.Handle("/", fs)
