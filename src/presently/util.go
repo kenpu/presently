@@ -42,12 +42,24 @@ func isDirectory(name string) bool {
 	return false
 }
 
-func readArticle(filename string) string {
+type Article struct {
+	data       string
+	useMathjax bool
+}
+
+func readArticle(filename string) *Article {
+	var article Article
+
 	if buf, err := ioutil.ReadFile(filename); err != nil {
 		panic(err.Error())
 	} else {
-		return string(buf)
+		article.data = string(buf)
+		if strings.Contains(article.data, "@mathjax") {
+			article.useMathjax = true
+		}
 	}
+
+	return &article
 }
 
 /* ======= file listing ========= */

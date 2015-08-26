@@ -13,21 +13,23 @@ import (
 )
 
 func ArticleHandler(c *gin.Context, articlePath, filename string) {
-	data := readArticle(filename)
+	article := readArticle(filename)
 	c.HTML(http.StatusOK, "editor.html", gin.H{
-		"title":   articlePath,
-		"article": template.JS(data),
-		"saveURL": template.JS(_path.Join("/api/save", articlePath)),
+		"title":      articlePath,
+		"article":    template.JS(article.data),
+		"useMathjax": article.useMathjax,
+		"saveURL":    template.JS(_path.Join("/api/save", articlePath)),
 	})
 }
 
 func ReadHandler(c *gin.Context) {
 	path := c.Param("path")
-	data := readArticle(resolveFilename(path))
+	article := readArticle(resolveFilename(path))
 
 	c.HTML(http.StatusOK, "read.html", gin.H{
-		"title":   path,
-		"article": template.JS(data),
+		"title":      path,
+		"article":    template.JS(article.data),
+		"useMathjax": article.useMathjax,
 	})
 }
 
