@@ -6,7 +6,7 @@ var Raw = React.createClass({
         var element = React.findDOMNode(this.refs.element);
 
         if(this.props.mathjax && window.MathJax) {
-            console.debug("Mathjax queu");
+            console.debug("Mathjax queued");
             MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
         }
 
@@ -22,7 +22,10 @@ var Raw = React.createClass({
     },
     shouldComponentUpdate: function(nextprops, nextstate) {
         var update = false;
-        if(this.props.source != nextprops.source || this.props.style != nextprops.style) {
+        var p1 = JSON.stringify(this.props.style);
+        var p2 = JSON.stringify(nextprops.style);
+
+        if(this.props.source != nextprops.source || p1 != p2) {
             update = true
         }
 

@@ -15,7 +15,7 @@ var styles = {
             background: '#000',
             color: '#fff',
             minHeight: 20,
-            fontSize: '200%',
+            fontSize: '300%',
             textAlign: 'center',
             padding: 20,
         },
@@ -23,21 +23,36 @@ var styles = {
     section: {
         base: {
             width: '100%',
-            borderLeftWidth: 5,
-            borderLeftStyle: 'solid',
-            borderLeftColor: '#aaa',
         },
         empty: {
             height: 100,
             background: "#eee",
         },
         selected: {
-            borderLeftColor: "#00f",
-        }
+            borderLeft: "5px solid #00f",
+        },
+        title: {
+            width: '100%',
+            background: "#888",
+            color: "white",
+            fontSize: "250%",
+            fontStyle: 'italic',
+            textAlign: 'right',
+            paddingTop: 20,
+            paddingBottom: 20,
+            paddingLeft: 20,
+            paddingRight: 50,
+            minHeight: 20,
+        },
+        titleLabel: {
+            fontWeight: '800',
+            fontFamily: 'Roboto',
+            fontStyle: 'normal',
+            marginRight: 20,
+        },
     },
     segment: {
-        largeGap: 100,
-        smallGap: 50,
+        gap: 100,
         base: {
             width: "100%",
             display: 'flex',
@@ -45,8 +60,6 @@ var styles = {
             marginBottom: 0,
             borderLeft: '5px solid transparent',
             borderTop: '1px solid #888',
-            paddingTop: 50,
-            paddingBottom: 50,
         },
         selected: {
             borderLeft: '5px solid red',

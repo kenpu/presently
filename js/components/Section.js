@@ -11,6 +11,8 @@ var Assign = require('object-assign');
 var Section = React.createClass({
     mixins: [_DefaultView, _SelectableView],
     style: function() {
+        var isFirst = this.props.isFirst;
+
         var s = {};
         var model = this.props.model;
 
@@ -21,6 +23,12 @@ var Section = React.createClass({
         }
         if(model.children.length == 0) {
             s = Assign(s, Styles.section.empty);
+        }
+
+        if(isFirst) {
+            s.borderTop = 'none';
+        } else {
+            s.borderTop = '10px solid #aaa';
         }
 
         return s;
@@ -47,8 +55,20 @@ var Section = React.createClass({
 
         var styles = [Styles.section.base, this.style()];
 
+        var data = this.parsed();
+        var title;
+        if(data.title) {
+            title = (
+                <div className="prly-section-title" style={Styles.section.title}>
+                    <span style={Styles.section.titleLabel}>{label}</span>
+                    <span>{data.title}</span>
+                </div>
+            );
+        }
+
         return (
             <div className="prly-section" style={styles} ref="element">
+                {title}
                 <div className="prly-section-body">
                     {sectionBody}
                 </div>

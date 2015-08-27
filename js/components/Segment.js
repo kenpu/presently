@@ -17,14 +17,16 @@ var Segment = React.createClass({
         var inFirstSection = this.props.inFirstSection;
 
         var s = this.defaultStyle();
+
+        s.paddingTop = Styles.segment.gap / 2;
+        s.paddingBottom = Styles.segment.gap / 2;
+
         if(isFirst) {
             s.borderTop = '1px solid transparent';
-            if(! inFirstSection)
-                s.paddingTop = Styles.segment.largeGap;
+        } else {
+            s.borderTop = '1px solid #888';
         }
-        if(isLast) {
-            s.paddingBottom = Styles.segment.smallGap;
-        }
+
 
         if(this.props.editing) {
             if(this.isSelected(true)) {
