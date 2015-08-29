@@ -6,6 +6,7 @@ presentations and educational materials.
 To do
 -----
 
-- Mathjax
-- Undo/redo
-- Move boxes around with cut/paste
+- Styling, header and footer
+- Presentation
+- More layouts
+- Drag & Drop box movements

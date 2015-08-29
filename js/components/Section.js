@@ -25,10 +25,14 @@ var Section = React.createClass({
             s = Assign(s, Styles.section.empty);
         }
 
-        if(isFirst) {
-            s.borderTop = 'none';
-        } else {
-            s.borderTop = '10px solid #aaa';
+        // add the divider border unless
+        // it's part of the cover
+        if(! this.props.isCover) {
+            if(isFirst) {
+                s.borderTop = 'none';
+            } else {
+                s.borderTop = '10px solid #aaa';
+            }
         }
 
         return s;
@@ -39,17 +43,20 @@ var Section = React.createClass({
         var editing = this.props.editing;
         var ancestors = this.props.ancestors;
         var isFirst = this.props.isFirst;
+        var isCover = this.props.isCover;
 
         var sectionBody = section.children.map(function(segment, i, array) {
+            var sublabel = (label) ? (label + "." + (i+1)) : null;
             return (
                 <Segment key={i} 
                          editing={editing}
                          model={segment} 
                          ancestors={ancestors.concat(section)}
-                         label={label + "." + (i+1)} 
+                         label={sublabel}
                          isFirst={i == 0}
                          isLast={i == array.length-1}
-                         inFirstSection={isFirst} />
+                         inFirstSection={isFirst}
+                         isCover={isCover} />
             );
         });
 

@@ -2,12 +2,16 @@ package presently
 
 import (
 	"errors"
+	"html/template"
 	"io/ioutil"
+	"net/http"
 	"os"
 	_path "path"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 func exists(filename string) bool {
@@ -60,6 +64,38 @@ func readArticle(filename string) *Article {
 	}
 
 	return &article
+}
+
+func renderArticle(c interface{}, path string, arg string) {
+	// inject content
+	stylePath := resolveFilename("style.css")
+	coverPath := resolveFilename("_cover")
+
+	styleContent, _ := ioutil.ReadFile(stylePath)
+	coverJSON, _ := ioutil.ReadFile(coverPath)
+
+	article := readArticle(path)
+
+	data := gin.H{
+		"title":      filepath.Base(path),
+		"article":    template.JS(article.data),
+		"useMathjax": article.useMathjax,
+		"style":      styleContent,
+		"cover":      template.JS(coverJSON),
+	}
+
+	switch target := c.(type) {
+	case *gin.Context:
+		// arg is the template used
+		target.HTML(http.StatusOK, arg, data)
+	case *template.Template:
+		// arg is the file to be written to
+		w, err := os.Create(arg)
+		if err != nil {
+			panic(err.Error())
+		}
+		target.Execute(w, data)
+	}
 }
 
 /* ======= file listing ========= */

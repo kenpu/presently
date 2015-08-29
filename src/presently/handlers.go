@@ -14,6 +14,7 @@ import (
 
 func ArticleHandler(c *gin.Context, articlePath, filename string) {
 	article := readArticle(filename)
+
 	c.HTML(http.StatusOK, "editor.html", gin.H{
 		"title":      articlePath,
 		"article":    template.JS(article.data),
@@ -23,14 +24,9 @@ func ArticleHandler(c *gin.Context, articlePath, filename string) {
 }
 
 func ReadHandler(c *gin.Context) {
-	path := c.Param("path")
-	article := readArticle(resolveFilename(path))
-
-	c.HTML(http.StatusOK, "read.html", gin.H{
-		"title":      path,
-		"article":    template.JS(article.data),
-		"useMathjax": article.useMathjax,
-	})
+	url := c.Param("path")
+	path := resolveFilename(url)
+	renderArticle(c, path, "read.html")
 }
 
 // saves the body into file

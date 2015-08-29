@@ -18,15 +18,18 @@ var Segment = React.createClass({
 
         var s = this.defaultStyle();
 
-        s.paddingTop = Styles.segment.gap / 2;
-        s.paddingBottom = Styles.segment.gap / 2;
+        // add the padding and divider border
+        // unless it's part of the cover
+        if(! this.props.isCover) {
+            s.paddingTop = Styles.segment.gap / 2;
+            s.paddingBottom = Styles.segment.gap / 2;
 
-        if(isFirst) {
-            s.borderTop = '1px solid transparent';
-        } else {
-            s.borderTop = '1px solid #888';
+            if(isFirst) {
+                s.borderTop = '1px solid transparent';
+            } else {
+                s.borderTop = '1px solid #888';
+            }
         }
-
 
         if(this.props.editing) {
             if(this.isSelected(true)) {
@@ -123,10 +126,12 @@ var Segment = React.createClass({
             className += " " + segment.layout;
         }
 
-        var labelElement = (
-            <span className="prly-segment-label" 
-                  style={Styles.segment.label}>{label}</span>
-        );
+        var labelElement;
+        if(label)
+            labelElement = (
+                <span className="prly-segment-label" 
+                      style={Styles.segment.label}>{label}</span>
+            );
 
         return (
             <div className={className} style={styles} ref="element" >

@@ -142,12 +142,8 @@ func Deploy() {
 			targetpath += ".html"
 
 			fmt.Println("[ARTICLE]:", targetpath)
-			article := readArticle(entry.Path)
-			makeArticle(targetpath, gin.H{
-				"title":      filepath.Base(entry.Path),
-				"article":    template.JS(article.data),
-				"useMathjax": article.useMathjax,
-			})
+
+			renderArticle(rdrTmpl, entry.Path, targetpath)
 
 		default:
 			fmt.Println("[File]:", targetpath)

@@ -22,14 +22,20 @@ require('./components/Image');
 require('./components/Codewalk');
 require('./components/Variant');
 var Article = require('./components/Article');
+var Cover = require('./components/Header');
 
 
-var article;
+var article, cover;
 
 try {
     article = JSON.parse(window.Presently.articleJSON);
 } catch(e) {
-    console.debug("Parsing failed:", e.message);
+    console.debug("Parsing article failed:", e.message);
+}
+try {
+    cover = JSON.parse(window.Presently.coverJSON);
+} catch(e) {
+    console.debug("Parsing cover failed:", e.message);
 }
 
 store.state({
@@ -39,8 +45,13 @@ store.state({
 
 var el = document.getElementById("article");
 
+console.debug("model = ", article);
 var view = (
-    <Article model={article} />
+    <div>
+        <Cover model={cover} header />
+        <Article model={article} />
+        <Cover model={cover} />
+    </div>
 );
 
 React.render(view, el);

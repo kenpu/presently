@@ -23,6 +23,8 @@ var Article = React.createClass({
         var article = this.props.model;
         var editing = this.props.editing;
 
+        console.debug("article = ", article);
+
         var bodyStyle = {
             width: "100%",
         };
