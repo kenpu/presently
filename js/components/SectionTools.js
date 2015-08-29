@@ -10,28 +10,29 @@ var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, section, before) {
-    if(this.Move(parent, section, before)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Move.bind(null, parent, section, before),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 function Remove(parent, section) {
-    if(this.Remove(parent, section)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Remove.bind(null, parent, section),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 function PasteMove(model) {
-    this.PasteMove(model);
     store.emitChange({
+        f: this.PasteMove.bind(null, model),
         resetSelection: true,
         contentChange: true,
+        history: true,
     });
 }
 

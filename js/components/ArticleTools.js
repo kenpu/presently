@@ -14,17 +14,23 @@ var MenuItem = Bootstrap.MenuItem;
 
 function changeZoom(val) {
     var ui = store.state().ui;
-    ui.zoom = val;
-    store.emitChange();
+    store.emitChange({
+        f: function() {
+            ui.zoom = val;
+        },
+    });
 }
 
 function newSection(before) {
     var Section = R.Model(C("section"));
     var anchor = store.selected(C("section"));
 
-    Section.Extend(anchor, before);
     store.emitChange({
+        f: function() {
+            Section.Extend(anchor, before);
+        },
         contentChange: true,
+        history: true,
     });
 
 }
@@ -34,18 +40,36 @@ function newSegment(layout) {
     var section = store.selected(C("section"));
     var anchor = store.selected(C("segment"));
 
-    Segment.Extend(section, anchor, {
-        layout: layout,
-    });
-
     store.emitChange({
+        f: function() {
+            Segment.Extend(section, anchor, {
+                layout: layout,
+            });
+        },
         contentChange: true,
+        history: true,
     });
 }
 
 function Read() {
     var readURL = "/read" + window.location.pathname;
     window.open(readURL);
+}
+
+function Undo() {
+    store.emitChange({
+        f: store.undo,
+        resetSelection: true,
+        contentChange: true,
+    });
+}
+
+function Redo() {
+    store.emitChange({
+        f: store.redo,
+        resetSelection: true,
+        contentChange: true,
+    });
 }
             
 var ArticleTools = function(props) {
@@ -83,6 +107,13 @@ var ArticleTools = function(props) {
                 <span style={Styles.editor.indented}>
                     Read
                 </span>
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem onClick={Undo}>
+                Undo
+            </MenuItem>
+            <MenuItem onClick={Redo}>
+                Redo
             </MenuItem>
         </DropdownButton>
     );

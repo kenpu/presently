@@ -10,21 +10,21 @@ var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, model, before) {
-    if(this.Move(parent, model, before)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Move.bind(null, parent, model, before),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 function Remove(parent, model) {
-    if(this.Remove(parent, model)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Remove.bind(null, parent, model),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 var Tools = function(props) {

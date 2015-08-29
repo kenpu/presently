@@ -10,37 +10,40 @@ var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, model, before) {
-    if(this.Move(parent, model, before)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Move.bind(null, parent, model, before),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 function Remove(parent, model) {
-    if(this.Remove(parent, model)) {
-        store.emitChange({
-            resetSelection: true,
-            contentChange: true,
-        });
-    }
+    store.emitChange({
+        f: this.Remove.bind(null, parent, model),
+        resetSelection: true,
+        contentChange: true,
+        history: true,
+    });
 }
 
 function ToggleLayout(segment) {
-    if(segment.layout == "slide")
-        segment.layout = "page";
-    else {
-        segment.layout = "slide";
-    }
     store.emitChange({
+        f: function() {
+            if(segment.layout == "slide")
+                segment.layout = "page";
+            else {
+                segment.layout = "slide";
+            }
+        },
         contentChange: true,
+        history: true,
     });
 }
 
 function Copy(model) {
-    this.Copy(model);
     store.emitChange({
+        f: this.Copy.bind(null, model),
         resetSelection: false,
         contentChange: false,
     });

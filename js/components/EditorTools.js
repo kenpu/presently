@@ -18,8 +18,11 @@ var EditorTools = React.createClass({
         var saveURL = window.Presently.saveURL;
         var state = store.state();
 
-        state.modified = null;
-        store.emitChange();
+        store.emitChange({
+            f: function() {
+                state.modified = null;
+            },
+        });
 
         $.ajax({
             url: saveURL,
@@ -30,8 +33,11 @@ var EditorTools = React.createClass({
                 if(reply.error) {
                     alert("Error: " + reply.error);
                 } else {
-                    state.modified = false;
-                    store.emitChange();
+                    store.emitChange({
+                        f: function() {
+                            state.modified = false;
+                        },
+                    });
                 }
             },
             error: function(err) {

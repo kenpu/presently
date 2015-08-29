@@ -20,9 +20,11 @@ var Editor = React.createClass({
         var store = this.props.store;
         var ui = store.state().ui;
 
-        ui.preview = ! ui.preview;
-
-        store.emitChange();
+        store.emitChange({
+            f: function() {
+                ui.preview = ! ui.preview;
+            },
+        });
     },
     render: function() {
         var store = this.props.store;

@@ -39,6 +39,7 @@ store.state({
         zoom: null,
         preview: false,
     },
+    history: [article],
 });
 
 var el = document.getElementById("editor");
@@ -55,9 +56,10 @@ $('html').pasteImageReader(function(paste) {
     if(data && model) {
         var Model = R.Model(model.T);
         if(Model && Model.ImagePaste) {
-            Model.ImagePaste(model, data);
             store.emitChange({
+                f: Model.ImagePaste.bind(null, model, data),
                 contentChange: true,
+                history: true,
             });
         }
     }

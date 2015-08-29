@@ -38,13 +38,15 @@ module.exports = {
             if(! self.props.readOnly) {
                 e.stopPropagation();
 
-                if(self.isSelected()) {
-                    self.unselectMe();
-                } else {
-                    self.selectMe();
-                }
-
-                store.emitChange();
+                store.emitChange({
+                    f: function() {
+                        if(self.isSelected()) {
+                            self.unselectMe();
+                        } else {
+                            self.selectMe();
+                        }
+                    },
+                });
             }
         });
     },

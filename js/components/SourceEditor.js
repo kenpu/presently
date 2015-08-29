@@ -12,21 +12,29 @@ var SourceEditor = React.createClass({
         var model = this.props.model;
 
         // update the appropriate field
-        if(model.source != null)
-            model.source = e.target.value;
-        else if(model.data != null) {
-            model.data = e.target.value;
+        var f = function() {
+            if(model.source != null)
+                model.source = e.target.value;
+            else if(model.data != null) {
+                model.data = e.target.value;
+            }
         }
 
         store.emitChange({
+            f: f,
             contentChange: true,
         });
     },
     chgType: function(e) {
         var model = this.props.model;
         var newT = e.target.value;
-        model.T = newT;
+
+        var f = function() {
+            model.T = newT;
+        }
+
         store.emitChange({
+            f: f,
             contentChange: true,
         });
     },
@@ -85,37 +93,5 @@ var SourceEditor = React.createClass({
         );
     },
 });
-
-/*
-var AceEditor = require('react-ace');
-require('brace/mode/text');
-require('brace/theme/github');
-
-var SourceEditor = React.createClass({
-    onload: function() {
-        ;
-    },
-    update: function(newVal) {
-        var model = this.props.model;
-        model.source = newVal;
-        store.emitChange();
-    },
-    render: function() {
-        var model = this.props.model;
-
-        return (
-            <div>
-                <AceEditor
-                    width="100%"
-                    value={model.source}
-                    onLoad={this.onload}
-                    onChange={this.update}
-                    mode="text"
-                    theme="github" />
-            </div>
-        );
-    },
-});
-*/
 
 module.exports = SourceEditor;

@@ -11,10 +11,11 @@ var MenuItem = Bootstrap.MenuItem;
 function split(box, orient) {
     var Box = R.Model(C("box"));
     if(box) {
-        Box.Split(box, orient);
         store.emitChange({
+            f: Box.Split.bind(null, box, orient),
             resetSelection: true,
             contentChange: true,
+            history: true,
         });
     }
 }
@@ -22,26 +23,31 @@ function split(box, orient) {
 function extend(parent, box, before) {
     var Box = R.Model(C("box"));
     if(parent && box) {
-        Box.Extend(parent, box, before);
         store.emitChange({
+            f: Box.Extend.bind(parent, box, before),
             resetSelection: true,
             contentChange: true,
+            history: true,
         });
     }
 }
 
 function rotate(box) {
-    R.Model(C("box")).Rotate(box);
     store.emitChange({
+        f: R.Model(C("box")).Rotate.bind(null, box),
         contentChange: true,
+        history: true,
     });
 }
 
 function empty(parent, box) {
-    box.children.length = 0;
     store.emitChange({
+        f: function() {
+            box.children.length = 0;
+        },
         resetSelection: true,
         contentChange: true,
+        history: true,
     });
 }
 
@@ -49,12 +55,15 @@ function unwrap(parent, box) {
     if(parent && box) {
         var i = parent.children.indexOf(box);
         if(i >= 0) {
-            var args = [i, 1];
-            box.children.forEach(function(x) { args.push(x); });
-            parent.children.splice.apply(parent.children, args);
             store.emitChange({
+                f: function() {
+                    var args = [i, 1];
+                    box.children.forEach(function(x) { args.push(x); });
+                    parent.children.splice.apply(parent.children, args);
+                },
                 resetSelection: true,
                 contentChange: true,
+                history: true,
             });
         }
     }
@@ -65,7 +74,11 @@ function add(box, T) {
     if(Model && Model.New) {
         box.children.push(Model.New());
         store.emitChange({
+            f: function() {
+                box.children.push(Model.New());
+            },
             contentChange: true,
+            history: true,
         });
     }
 };
