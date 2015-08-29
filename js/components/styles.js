@@ -183,6 +183,12 @@ var styles = {
         indented: {
             marginLeft: 20,
         },
+        saved: {
+            color: "#8a8",
+        },
+        modified: {
+            color: "#a88",
+        },
     },
 };
 

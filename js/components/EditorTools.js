@@ -97,6 +97,7 @@ var EditorTools = React.createClass({
 
         if(selected 
                 && selected.T != C("article") 
+                && selected.T != C("box")
                 && selected.T != C("segment")
                 && selected.T != C("section")) {
             var menu = R.Toolbar(selected.T);
@@ -120,17 +121,17 @@ var EditorTools = React.createClass({
 
         }
 
-        var saveStyle = {};
         var saveLabel;
 
         if(state.modified === true) {
-            saveStyle.background = "rgba(100,0, 0, 0.2)";
-            saveLabel = (<span className="glyphicon glyphicon-remove"/>);
+            saveLabel = (
+                <span className="glyphicon glyphicon-remove"
+                      style={Styles.editor.modified}/>);
         } else if(state.modified === false) {
-            saveStyle.background = "rgba(0,100,0,0.2)",
-            saveLabel = (<span className="glyphicon glyphicon-ok"/>);
+            saveLabel = (
+                <span className="glyphicon glyphicon-ok" 
+                      style={Styles.editor.saved}/>);
         } else {
-            saveStyle.background = "transparent";
             saveLabel = "Saving...";
         }
 
@@ -138,7 +139,7 @@ var EditorTools = React.createClass({
             <div style={style}>
                 <Navbar style={Styles.navbar}>
                     <Nav navbar>
-                        <MenuItem onClick={this.save} style={saveStyle} >{saveLabel}</MenuItem>
+                        <MenuItem onClick={this.save}>{saveLabel}</MenuItem>
                         {menus}
                     </Nav>
                 </Navbar>
