@@ -64,9 +64,10 @@ var Section = React.createClass({
 
         var data = this.parsed();
         var title;
+        var prly = (isCover) ? 0 : 1;
         if(data.title) {
             title = (
-                <div className="prly-section-title" style={Styles.section.title}>
+                <div className="prly-section-title" style={Styles.section.title} data-prly={prly}>
                     <span style={Styles.section.titleLabel}>{label}</span>
                     <span>{data.title}</span>
                 </div>

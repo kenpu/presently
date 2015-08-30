@@ -24,7 +24,6 @@ require('./components/Variant');
 var Article = require('./components/Article');
 var Cover = require('./components/Header');
 
-
 var article, cover;
 
 try {

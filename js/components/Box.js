@@ -68,7 +68,7 @@ var Box = React.createClass({
         var styles = [Styles.box.base, this.style()];
 
         return (
-            <div className={className} style={styles} ref="element">
+            <div className={className} style={styles} ref="element" >
                 {children}
             </div>
         );

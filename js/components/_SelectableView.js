@@ -32,6 +32,9 @@ module.exports = {
         store.state().selection.length = 0;
     },
     componentDidMount: function() {
+        if(! this.props.editing) {
+            return;
+        }
         var el = React.findDOMNode(this.refs.element);
         var self = this;
         $(el).click(function(e) {

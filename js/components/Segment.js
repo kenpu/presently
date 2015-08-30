@@ -15,12 +15,13 @@ var Segment = React.createClass({
         var isFirst = this.props.isFirst;
         var isLast = this.props.isLast;
         var inFirstSection = this.props.inFirstSection;
+        var isCover = this.props.isCover;
 
         var s = this.defaultStyle();
 
         // add the padding and divider border
         // unless it's part of the cover
-        if(! this.props.isCover) {
+        if(! isCover) {
             s.paddingTop = Styles.segment.gap / 2;
             s.paddingBottom = Styles.segment.gap / 2;
 
@@ -69,6 +70,7 @@ var Segment = React.createClass({
         var ancestors = this.props.ancestors;
         var label = this.props.label;
         var editing = this.props.editing;
+        var isCover = this.props.isCover;
 
         var children = segment.children.map(function(box, i) {
             return <Box key={i} 
@@ -133,8 +135,9 @@ var Segment = React.createClass({
                       style={Styles.segment.label}>{label}</span>
             );
 
+        var prly = (isCover) ? 0 : 1;
         return (
-            <div className={className} style={styles} ref="element" >
+            <div className={className} style={styles} ref="element" data-prly={prly}>
                 <div style={{position: 'relative'}}>
                     {labelElement}
                     <div className="prly-segment-body" 
