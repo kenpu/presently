@@ -48,7 +48,7 @@ var Image = React.createClass({
         }
 
         return (
-            <figure ref="element" style={styles}>
+            <figure ref="element" style={styles} className="prly-panel">
                 {inner}
                 {caption}
             </figure>

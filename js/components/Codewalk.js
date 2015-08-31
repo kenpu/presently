@@ -60,7 +60,8 @@ var CodeSection = Radium(React.createClass({
             );
         }
         return (
-            <div style={[Styles.codewalk.section, style]}>
+            <div    style={[Styles.codewalk.section, style]}
+                    className="prly-panel">
                 {codeElem}
                 {noteElem}
             </div>

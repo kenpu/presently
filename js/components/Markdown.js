@@ -42,7 +42,7 @@ var Markdown = React.createClass({
         }
 
         return (
-            <Raw className="prly-markdown" 
+            <Raw className="prly-markdown prly-panel" 
                  tag="div" 
                  source={source}
                  mathjax={mathjax}

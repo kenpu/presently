@@ -1,6 +1,14 @@
+/* Hide reading specific elements */
 .prly-article.prly-on .prly-article-title {
     display: none;
 }
+
+.prly-article.prly-on .prly-section,
+.prly-article.prly-on .prly-segment {
+    border: none !important;
+}
+
+/* presentation animation */
 .prly-article.prly-on .prly-article-body {
     display: fixed;
     top: 0;
@@ -12,7 +20,12 @@
     justify-content: center;
 }
 
-.prly-article.prly-on .prly-section,
-.prly-article.prly-on .prly-segment {
-    border: none !important;
+.prly-article.prly-on .prly-panel.out-focus {
+    opacity: 0.2;
 }
+
+.prly-article.prly-on .prly-panel.in-focus {
+    opacity: 1.0;
+}
+
+

@@ -190,6 +190,31 @@ var styles = {
             color: "#a88",
         },
     },
+    navbar: {
+        panel: {
+            position: 'fixed',
+            transitionProperty: 'opacity',
+            transitionDuration: "0.4s",
+            transitionTimingFunction: "ease-out",
+            opacity: 0,
+            ":hover": {
+                opacity: 1.0,
+            },
+        },
+        progressbar: {
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: 5,
+            zIndex: 2000,
+        },
+        indicator: {
+            height: 5,
+            background: 'red',
+            width: 0,
+        }
+    },
 };
 
 // Responsive design

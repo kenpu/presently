@@ -7,11 +7,7 @@ var util = require('../util');
 var Radium = require('radium');
 var C = require('../constants');
 var R = require('../registry');
-var Bootstrap = require('react-bootstrap');
-var Navbar = Bootstrap.Navbar;
-var Nav = Bootstrap.Nav;
-var NavItem = Bootstrap.NavItem;
-var presently = require('../presently');
+var Presently = require('./Presently');
 
 var Article = React.createClass({
     mixins: [_ActiveView, _SelectableView],
@@ -49,23 +45,17 @@ var Article = React.createClass({
         });
 
         var navbar;
-        if(result.presently !== false) {
+        if(result.presently !== false && !this.props.editing) {
             navbar = (
-                <Navbar brand="Presently" inverse fixedBottom>
-                    <Nav>
-                        <NavItem onClick={presently.start}>Start</NavItem>
-                        <NavItem onClick={presently.stop}>Stop</NavItem>
-                        <NavItem onClick={presently.back}>Back</NavItem>
-                        <NavItem onClick={presently.forward}>Forward</NavItem>
-                    </Nav>
-                </Navbar>
+                <Presently />
             );
         }
 
         return (
             <div className="prly-article">
                 <div className="prly-article-title" ref="element" 
-                     style={[Styles.article.header, this.headerStyle()]} >
+                     style={[Styles.article.header, this.headerStyle()]}
+                     data-prly="1" >
                     <span>{title}</span>
                 </div>
                 <div className="prly-article-body" style={bodyStyle}>

@@ -24,7 +24,9 @@ var Html = React.createClass({
         var html = this.props.model;
 
         return (
-            <Raw tag="div" source={html.source} 
+            <Raw tag="div" 
+                className="prly-panel"
+                source={html.source} 
                 style={[Styles.html, this.style()]} ref="element"/>
         );
     },
