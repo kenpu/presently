@@ -64,7 +64,7 @@ func DirHandler(c *gin.Context, dirURL, dirpath string) {
 
 	var isroot bool = dirURL == ""
 	var root = _path.Join(filepath.Base(Dir), dirURL)
-	var list entries = listRepo(dirURL, dirpath, 1024*10)
+	var list entries = listRepo(dirURL, dirpath, "editor", 1024*10)
 
 	c.HTML(http.StatusOK, "dir-editor.html", gin.H{
 		"title":   dirpath,

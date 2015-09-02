@@ -131,15 +131,22 @@ func (list entries) Less(i, j int) bool {
 	}
 }
 
-func shouldIgnore(path string) bool {
+func shouldIgnore(path, context string) bool {
 	base := filepath.Base(path)
 	if strings.HasPrefix(base, ".") || base == "Makefile" || strings.HasSuffix(base, "private") {
 		return true
 	}
+
+	if context != "editor" {
+		if strings.HasPrefix(base, "_") {
+			return true
+		}
+	}
+
 	return false
 }
 
-func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
+func listRepo(topURL, topDir string, context string, maxFiles int64) (list entries) {
 	var counter int64
 
 	topURL = _path.Clean(topURL)
@@ -150,8 +157,8 @@ func listRepo(topURL, topDir string, maxFiles int64) (list entries) {
 			return err
 		}
 
-		if shouldIgnore(path) {
-			return filepath.SkipDir
+		if shouldIgnore(path, context) {
+			return nil
 		}
 
 		counter += 1

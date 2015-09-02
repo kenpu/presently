@@ -71,7 +71,7 @@ func copyDir(target, source string) {
 			return err
 		}
 
-		if shouldIgnore(path) {
+		if shouldIgnore(path, "deploy") {
 			return filepath.SkipDir
 		}
 
@@ -107,7 +107,7 @@ func Deploy() {
 		panic(err.Error())
 	}
 
-	list := listRepo("", Dir, 1024*10)
+	list := listRepo("", Dir, "deploy", 1024*10)
 	os.MkdirAll(DeployDir, 0755)
 
 	// copy over the static directory
@@ -129,7 +129,7 @@ func Deploy() {
 
 			isroot := (entry.URL == "")
 			root := entry.URL
-			sublist := listRepo("", entry.Path, 1024)
+			sublist := listRepo("", entry.Path, "deploy", 1024)
 			makeDir(targetpath, gin.H{
 				"title":   filepath.Base(entry.Path),
 				"entries": sublist,
