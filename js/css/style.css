@@ -67,17 +67,23 @@ hr {
     .prly-segment.slide .prly-segment-body {
         max-width: 1000px;
         margin-left: auto;
-        margin-right: auto;
-        font-size: 18pt; }
+        margin-right: auto; }
+    .prly-segment.slide { font-size: 18pt; }
 
-    .prly-segment .prly-segment-label {
-        font-size: 18pt; }
+    .prly-segment.slide.narrow .prly-segment-body {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto; }
+
 
     .prly-segment.page .prly-segment-body {
         max-width: 800px;
         margin-left: auto;
-        margin-right: auto;
-    }
+        margin-right: auto; }
+    .prly-segment.page { font-size: 12pt; }
+
+    .prly-segment .prly-segment-label {
+        font-size: 18pt; }
 }
 
 /* ===== tools ======= */

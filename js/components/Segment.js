@@ -125,7 +125,8 @@ var Segment = React.createClass({
 
         var className = "prly-segment";
         if(segment.layout) {
-            className += " " + segment.layout;
+            var classNames = segment.layout.replace(/-/g, " ")
+            className += " " + classNames;
         }
 
         var labelElement;

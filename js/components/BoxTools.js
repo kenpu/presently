@@ -5,7 +5,7 @@ var store = require('../store');
 var util = require('../util');
 
 var Bootstrap = require('react-bootstrap');
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 function split(box, orient) {
@@ -90,39 +90,39 @@ var BoxTools = function(props) {
     var contents = ["markdown", "codewalk", "image", "box"];
     var addContent = contents.map(function(t) {
         return (
-            <MenuItem onClick={add.bind(null, box, C(t))}>{t}</MenuItem>
+            <MenuItem onSelect={add.bind(null, box, C(t))}>{t}</MenuItem>
         );
     });
 
     return (
-        <DropdownButton title="Box" key={props.key} onSelect={util.nop}>
+        <NavDropdown title="Box" key={props.key}>
             <MenuItem header> Add content </MenuItem>
             {addContent}
             <MenuItem header> Structure </MenuItem>
-            <MenuItem onClick={rotate.bind(null, box)} >
+            <MenuItem onSelect={rotate.bind(null, box)} >
                 Rotate
             </MenuItem>
-            <MenuItem onClick={split.bind(null, box, C("vertical"))}>
+            <MenuItem onSelect={split.bind(null, box, C("vertical"))}>
                 Split horizontal
             </MenuItem>
-            <MenuItem onClick={split.bind(null, box, C("horizontal"))}>
+            <MenuItem onSelect={split.bind(null, box, C("horizontal"))}>
                 Split vertical
             </MenuItem>
             <MenuItem header> Extend </MenuItem>
-            <MenuItem onClick={extend.bind(null, parent, box, true)}>
+            <MenuItem onSelect={extend.bind(null, parent, box, true)}>
                 Extend before
             </MenuItem>
-            <MenuItem onClick={extend.bind(null, parent, box, false)}>
+            <MenuItem onSelect={extend.bind(null, parent, box, false)}>
                 Extend after
             </MenuItem>
             <MenuItem header> Remove </MenuItem>
-            <MenuItem onClick={unwrap.bind(null, parent, box)}>
+            <MenuItem onSelect={unwrap.bind(null, parent, box)}>
                 Unwrap
             </MenuItem>
-            <MenuItem onClick={empty.bind(null, parent, box)}>
+            <MenuItem onSelect={empty.bind(null, parent, box)}>
                 <b>Empty the box</b>
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 

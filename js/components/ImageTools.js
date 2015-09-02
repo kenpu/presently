@@ -6,7 +6,7 @@ var store = require('../store');
 var util = require('../util');
 
 var Bootstrap = require('react-bootstrap');
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, model, before) {
@@ -33,19 +33,19 @@ var Tools = function(props) {
     var generic = R.Model(C("generic"));
 
     return (
-        <DropdownButton title="Image" key={props.key} onSelect={util.nop} >
+        <NavDropdown title="Image" key={props.key} >
             <MenuItem header>Move</MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, true)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, true)}>
                 Move before
             </MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, false)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, false)}>
                 Move after
             </MenuItem>
             <MenuItem header>Delete</MenuItem>
-            <MenuItem onClick={Remove.bind(generic, parent, model)}>
+            <MenuItem onSelect={Remove.bind(generic, parent, model)}>
                 Delete Image <b>!</b>
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 

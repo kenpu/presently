@@ -152,10 +152,6 @@ var styles = {
             fontSize: '90%',
         },
     },
-    navbar: {
-        fontFamily: 'Roboto',
-        borderRadius: 0,
-    },
     toolSelect: {
         height: 15,
         fontFamily: 'Roboto',
@@ -213,6 +209,10 @@ var styles = {
             height: 5,
             background: 'red',
             width: 0,
+        },
+        menu: {
+            fontFamily: 'Roboto',
+            borderRadius: 0,
         }
     },
 };

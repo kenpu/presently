@@ -8,7 +8,7 @@ var util = require('../util');
 var Bootstrap = require('react-bootstrap');
 var Navbar = Bootstrap.Navbar;
 var Nav = Bootstrap.Nav;
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 
@@ -71,51 +71,54 @@ function Redo() {
         contentChange: true,
     });
 }
-            
+
 var ArticleTools = function(props) {
     return (
-        <DropdownButton title="Article" key={props.key} onSelect={util.nop} >
+        <NavDropdown title="Article" key={props.key} >
             <MenuItem header>Section</MenuItem>
-            <MenuItem onClick={newSection.bind(null, true)}>
+            <MenuItem eventKey={1} onSelect={newSection.bind(null, true)}>
                 <span style={Styles.editor.indented}>Before</span>
             </MenuItem>
-            <MenuItem onClick={newSection.bind(null, false)}>
+            <MenuItem eventKey={2} onSelect={newSection.bind(null, false)}>
                 <span style={Styles.editor.indented}>After</span>
             </MenuItem>
             <MenuItem divider />
 
             <MenuItem header>Segment</MenuItem>
-            <MenuItem onClick={newSegment.bind(null, 'slide')}>
-                <span style={Styles.editor.indented}>Slide</span>
+            <MenuItem eventKey={3} onSelect={newSegment.bind(null, 'slide')}>
+                <span style={Styles.editor.indented}>Slide (1000px)</span>
             </MenuItem>
-            <MenuItem onClick={newSegment.bind(null, 'page')}>
+            <MenuItem eventKey={4} onSelect={newSegment.bind(null, 'slide-narrow')}>
+                <span style={Styles.editor.indented}>Slide (800px)</span>
+            </MenuItem>
+            <MenuItem eventKey={5} onSelect={newSegment.bind(null, 'page')}>
                 <span style={Styles.editor.indented}>Page</span>
             </MenuItem>
             <MenuItem divider />
 
 
             <MenuItem header>Zoom</MenuItem>
-            <MenuItem onClick={changeZoom.bind(null, 1)}>
+            <MenuItem onSelect={changeZoom.bind(null, 1)}>
                 <span style={Styles.editor.indented}>100%</span>
             </MenuItem>
-            <MenuItem onClick={changeZoom.bind(null, null)}>
+            <MenuItem onSelect={changeZoom.bind(null, null)}>
                 <span style={Styles.editor.indented}>
                     Default
                 </span>
             </MenuItem>
-            <MenuItem onClick={Read}>
+            <MenuItem onSelect={Read}>
                 <span style={Styles.editor.indented}>
                     Read
                 </span>
             </MenuItem>
             <MenuItem divider />
-            <MenuItem onClick={Undo}>
+            <MenuItem onSelect={Undo}>
                 Undo
             </MenuItem>
-            <MenuItem onClick={Redo}>
+            <MenuItem onSelect={Redo}>
                 Redo
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 

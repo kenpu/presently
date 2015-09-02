@@ -6,7 +6,7 @@ var util = require('../util');
 var Styles = require('./styles');
 
 var Bootstrap = require('react-bootstrap');
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, model, before) {
@@ -71,12 +71,12 @@ var Tools = function(props) {
     if(store.state().copy) {
         if(generic.CanPasteInto(model)) {
             pasteInto = [
-                <MenuItem onClick={Paste.bind(generic, model)}>
+                <MenuItem onSelect={Paste.bind(generic, model)}>
                     <span style={Styles.editor.indented}>
                         Paste
                     </span>
                 </MenuItem>,
-                <MenuItem onClick={PasteMove.bind(generic, model)}>
+                <MenuItem onSelect={PasteMove.bind(generic, model)}>
                     <span style={Styles.editor.indented}>
                         Paste move
                     </span>
@@ -93,11 +93,11 @@ var Tools = function(props) {
         }
     }
     return (
-        <DropdownButton title="Element" key={props.key} onSelect={util.nop} >
+        <NavDropdown title="Element" key={props.key} >
             <MenuItem header>Editing</MenuItem>
 
             {pasteInto}
-            <MenuItem onClick={Copy.bind(generic, model)}>
+            <MenuItem onSelect={Copy.bind(generic, model)}>
                 <span style={Styles.editor.indented}>
                     Copy
                 </span>
@@ -105,25 +105,25 @@ var Tools = function(props) {
             <MenuItem divider />
 
             <MenuItem header>Move</MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, true)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, true)}>
                 <span style={Styles.editor.indented}>Move before</span>
             </MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, false)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, false)}>
                 <span style={Styles.editor.indented}>Move after</span>
             </MenuItem>
             <MenuItem divider />
 
-            <MenuItem onClick={Wrap.bind(generic, parent, model)}>
+            <MenuItem onSelect={Wrap.bind(generic, parent, model)}>
                 Wrap with a box
             </MenuItem>
             <MenuItem divider />
             <MenuItem header > Delete </MenuItem>
-            <MenuItem onClick={Remove.bind(generic, parent, model)}>
+            <MenuItem onSelect={Remove.bind(generic, parent, model)}>
                 <span style={Styles.editor.indented}>
                     <b>Delete {model.T}</b>
                 </span>
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 

@@ -6,7 +6,7 @@ var util = require('../util');
 var Styles = require('./styles');
 
 var Bootstrap = require('react-bootstrap');
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, section, before) {
@@ -44,7 +44,7 @@ var SectionTools = function(props) {
     var pasteInto;
     if(store.state().copy && generic.CanPasteInto(section)) {
         pasteInto = (
-            <MenuItem onClick={PasteMove.bind(generic, section)} >
+            <MenuItem onSelect={PasteMove.bind(generic, section)} >
                 <span style={Styles.editor.indented}>
                     Paste move
                 </span>
@@ -53,22 +53,22 @@ var SectionTools = function(props) {
     }
 
     return (
-        <DropdownButton title="Section" key={props.key} onSelect={util.nop} >
+        <NavDropdown title="Section" key={props.key} >
             {pasteInto}
 
             <MenuItem header>Move</MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, section, true)}>
+            <MenuItem onSelect={Move.bind(generic, parent, section, true)}>
                 Move before
             </MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, section, false)}>
+            <MenuItem onSelect={Move.bind(generic, parent, section, false)}>
                 Move after
             </MenuItem>
             <MenuItem divider />
             <MenuItem header>Delete</MenuItem>
-            <MenuItem onClick={Remove.bind(generic, parent, section)}>
+            <MenuItem onSelect={Remove.bind(generic, parent, section)}>
                 Delete section <b>!</b>
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 

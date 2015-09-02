@@ -9,7 +9,6 @@ var Styles = require('./styles');
 var Bootstrap = require('react-bootstrap');
 var Navbar = Bootstrap.Navbar;
 var Nav = Bootstrap.Nav;
-var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem
 
 var EditorTools = React.createClass({
@@ -137,9 +136,9 @@ var EditorTools = React.createClass({
 
         return (
             <div style={style}>
-                <Navbar style={Styles.navbar}>
+                <Navbar style={Styles.navbar.menu}>
                     <Nav navbar>
-                        <MenuItem onClick={this.save}>{saveLabel}</MenuItem>
+                        <MenuItem onSelect={this.save}>{saveLabel}</MenuItem>
                         {menus}
                     </Nav>
                 </Navbar>

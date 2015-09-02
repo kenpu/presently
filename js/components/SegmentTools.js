@@ -6,7 +6,7 @@ var util = require('../util');
 var Styles = require('./styles');
 
 var Bootstrap = require('react-bootstrap');
-var DropdownButton = Bootstrap.DropdownButton;
+var NavDropdown = Bootstrap.NavDropdown;
 var MenuItem = Bootstrap.MenuItem;
 
 function Move(parent, model, before) {
@@ -27,14 +27,10 @@ function Remove(parent, model) {
     });
 }
 
-function ToggleLayout(segment) {
+function SetLayout(segment, layout) {
     store.emitChange({
         f: function() {
-            if(segment.layout == "slide")
-                segment.layout = "page";
-            else {
-                segment.layout = "slide";
-            }
+            segment.layout = layout;
         },
         contentChange: true,
         history: true,
@@ -55,32 +51,39 @@ var SegmentTools = function(props) {
     var generic = R.Model(C("generic"));
 
     return (
-        <DropdownButton title="Segment" key={props.key} onSelect={util.nop} >
-            <MenuItem header>Structure</MenuItem>
-            <MenuItem onClick={ToggleLayout.bind(null, model)} >
-                Toggle layout
+        <NavDropdown title="Segment" key={props.key} >
+            <MenuItem header>Set Layout</MenuItem>
+            <MenuItem onSelect={SetLayout.bind(null, model, 'slide')} >
+                <span style={Styles.editor.indented}>Slide (1000px)</span>
             </MenuItem>
+            <MenuItem onSelect={SetLayout.bind(null, model, 'slide-narrow')} >
+                <span style={Styles.editor.indented}>Slide (800x)</span>
+            </MenuItem>
+            <MenuItem onSelect={SetLayout.bind(null, model, 'page')} >
+                <span style={Styles.editor.indented}>Page</span>
+            </MenuItem>
+            <MenuItem divider />
             <MenuItem header>Move</MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, true)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, true)}>
                 Move before
             </MenuItem>
-            <MenuItem onClick={Move.bind(generic, parent, model, false)}>
+            <MenuItem onSelect={Move.bind(generic, parent, model, false)}>
                 Move after
             </MenuItem>
             <MenuItem divider />
-            <MenuItem onClick={Copy.bind(generic, model)}>
+            <MenuItem onSelect={Copy.bind(generic, model)}>
                 <span style={Styles.editor.indented}>
                     Copy segment
                 </span>
             </MenuItem>
             <MenuItem divider />
             <MenuItem header>Remove</MenuItem>
-            <MenuItem onClick={Remove.bind(generic, parent, model)}>
+            <MenuItem onSelect={Remove.bind(generic, parent, model)}>
                 <span style={Styles.editor.indented}>
                     Delete segment <b>!</b>
                 </span>
             </MenuItem>
-        </DropdownButton>
+        </NavDropdown>
     );
 };
 
