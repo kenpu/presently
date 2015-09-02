@@ -9,7 +9,7 @@
 }
 
 /* presentation animation */
-.prly-article.prly-on .prly-article-body {
+.prly-article.prly-on {
     display: fixed;
     top: 0;
     left: 0;
@@ -19,13 +19,3 @@
     flex-direction: column;
     justify-content: center;
 }
-
-.prly-article.prly-on .prly-panel.out-focus {
-    opacity: 0.2;
-}
-
-.prly-article.prly-on .prly-panel.in-focus {
-    opacity: 1.0;
-}
-
-
