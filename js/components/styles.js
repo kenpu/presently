@@ -211,8 +211,11 @@ var styles = {
             width: 0,
         },
         menu: {
-            fontFamily: 'Roboto',
             borderRadius: 0,
+            marginBottom: 0,
+        },
+        base: {
+            fontFamily: 'Roboto',
         }
     },
 };

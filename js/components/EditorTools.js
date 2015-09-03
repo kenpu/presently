@@ -5,6 +5,8 @@ var R = require('../registry');
 var C = require('../constants');
 var util = require('../util');
 var Styles = require('./styles');
+var Shortcuts = require('./ShortcutTools');
+var Radium = require('radium');
 
 var Bootstrap = require('react-bootstrap');
 var Navbar = Bootstrap.Navbar;
@@ -50,7 +52,9 @@ var EditorTools = React.createClass({
         var selection = this.props.selection;
 
         var menus = [];
-        menus.push(R.Toolbar(C("article"))({key: 101}));
+
+        // now replaced by shortcut
+        // menus.push(R.Toolbar(C("article"))({key: 101}));
 
         var state = store.state();
         var selection = state.selection;
@@ -94,22 +98,25 @@ var EditorTools = React.createClass({
             }));
         }
 
-        if(selected 
-                && selected.T != C("article") 
-                && selected.T != C("box")
-                && selected.T != C("segment")
-                && selected.T != C("section")) {
-            var menu = R.Toolbar(selected.T);
+        if(selected &&
+                selected.T != C("article") &&
+                selected.T != C("section") &&
+                selected.T != C("segment")) {
 
-            // display the component menu
-            if(menu) {
-                menus.push(menu({
-                    key: 300,
-                    model: selected,
-                    parent: store.selectedParent(),
-                }));
+            if(selected.T != C("box")) {
+                var menu = R.Toolbar(selected.T);
+                // display the component menu except for
+                // box
+                if(menu) {
+                    menus.push(menu({
+                        key: 300,
+                        model: selected,
+                        parent: store.selectedParent(),
+                    }));
+                }
             }
 
+            // display the generic menu
             if(parent) {
                 menus.push(R.Toolbar(C("generic"))({
                     key: 500,
@@ -134,17 +141,24 @@ var EditorTools = React.createClass({
             saveLabel = "Saving...";
         }
 
+        var shortcuts = (
+            <Shortcuts />
+        );
+
         return (
-            <div style={style}>
+            <div style={[Styles.navbar.base, style]}>
                 <Navbar style={Styles.navbar.menu}>
                     <Nav navbar>
-                        <MenuItem onSelect={this.save}>{saveLabel}</MenuItem>
+                        <MenuItem onSelect={this.save}>
+                            {saveLabel}
+                        </MenuItem>
                         {menus}
                     </Nav>
                 </Navbar>
+                {shortcuts}
             </div>
         );
     },
 });
 
-module.exports = EditorTools;
+module.exports = Radium(EditorTools);

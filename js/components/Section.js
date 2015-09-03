@@ -27,6 +27,7 @@ var Section = React.createClass({
 
         // add the divider border unless
         // it's part of the cover
+        /*
         if(! this.props.isCover) {
             if(isFirst) {
                 s.borderTop = 'none';
@@ -34,6 +35,7 @@ var Section = React.createClass({
                 s.borderTop = '10px solid #aaa';
             }
         }
+        */
 
         return s;
     },

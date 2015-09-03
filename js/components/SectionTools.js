@@ -27,9 +27,15 @@ function Remove(parent, section) {
     });
 }
 
-function PasteMove(model) {
+function Paste(model, move) {
+    var paste;
+    if(move) {
+        paste = this.PasteMove.bind(null, model);
+    } else {
+        paste = this.Paste.bind(null, model);
+    }
     store.emitChange({
-        f: this.PasteMove.bind(null, model),
+        f: paste,
         resetSelection: true,
         contentChange: true,
         history: true,
@@ -43,13 +49,18 @@ var SectionTools = function(props) {
 
     var pasteInto;
     if(store.state().copy && generic.CanPasteInto(section)) {
-        pasteInto = (
-            <MenuItem onSelect={PasteMove.bind(generic, section)} >
+        pasteInto = [
+            <MenuItem onSelect={Paste.bind(generic, section, false)} key="paste">
+                <span style={Styles.editor.indented}>
+                    Paste copy
+                </span>
+            </MenuItem>,
+            <MenuItem onSelect={Paste.bind(generic, section, true)} key="pastemove">
                 <span style={Styles.editor.indented}>
                     Paste move
                 </span>
             </MenuItem>
-        );
+        ];
     }
 
     return (
