@@ -21,8 +21,8 @@ var Section = React.createClass({
                 s = Assign(s, Styles.section.selected);
             }
         }
-        if(model.children.length == 0) {
-            s = Assign(s, Styles.section.empty);
+        if(model.children.length == 0 && this.props.editing) {
+            s = Assign(s, Styles.section.emptyInEditor);
         }
 
         // add the divider border unless
@@ -65,20 +65,22 @@ var Section = React.createClass({
         var styles = [Styles.section.base, this.style()];
 
         var data = this.parsed();
-        var title;
         var prly = (isCover) ? 0 : 1;
-        if(data.title) {
-            title = (
-                <div className="prly-section-title" style={Styles.section.title} data-prly={prly}>
-                    <span style={Styles.section.titleLabel}>{label}</span>
-                    <span>{data.title}</span>
-                </div>
-            );
-        }
+        var title = data.title || "";
+        var titleEl = (
+            <div className="prly-section-title" 
+                 style={Styles.section.title} 
+                 data-prly={prly}>
+                <span style={Styles.section.titleLabel}>
+                    {label}
+                </span>
+                <span>{data.title}</span>
+            </div>
+        );
 
         return (
             <div className="prly-section" style={styles} ref="element">
-                {title}
+                {titleEl}
                 <div className="prly-section-body">
                     {sectionBody}
                 </div>

@@ -45,6 +45,62 @@ function Copy(model) {
     });
 }
 
+function SplitSection(model) {
+    var state = store.state();
+    var branch = util.locate(state.article, model);
+    var article = state.article;
+    var section = branch[0];
+    var segment = branch[1];
+
+    if(section && section.T == C("section") && segment == model) {
+
+        var iSec = article.children.indexOf(section);
+        var iSeg = section.children.indexOf(segment);
+
+        store.emitChange({
+            f: function() {
+                var newSection = R.Model(C("section")).New();
+                var newChildren = section.children.splice(iSeg);
+                newSection.children = newChildren;
+                article.children.splice(iSec+1, 0, newSection);
+            },
+            resetSelection: true,
+            contentChange: true,
+        });
+    }
+}
+
+function JoinSection(model) {
+    var state = store.state();
+    var branch = util.locate(state.article, model);
+    var article = state.article;
+
+    var section = branch[0];
+    var segment = branch[1];
+    if(section && section.T == C("section") && segment == model) {
+        var iSec = article.children.indexOf(section);
+        var iSeg = section.children.indexOf(segment);
+
+        // join only on the first segment
+        if(iSeg == 0 && iSec > 0) {
+            store.emitChange({
+                f: function() {
+                    // merge section with the previous section
+                    var prevSection = article.children[iSec - 1];
+                    prevSection.children = prevSection.children.concat(
+                        section.children);
+
+                    // remove the section after merge
+                    article.children.splice(iSec, 1);
+                },
+                resetSelection: true,
+                contentChange: true,
+            });
+        }
+    }
+}
+
+
 var SegmentTools = function(props) {
     var model = props.model;
     var parent = props.parent;
@@ -63,12 +119,22 @@ var SegmentTools = function(props) {
                 <span style={Styles.editor.indented}>Page</span>
             </MenuItem>
             <MenuItem divider />
+            <MenuItem onSelect={SplitSection.bind(generic, model)}>
+                Split
+            </MenuItem>
+            <MenuItem onSelect={JoinSection.bind(generic, model)}>
+                Join
+            </MenuItem>
             <MenuItem header>Move</MenuItem>
             <MenuItem onSelect={Move.bind(generic, parent, model, true)}>
-                Move before
+                <span style={Styles.editor.indented}>
+                    Move before
+                </span>
             </MenuItem>
             <MenuItem onSelect={Move.bind(generic, parent, model, false)}>
-                Move after
+                <span style={Styles.editor.indented}>
+                    Move after
+                </span>
             </MenuItem>
             <MenuItem divider />
             <MenuItem onSelect={Copy.bind(generic, model)}>

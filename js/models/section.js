@@ -36,7 +36,7 @@ function Extend(anchor, before) {
 }
 
 module.exports = function(store) {
-    return R.Model("section", {
+    return R.Model(C("section"), {
         New: New.bind(store),
         Children: Children.bind(store),
         Extend: Extend.bind(store),

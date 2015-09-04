@@ -26,6 +26,11 @@ hr {
     border-top-color: #888;
 }
 
+table,
+table td {
+    font-size: inherit;
+}
+
 /*===== Markdown ======*/
 
 .prly-markdown p,
@@ -33,6 +38,7 @@ hr {
     font-size: inherit; }
 
 .prly-markdown p:last-child,
+.prly-markdown table:last-child,
 .prly-markdown blockquote:last-child {
     margin-bottom: 0;
 }

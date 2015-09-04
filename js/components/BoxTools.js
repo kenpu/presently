@@ -24,7 +24,7 @@ function extend(parent, box, before) {
     var Box = R.Model(C("box"));
     if(parent && box) {
         store.emitChange({
-            f: Box.Extend.bind(parent, box, before),
+            f: Box.Extend.bind(null, parent, box, before),
             resetSelection: true,
             contentChange: true,
             history: true,

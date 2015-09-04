@@ -22,8 +22,10 @@ var Segment = React.createClass({
         // add the padding and divider border
         // unless it's part of the cover
         if(! isCover) {
-            s.paddingTop = Styles.segment.gap / 2;
-            s.paddingBottom = Styles.segment.gap / 2;
+            s["@media screen"] = {
+                paddingTop: Styles.segment.gap / 2,
+                paddingBottom: Styles.segment.gap / 2,
+            };
 
             if(isFirst) {
                 s.borderTop = '1px solid transparent';

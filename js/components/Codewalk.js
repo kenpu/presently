@@ -31,6 +31,7 @@ var CodeSection = Radium(React.createClass({
         var codeElem, noteElem;
 
         var mathjax = (! this.props.editing);
+        mathjax = true;
 
         if(this.props.hasSidenotes) {
             noteElem = (

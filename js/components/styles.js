@@ -4,7 +4,10 @@ var readingScreen = "@media (max-width: 1023px)";
 var largeScreen = "@media (min-width: 1200px)";
 var tabletScreen = "@media (min-width: 768px) and (max-width: 979px)";
 
-
+var inverted = {
+    background: "#888",
+    color: "#fff",
+}
 
 var styles = {
     borderColor: '#aaa',
@@ -12,19 +15,25 @@ var styles = {
     bgHLColor: '#eee',
     article: {
         header: {
-            background: '#000',
-            color: '#fff',
             minHeight: 20,
             fontSize: '300%',
             textAlign: 'center',
             padding: 20,
+            borderBottom: "1px solid black",
+            background: inverted.background,
+            color: inverted.color,
+            "@media print": {
+                background: 'transparent',
+                color: 'black',
+                fontSize: '200%',
+            },
         },
     },
     section: {
         base: {
             width: '100%',
         },
-        empty: {
+        emptyInEditor: {
             height: 100,
             background: "#eee",
         },
@@ -33,8 +42,8 @@ var styles = {
         },
         title: {
             width: '100%',
-            background: "#888",
-            color: "white",
+            background: inverted.background,
+            color: inverted.color,
             fontSize: "250%",
             fontStyle: 'italic',
             textAlign: 'right',
@@ -43,6 +52,11 @@ var styles = {
             paddingLeft: 20,
             paddingRight: 50,
             minHeight: 20,
+            "@media print": {
+                background: 'transparent',
+                color: 'black',
+                fontSize: '140%',
+            },
         },
         titleLabel: {
             fontWeight: '800',

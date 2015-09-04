@@ -66,18 +66,23 @@ var SectionTools = function(props) {
     return (
         <NavDropdown title="Section" key={props.key} >
             {pasteInto}
-
             <MenuItem header>Move</MenuItem>
             <MenuItem onSelect={Move.bind(generic, parent, section, true)}>
-                Move before
+                <span style={Styles.editor.indented}>
+                    Move before
+                </span>
             </MenuItem>
             <MenuItem onSelect={Move.bind(generic, parent, section, false)}>
-                Move after
+                <span style={Styles.editor.indented}>
+                    Move after
+                </span>
             </MenuItem>
             <MenuItem divider />
             <MenuItem header>Delete</MenuItem>
             <MenuItem onSelect={Remove.bind(generic, parent, section)}>
-                Delete section <b>!</b>
+                <span style={Styles.editor.indented}>
+                    Delete section <b>!</b>
+                </span>
             </MenuItem>
         </NavDropdown>
     );

@@ -35,7 +35,7 @@ var Sidenote = React.createClass({
                 <span className="prly-sidenote-number" 
                       id={id}
                       style={labelStyle} >  </span>
-                <Raw className="prly-sidenote" tag="div" source={html} />
+                <Raw className="prly-sidenote" tag="div" source={html} mathjax={true}/>
             </div>
         );
     },
