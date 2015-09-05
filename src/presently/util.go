@@ -80,7 +80,7 @@ func renderArticle(c interface{}, path string, arg string) {
 		"title":      filepath.Base(path),
 		"article":    template.JS(article.data),
 		"useMathjax": article.useMathjax,
-		"style":      styleContent,
+		"style":      template.CSS(styleContent),
 		"cover":      template.JS(coverJSON),
 	}
 

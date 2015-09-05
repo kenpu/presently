@@ -142,6 +142,7 @@ var styles = {
         marginTop: 10,
         marginBottom: 10,
         minHeight: 50,
+        "@media print": { minHeight: 10, },
     },
     html: {
         flex: 1,
@@ -150,6 +151,7 @@ var styles = {
         marginTop: 10,
         marginBottom: 10,
         minHeight: 50,
+        "@media print": { minHeight: 10, },
     },
     image: {
         base: {

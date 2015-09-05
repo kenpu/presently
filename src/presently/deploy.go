@@ -123,6 +123,13 @@ func Deploy() {
 		switch {
 		case entry.IsDir:
 
+			// if path/index exists, then we don't bother
+			// generating the directory index.
+			var indexURL = _path.Join(entry.URL, "index")
+			if exists(resolveFilename(indexURL)) {
+				return
+			}
+
 			os.Mkdir(targetpath, 0755)
 			targetpath = filepath.Join(targetpath, "index.html")
 			fmt.Println("[INDEX  ]:", targetpath)
@@ -152,10 +159,12 @@ func Deploy() {
 	}
 
 	// generate the top index
-	makeDir(filepath.Join(DeployDir, "index.html"), gin.H{
-		"title":   filepath.Base(Dir),
-		"entries": list,
-		"root":    filepath.Base(Dir),
-		"isroot":  true,
-	})
+	if ! exists(resolveFilename("index")) {
+		makeDir(filepath.Join(DeployDir, "index.html"), gin.H{
+			"title":   filepath.Base(Dir),
+			"entries": list,
+			"root":    filepath.Base(Dir),
+			"isroot":  true,
+		})
+	}
 }

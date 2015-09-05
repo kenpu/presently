@@ -55,9 +55,17 @@ table td {
 .prly-markdown h1 {
     font-size: 140%; }
 
-.prly-markdown h1:first-child {
+.prly-markdown h1:first-child,
+.prly-markdown h2:first-child,
+.prly-markdown h3:first-child {
     margin-top: 0;
 }
+.prly-markdown h1:last-child,
+.prly-markdown h2:last-child,
+.prly-markdown h3:last-child {
+    margin-bottom: 0;
+}
+
 
 .prly-markdown h2 {
     font-size: 120%; }

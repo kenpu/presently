@@ -25,18 +25,6 @@ var Section = React.createClass({
             s = Assign(s, Styles.section.emptyInEditor);
         }
 
-        // add the divider border unless
-        // it's part of the cover
-        /*
-        if(! this.props.isCover) {
-            if(isFirst) {
-                s.borderTop = 'none';
-            } else {
-                s.borderTop = '10px solid #aaa';
-            }
-        }
-        */
-
         return s;
     },
     render: function() {
@@ -67,16 +55,19 @@ var Section = React.createClass({
         var data = this.parsed();
         var prly = (isCover) ? 0 : 1;
         var title = data.title || "";
-        var titleEl = (
-            <div className="prly-section-title" 
-                 style={Styles.section.title} 
-                 data-prly={prly}>
-                <span style={Styles.section.titleLabel}>
-                    {label}
-                </span>
-                <span>{data.title}</span>
-            </div>
-        );
+        var titleEl;
+        if(! isCover) {
+            titleEl = (
+                <div className="prly-section-title" 
+                     style={Styles.section.title} 
+                     data-prly={prly}>
+                    <span style={Styles.section.titleLabel}>
+                        {label}
+                    </span>
+                    <span>{data.title}</span>
+                </div>
+            );
+        }
 
         return (
             <div className="prly-section" style={styles} ref="element">
