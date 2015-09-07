@@ -90,12 +90,24 @@ func renderArticle(c interface{}, path string, arg string) {
 		target.HTML(http.StatusOK, arg, data)
 	case *template.Template:
 		// arg is the file to be written to
-		w, err := os.Create(arg)
+		w, err := createFile(arg)
 		if err != nil {
 			panic(err.Error())
 		}
 		target.Execute(w, data)
 	}
+}
+
+func createFile(filename string) (w *os.File, err error) {
+	dir := filepath.Dir(filename)
+	if !exists(dir) {
+		if err = os.MkdirAll(dir, 0755); err != nil {
+			return
+		}
+	}
+	w, err = os.Create(filename)
+
+	return
 }
 
 /* ======= file listing ========= */
