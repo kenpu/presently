@@ -10,7 +10,7 @@ var Assign = require('object-assign');
 
 var Section = React.createClass({
     mixins: [_DefaultView, _SelectableView],
-    style: function() {
+    style: function(parsed) {
         var isFirst = this.props.isFirst;
 
         var s = {};
@@ -34,6 +34,8 @@ var Section = React.createClass({
         var ancestors = this.props.ancestors;
         var isFirst = this.props.isFirst;
         var isCover = this.props.isCover;
+        var parsed = this.parsed();
+        var isBare = parsed.bare;
 
         var sectionBody = section.children.map(function(segment, i, array) {
             var sublabel = (label) ? (label + "." + (i+1)) : null;
@@ -46,17 +48,18 @@ var Section = React.createClass({
                          isFirst={i == 0}
                          isLast={i == array.length-1}
                          inFirstSection={isFirst}
-                         isCover={isCover} />
+                         isCover={isCover}
+                         isBare={isBare} />
             );
         });
 
-        var styles = [Styles.section.base, this.style()];
+        var styles = [Styles.section.base, this.style(parsed)];
 
         var data = this.parsed();
         var prly = (isCover) ? 0 : 1;
         var title = data.title || "";
         var titleEl;
-        if(! isCover) {
+        if(!isCover) {
             titleEl = (
                 <div className="prly-section-title" 
                      style={Styles.section.title} 

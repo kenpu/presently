@@ -11,17 +11,19 @@ var Assign = require('object-assign');
 
 var Segment = React.createClass({
     mixins: [_DefaultView, _SelectableView],
-    style: function() {
+    style: function(parsed) {
+        parsed = parsed || this.parsed();
+
         var isFirst = this.props.isFirst;
         var isLast = this.props.isLast;
         var inFirstSection = this.props.inFirstSection;
         var isCover = this.props.isCover;
 
-        var s = this.defaultStyle();
+        var s = this.defaultStyle(parsed);
 
         // add the padding and divider border
         // unless it's part of the cover
-        if(! isCover) {
+        if(!isCover && !parsed.bare) {
             s["@media screen"] = {
                 paddingTop: Styles.segment.gap / 2,
                 paddingBottom: Styles.segment.gap / 2,
@@ -73,12 +75,15 @@ var Segment = React.createClass({
         var label = this.props.label;
         var editing = this.props.editing;
         var isCover = this.props.isCover;
+        var isBare = this.props.isBare;
+        var parsed = this.parsed();
 
         var children = segment.children.map(function(box, i) {
             return <Box key={i} 
                         model={box} 
                         ancestors={ancestors.concat(segment)} 
-                        editing={editing} />;
+                        editing={editing}
+                        isBare={isBare || parsed.bare} />;
         });
 
         // Parse the markdown source codes and extract all the
@@ -123,7 +128,8 @@ var Segment = React.createClass({
             };
         }
 
-        var styles = [Styles.segment.base, this.style()];
+        if(isBare) parsed.bare = true;
+        var styles = [Styles.segment.base, this.style(parsed)];
 
         var className = "prly-segment";
         if(segment.layout) {
@@ -132,7 +138,7 @@ var Segment = React.createClass({
         }
 
         var labelElement;
-        if(label)
+        if(label && !parsed.bare)
             labelElement = (
                 <span className="prly-segment-label" 
                       style={Styles.segment.label}>{label}</span>

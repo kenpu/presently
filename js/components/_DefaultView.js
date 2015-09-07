@@ -42,8 +42,9 @@ var _DefaultView = {
            marginBottom: mb,
         });
     },
-    defaultStyle: function() {
-        var style = this.parsed().style || {};
+    defaultStyle: function(parsed) {
+        parsed = parsed || this.parsed();
+        var style = parsed.style || {};
         var model = this.props.model;
 
         if(store.isCopied(model)) {
