@@ -38,7 +38,8 @@ var Article = React.createClass({
                 <Section key={i}
                          model={section} 
                          ancestors={[article]}
-                         label={i+1} editing={editing} isFirst={i==0} />
+                         label={i+1} editing={editing} isFirst={i==0} 
+                         noLabel={result.noLabel} />
             );
         });
 
@@ -49,8 +50,10 @@ var Article = React.createClass({
             );
         }
 
+        var style = result.style || {};
+
         return (
-            <div className="prly-article">
+            <div className="prly-article" style={style}>
                 <div className="prly-article-title" ref="element" 
                      style={[Styles.article.header, this.headerStyle()]}
                      data-prly="1" >

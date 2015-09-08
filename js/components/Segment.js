@@ -76,6 +76,8 @@ var Segment = React.createClass({
         var editing = this.props.editing;
         var isCover = this.props.isCover;
         var isBare = this.props.isBare;
+        var noLabel = this.props.noLabel;
+
         var parsed = this.parsed();
 
         var children = segment.children.map(function(box, i) {
@@ -138,7 +140,7 @@ var Segment = React.createClass({
         }
 
         var labelElement;
-        if(label && !parsed.bare)
+        if(label && !parsed.bare && !noLabel)
             labelElement = (
                 <span className="prly-segment-label" 
                       style={Styles.segment.label}>{label}</span>

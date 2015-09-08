@@ -34,6 +34,7 @@ var Section = React.createClass({
         var ancestors = this.props.ancestors;
         var isFirst = this.props.isFirst;
         var isCover = this.props.isCover;
+        var noLabel = this.props.noLabel;
         var parsed = this.parsed();
         var isBare = parsed.bare;
 
@@ -49,7 +50,8 @@ var Section = React.createClass({
                          isLast={i == array.length-1}
                          inFirstSection={isFirst}
                          isCover={isCover}
-                         isBare={isBare} />
+                         isBare={isBare}
+                         noLabel={noLabel} />
             );
         });
 
