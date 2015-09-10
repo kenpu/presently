@@ -10,8 +10,8 @@ var Assign = require('object-assign');
 
 var Image = React.createClass({
     mixins: [_DefaultView, _SelectableView],
-    style: function() {
-        var s = this.defaultStyle();
+    style: function(data) {
+        var s = Assign({}, this.defaultStyle(), data.style);
         var model = this.props.model;
 
         if(! model.src) {
@@ -30,7 +30,6 @@ var Image = React.createClass({
     },
     render: function() {
         var model = this.props.model;
-        var styles = [Styles.image.base, this.style()];
 
         var inner;
         if(model.src) {
@@ -46,6 +45,8 @@ var Image = React.createClass({
                 <figcaption style={Styles.image.caption}>{data.caption}</figcaption>
             );
         }
+
+        var styles = [Styles.image.base, this.style(data)];
 
         return (
             <figure ref="element" style={styles} className="prly-panel">

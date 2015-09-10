@@ -1,6 +1,6 @@
 var C = require('../constants');
 
-var readingScreen = "@media (max-width: 1023px)";
+var readingScreen = "@media (max-width: 1024px)";
 var largeScreen = "@media (min-width: 1200px)";
 var tabletScreen = "@media (min-width: 768px) and (max-width: 979px)";
 
@@ -203,35 +203,25 @@ var styles = {
         },
     },
     navbar: {
-        panel: {
-            position: 'fixed',
-            transitionProperty: 'opacity',
-            transitionDuration: "0.4s",
-            transitionTimingFunction: "ease-out",
-            opacity: 0,
-            ":hover": {
-                opacity: 1.0,
-            },
-        },
         progressbar: {
             position: 'fixed',
             bottom: 0,
             left: 0,
             width: '100%',
-            height: 5,
+            height: 10,
             zIndex: 2000,
         },
         indicator: {
+            width: '100%',
             height: 5,
             background: 'red',
-            width: 0,
         },
         menu: {
             borderRadius: 0,
             marginBottom: 0,
         },
         base: {
-            fontFamily: 'Roboto',
+            fontFamily: "Roboto",
         }
     },
 };

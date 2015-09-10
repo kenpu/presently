@@ -16,8 +16,8 @@ var CodeSection = Radium(React.createClass({
         var isFirst = this.props.isFirst;
         var lang = this.props.lang;
 
-        var sidenoteHtml = util.md2html(part.sidenote);
-        var code = part.source;
+        var sidenoteHtml = part ? util.md2html(part.sidenote) : "";
+        var code = part ? part.source : "";
 
         var style = null;
         if(! isFirst) {
@@ -42,7 +42,7 @@ var CodeSection = Radium(React.createClass({
             );
         }
 
-        if(lang.startsWith && lang.startsWith('math')) {
+        if(lang && lang.startsWith && lang.startsWith('math')) {
             mathjax = true;
             codeElem = <Raw tag="pre" source={code} mathjax={mathjax} style={Styles.codewalk.pre} className="prly-code mathjax" />
         } else {
@@ -62,7 +62,7 @@ var CodeSection = Radium(React.createClass({
         }
         return (
             <div    style={[Styles.codewalk.section, style]}
-                    className="prly-panel">
+                    className="prly-codewalk-section prly-step">
                 {codeElem}
                 {noteElem}
             </div>
@@ -109,6 +109,10 @@ var Codewalk = React.createClass({
                              hasSidenotes={result.hasSidenotes} />
             );
         });
+        // add a stopper to mark the end for presentation
+        body.push(
+                <CodeSection key={result.parts.length} />
+        );
 
         var styles = [Styles.codewalk.base, this.style()];
 

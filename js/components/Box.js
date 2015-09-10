@@ -57,7 +57,7 @@ var Box = React.createClass({
         var ancestors = this.props.ancestors;
         var editing = this.props.editing;
 
-        var className = "prly-box prly-panel";
+        var className = "prly-box prly-step";
 
         var children = box.children.map(function(model, i) {
             return make(model, i, ancestors.concat(box), 

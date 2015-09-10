@@ -4,6 +4,7 @@ img { max-width: 100% }
 
 body {
    font-family: "ETBembo"; 
+   font-size: 14pt;
    margin: 0;
    -webkit-user-select: none;
        -ms-user-select: none; }
@@ -27,7 +28,8 @@ hr {
 }
 
 table,
-table td {
+table td,
+table th {
     font-size: inherit;
 }
 
@@ -66,9 +68,19 @@ table td {
     margin-bottom: 0;
 }
 
-
 .prly-markdown h2 {
     font-size: 120%; }
+
+.prly-markdown blockquote table {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.prly-markdown blockquote td,
+.prly-markdown blockquote th {
+    border: 1px solid #888;
+    padding: 5px;
+}
 
 /* ====== Codewalk ========= */
 
@@ -82,7 +94,7 @@ table td {
         max-width: 1000px;
         margin-left: auto;
         margin-right: auto; }
-    .prly-segment.slide { font-size: 18pt; }
+    .prly-segment.slide { font-size: 130%; }
 
     .prly-segment.slide.narrow .prly-segment-body {
         max-width: 800px;
