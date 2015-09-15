@@ -81,7 +81,8 @@ var SourceEditor = React.createClass({
         var value = (model.data != null) ? model.data : model.source;
 
         return (
-            <div className="prly-source-editor">
+            <div className="prly-source-editor" 
+                style={Styles.editor.source} >
                 {typeSelect}
                 <CodeMirror
                     value={value}

@@ -28,6 +28,9 @@ var Image = React.createClass({
 
         return s;
     },
+    shouldComponentUpdate: function() {
+        return false;
+    },
     render: function() {
         var model = this.props.model;
 

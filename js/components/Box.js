@@ -10,15 +10,29 @@ var Radium = require('radium');
 var Styles = require('./styles');
 var Assign = require('object-assign');
 
-function make(model, i, ancestors, isFirst, editing) {
+function make(model, i, ancestors, isFirst, editing, config) {
     var V = R.View(model.T);
 
+    var markup;
+    if(model.source != null) {
+        markup = model.source;
+    } else if(model.data != null) {
+        markup = model.data;
+    }
+
     if(V) {
+        var selected;
+        if(editing) {
+            selected = store.isSelected(model, false);
+        }
         return <V key={i} 
                   model={model} 
                   ancestors={ancestors} 
                   isFirst={isFirst}
-                  editing={editing} />;
+                  editing={editing}
+                  config={config}
+                  markup={markup} 
+                  selected={selected} />;
     } else {
         return (
             <div>Unknown model with type {model.T}</div>
@@ -56,13 +70,15 @@ var Box = React.createClass({
         var box = this.props.model;
         var ancestors = this.props.ancestors;
         var editing = this.props.editing;
+        var config = this.props.config;
 
         var className = "prly-box prly-step";
 
         var children = box.children.map(function(model, i) {
             return make(model, i, ancestors.concat(box), 
                         (i == 0), // isfirst
-                        editing);
+                        editing,
+                        config);
         });
 
         var styles = [Styles.box.base, this.style()];

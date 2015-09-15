@@ -18,19 +18,23 @@ var Markdown = React.createClass({
             s.border = 'thin dotted #aaa';
         }
 
-        /*
-        if(! this.inHorizontal()) {
-            s.flex = 'none';
-        }
-        */
         if(this.props.editing)
-            if(this.isSelected())
+            if(this.props.selected)
                 s = this.bgHighlight(s);
 
         return s;
     },
+    shouldComponentUpdate: function(nextprops, nextstate) {
+        var update = false;
+        if(this.props.markup != nextprops.markup || this.props.selected != nextprops.selected) {
+            update = true;
+        }
+        return update
+    },
     render: function() {
+        console.info("Markdown render");
         var markdown = this.props.model;
+        var config = this.props.config || {};
 
         var Model = R.Model(markdown.T);
 
@@ -40,6 +44,12 @@ var Markdown = React.createClass({
         if (/^@math/m.exec(markdown.source)) {
             mathjax = true;
         }
+        if(config.math || config.mathjax) mathjax = true;
+
+        if(markdown.source.indexOf('$') < 0) {
+            mathjax = false;
+        }
+
 
         return (
             <Raw className="prly-markdown prly-panel" 

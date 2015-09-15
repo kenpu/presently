@@ -36,6 +36,7 @@ var Section = React.createClass({
         var isCover = this.props.isCover;
         var noLabel = this.props.noLabel;
         var parsed = this.parsed();
+        var config = this.props.config;
         var isBare = parsed.bare;
 
         var sectionBody = section.children.map(function(segment, i, array) {
@@ -51,7 +52,8 @@ var Section = React.createClass({
                          inFirstSection={isFirst}
                          isCover={isCover}
                          isBare={isBare}
-                         noLabel={noLabel} />
+                         noLabel={noLabel}
+                         config={config} />
             );
         });
 

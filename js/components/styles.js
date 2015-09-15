@@ -201,6 +201,10 @@ var styles = {
         modified: {
             color: "#a88",
         },
+        source: {
+            fontFamily: 'Ubuntu Mono',
+            fontSize: 12,
+        },
     },
     navbar: {
         progressbar: {

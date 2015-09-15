@@ -18,6 +18,7 @@ var Segment = React.createClass({
         var isLast = this.props.isLast;
         var inFirstSection = this.props.inFirstSection;
         var isCover = this.props.isCover;
+        var config = this.props.config;
 
         var s = this.defaultStyle(parsed);
 
@@ -77,6 +78,7 @@ var Segment = React.createClass({
         var isCover = this.props.isCover;
         var isBare = this.props.isBare;
         var noLabel = this.props.noLabel;
+        var config = this.props.config;
 
         var parsed = this.parsed();
 
@@ -85,6 +87,7 @@ var Segment = React.createClass({
                         model={box} 
                         ancestors={ancestors.concat(segment)} 
                         editing={editing}
+                        config={config}
                         isBare={isBare || parsed.bare} />;
         });
 

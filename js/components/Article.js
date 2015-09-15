@@ -39,7 +39,8 @@ var Article = React.createClass({
                          model={section} 
                          ancestors={[article]}
                          label={i+1} editing={editing} isFirst={i==0} 
-                         noLabel={result.noLabel} />
+                         noLabel={result.noLabel}
+                         config={result} />
             );
         });
 
