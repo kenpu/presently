@@ -18,7 +18,7 @@ func ArticleHandler(c *gin.Context, articlePath, filename string) {
 	c.HTML(http.StatusOK, "editor.html", gin.H{
 		"title":      articlePath,
 		"article":    template.JS(article.data),
-		"useMathjax": article.useMathjax,
+		"useMathjax": true, // always load mathjax for editor
 		"saveURL":    template.JS(_path.Join("/api/save", articlePath)),
 	})
 }

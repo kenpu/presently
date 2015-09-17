@@ -109,10 +109,6 @@ var Codewalk = React.createClass({
                              hasSidenotes={result.hasSidenotes} />
             );
         });
-        // add a stopper to mark the end for presentation
-        body.push(
-                <CodeSection key={result.parts.length} />
-        );
 
         var styles = [Styles.codewalk.base, this.style()];
 
