@@ -1,7 +1,6 @@
 {{define "footer"}}
     <script src="/static/libs/jquery.min.js"></script>
     <script src="/static/libs/jquery-paste-image.js"></script>
-    {{if .useMathjax}}
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
@@ -21,5 +20,4 @@
       });
     </script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
-    {{end}}
 {{end}}
